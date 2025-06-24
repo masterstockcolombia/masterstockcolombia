@@ -1,3 +1,6 @@
+/* styles.css */
+
+/* ==================== ESTILOS BASE ==================== */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -5,32 +8,23 @@ body {
     color: #333;
 }
 
-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+/* ==================== HEADER PERSONALIZADO ==================== */
+/* Sobrescribe algunos estilos de Bootstrap */
+.navbar {
     padding: 1rem 2rem;
     border-bottom: 1px solid #ccc;
 }
 
-.logo img {
-    height: 70px; /* Logo más grande */
+.navbar-brand .logo img {
+    height: 70px;
 }
 
-nav ul {
-    list-style: none;
-    display: flex;
+.navbar-nav {
     gap: 1.5rem;
-    padding: 0;
-    margin: 0;
+    align-items: center;
 }
 
-nav a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-}
-
+/* ==================== BOTONES PERSONALIZADOS ==================== */
 .btn-principal {
     padding: 0.5rem 1rem;
     background: #00b2b2;
@@ -38,50 +32,59 @@ nav a {
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
-}
-
-main {
-    padding: 2rem;
-    text-align: center;
-}
-
-.ofertas, .vende {
-    margin: 2rem 0;
-}
-
-button {
-    padding: 0.7rem 1.5rem;
-    background: #00b2b2;
-    color: white;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
-.imagenes-productos {
-    display: flex;
-    justify-content: center;
-    gap: 2rem; /* Espacio mayor entre imágenes */
-    margin-top: 2rem;
-    flex-wrap: wrap;
+.btn-principal:hover {
+    background: #008c8c;
+    color: #fff;
+    transform: translateY(-2px);
 }
 
-.imagenes-productos img {
-    max-width: 250px; /* Más grandes que antes */
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+/* Sobrescribe el botón primary de Bootstrap */
+.btn-primary {
+    background-color: #00b2b2;
+    border-color: #00b2b2;
 }
 
-footer {
-    padding: 1rem;
+.btn-primary:hover {
+    background-color: #008c8c;
+    border-color: #008c8c;
+}
+
+/* ==================== SECCIÓN MAIN ==================== */
+main {
+    padding: 4rem 2rem;
     text-align: center;
-    background: #f7f7f7;
-    font-size: 0.9rem;
-    color: #777;
 }
 
-/* ==================== NUEVA SECCIÓN OVERSTOCK ACTIONS ==================== */
+/* ==================== SECCIÓN OFERTAS ==================== */
+.ofertas, .vende {
+    margin: 4rem 0;
+}
+
+/* Personalización de cards de Bootstrap */
+.card {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.card-img-top {
+    border-radius: 8px 8px 0 0;
+    max-height: 250px;
+    object-fit: cover;
+}
+
+/* ==================== SECCIÓN OVERSTOCK ACTIONS ==================== */
 .overstock-actions {
     position: relative;
     padding: 60px 0;
@@ -95,22 +98,13 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.7); /* Capa blanca translúcida */
+    background: rgba(255, 255, 255, 0.7);
     z-index: 0;
 }
 
 .overstock-actions .container {
     position: relative;
     z-index: 1;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.action-boxes {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
 }
 
 .action-box {
@@ -118,8 +112,7 @@ footer {
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     padding: 40px;
-    flex: 1 1 45%;
-    max-width: 500px;
+    height: 100%;
     text-align: center;
     transition: transform 0.3s ease;
     z-index: 1;
@@ -158,15 +151,54 @@ footer {
 .action-btn:hover {
     background: #2980b9;
     transform: translateY(-2px);
+    color: white;
 }
 
-/* Responsive */
+/* ==================== FOOTER ==================== */
+footer {
+    padding: 2rem 1rem;
+    text-align: center;
+    background: #f7f7f7;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* ==================== MEDIA QUERIES ==================== */
 @media (max-width: 768px) {
-    .action-boxes {
-        flex-direction: column;
-        padding: 0 20px;
+    .navbar {
+        padding: 1rem;
     }
+    
+    .navbar-brand .logo img {
+        height: 50px;
+    }
+    
     .action-box {
-        max-width: 100%;
+        padding: 30px 20px;
     }
+    
+    .action-box h3 {
+        font-size: 20px;
+    }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 576px) {
+    main {
+        padding: 2rem 1rem;
+    }
+    
+    .ofertas, .vende {
+        margin: 2rem 0;
+    }
+    
+    .btn-principal {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Ajustes específicos para el navbar toggler */
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0, 178, 178, 0.5);
 }
