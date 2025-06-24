@@ -1,77 +1,145 @@
-body {
-    font-family: 'Arial', sans-serif;
+/* Estilos generales */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f8f9fa;
     color: #333;
+    line-height: 1.6;
 }
 
-.container {
+/* Encabezado */
+header {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    padding: 50px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 20px 5%;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.option-card {
+.logo {
+    display: flex;
+    align-items: baseline;
+}
+
+.logo-part1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.logo-part2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #3498db;
+    margin-left: 5px;
+}
+
+.logo-part3 {
+    font-size: 16px;
+    font-weight: 400;
+    color: #7f8c8d;
+    margin-left: 5px;
+    text-transform: uppercase;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 30px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #3498db;
+}
+
+/* Sección principal */
+.hero-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 5%;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.offer-card {
     background: white;
     padding: 40px;
-    border-radius: 10px;
+    border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    text-align: center;
     width: 45%;
-    min-width: 300px;
-    margin: 20px 0;
-    transition: transform 0.3s ease;
+    min-width: 350px;
+    text-align: center;
+    transition: transform 0.3s;
 }
 
-.option-card:hover {
+.offer-card:hover {
     transform: translateY(-10px);
 }
 
-.option-card h1, .option-card h2 {
+.offer-card h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
     color: #2c3e50;
-    margin-bottom: 20px;
 }
 
-.option-card h1 {
-    font-size: 2.5rem;
-}
-
-.option-card h2 {
-    font-size: 2rem;
-}
-
-.option-card p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
+.offer-card p {
+    font-size: 16px;
     color: #7f8c8d;
+    margin-bottom: 25px;
 }
 
+/* Botones */
 .action-button {
     display: inline-block;
     padding: 12px 30px;
     background-color: #3498db;
     color: white;
     text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background-color 0.3s;
 }
 
 .action-button:hover {
     background-color: #2980b9;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
-    .container {
+    header {
         flex-direction: column;
+        padding: 20px;
     }
     
-    .option-card {
-        width: 90%;
+    .logo {
+        margin-bottom: 15px;
+    }
+    
+    nav ul li {
+        margin-left: 15px;
+    }
+    
+    .offer-card {
+        width: 100%;
+        min-width: auto;
     }
 }
