@@ -40,9 +40,12 @@ nav a {
     font-weight: bold;
 }
 
+/* Main content wider */
 main {
-    padding: 2rem;
+    padding: 2rem 4rem; /* más ancho lateral */
     text-align: center;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 .ofertas, .vende {
@@ -59,28 +62,6 @@ button {
     font-size: 1rem;
 }
 
-.imagenes-productos {
-    display: flex;
-    justify-content: center;
-    gap: 2rem; /* Espacio mayor entre imágenes */
-    margin-top: 2rem;
-    flex-wrap: wrap;
-}
-
-.imagenes-productos img {
-    max-width: 250px; /* Más grandes que antes */
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-footer {
-    padding: 1rem;
-    text-align: center;
-    background: #f7f7f7;
-    font-size: 0.9rem;
-    color: #777;
-}
-
 /* ==================== NUEVA SECCIÓN OVERSTOCK ACTIONS ==================== */
 .overstock-actions {
     position: relative;
@@ -95,21 +76,22 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0); /* Capa blanca translúcida */
+    background: rgba(52, 152, 219, 0.3); /* capa azul corporativa */
     z-index: 0;
 }
 
 .overstock-actions .container {
     position: relative;
     z-index: 1;
-    max-width: 1200px;
+    max-width: 1400px; /* más ancho que antes */
+    padding: 0 2rem;
     margin: 0 auto;
 }
 
 .action-boxes {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 40px; /* más espacio entre cajas */
     flex-wrap: wrap;
 }
 
@@ -160,12 +142,50 @@ footer {
     transform: translateY(-2px);
 }
 
+/* ==================== SECCIÓN DE IMÁGENES DE PRODUCTOS ==================== */
+.imagenes-productos {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem; /* mayor separación entre imágenes */
+    padding: 0 2rem; /* margen lateral igual que el main */
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.imagenes-productos img {
+    flex: 1;
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    height: auto;
+    object-fit: cover;
+}
+
+footer {
+    padding: 1rem;
+    text-align: center;
+    background: #f7f7f7;
+    font-size: 0.9rem;
+    color: #777;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
+    main {
+        padding: 1rem;
+    }
+
     .action-boxes {
         flex-direction: column;
-        padding: 0 20px;
+        padding: 0 1rem;
     }
+
+    .imagenes-productos {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+
     .action-box {
         max-width: 100%;
     }
