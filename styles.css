@@ -79,3 +79,72 @@ footer {
     font-size: 0.9rem;
     color: #777;
 }
+
+/* ==================== NUEVA SECCIÓN OVERSTOCK ACTIONS ==================== */
+.overstock-actions {
+    padding: 60px 0;
+    background: #f8f9fa;
+}
+
+.action-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.action-box {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    padding: 40px;
+    flex: 1 1 45%;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.action-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.action-box h3 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.action-box p {
+    color: #7f8c8d;
+    margin-bottom: 25px;
+    font-size: 16px;
+}
+
+.action-btn {
+    display: inline-block;
+    background: #3498db;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .action-boxes {
+        flex-direction: column;
+        padding: 0 20px;
+    }
+    .action-box {
+        max-width: 100%;
+    }
+}
