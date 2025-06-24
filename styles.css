@@ -14,7 +14,7 @@ header {
 }
 
 .logo img {
-    height: 70px; /* Logo más grande */
+    height: 50px;
 }
 
 nav ul {
@@ -62,13 +62,12 @@ button {
 .imagenes-productos {
     display: flex;
     justify-content: center;
-    gap: 2rem; /* Espacio mayor entre imágenes */
+    gap: 1rem;
     margin-top: 2rem;
-    flex-wrap: wrap;
 }
 
 .imagenes-productos img {
-    max-width: 250px; /* Más grandes que antes */
+    max-width: 200px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
@@ -79,94 +78,4 @@ footer {
     background: #f7f7f7;
     font-size: 0.9rem;
     color: #777;
-}
-
-/* ==================== NUEVA SECCIÓN OVERSTOCK ACTIONS ==================== */
-.overstock-actions {
-    position: relative;
-    padding: 60px 0;
-    background: url('./images/background.png') center center / cover no-repeat;
-}
-
-.overstock-actions::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.7); /* Capa blanca translúcida */
-    z-index: 0;
-}
-
-.overstock-actions .container {
-    position: relative;
-    z-index: 1;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.action-boxes {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-.action-box {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    padding: 40px;
-    flex: 1 1 45%;
-    max-width: 500px;
-    text-align: center;
-    transition: transform 0.3s ease;
-    z-index: 1;
-    position: relative;
-}
-
-.action-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-}
-
-.action-box h3 {
-    font-size: 24px;
-    color: #2c3e50;
-    margin-bottom: 15px;
-    font-weight: 700;
-}
-
-.action-box p {
-    color: #7f8c8d;
-    margin-bottom: 25px;
-    font-size: 16px;
-}
-
-.action-btn {
-    display: inline-block;
-    background: #3498db;
-    color: white;
-    padding: 12px 30px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.action-btn:hover {
-    background: #2980b9;
-    transform: translateY(-2px);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .action-boxes {
-        flex-direction: column;
-        padding: 0 20px;
-    }
-    .action-box {
-        max-width: 100%;
-    }
 }
