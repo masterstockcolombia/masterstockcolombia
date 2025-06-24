@@ -8,24 +8,41 @@
     <title>Master Stock Colombia</title>
     <link rel="icon" type="image/x-icon" href="./images/fundacion.jpg">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css">
+    <!-- Fuentes de Google optimizadas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         /* Estilos generales */
+        :root {
+            --primary-color: #0056b3; /* Azul principal */
+            --secondary-color: #003366; /* Azul oscuro */
+            --accent-color: #FFD700; /* Dorado para acentos */
+            --dark-color: #1a1a1a; /* Negro suavizado */
+            --light-color: #f8f9fa; /* Fondo claro */
+            --text-color: #333333; /* Color de texto principal */
+            --text-light: #666666; /* Texto secundario */
+        }
+        
         body {
-            font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Poppins', 'Open Sans', sans-serif;
             margin: 0;
             padding: 0;
-            color: #333;
+            color: var(--text-color);
             line-height: 1.6;
+            background-color: #ffffff;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 700;
         }
         
         /* Top info bar */
         .top-info-bar {
-            background-color: #000;
+            background-color: var(--dark-color);
             color: white;
             padding: 8px 0;
             font-size: 14px;
+            font-weight: 500;
         }
         
         .top-info-container {
@@ -55,7 +72,7 @@
         }
         
         .top-info-contact a:hover {
-            color: #f8f9fa;
+            color: var(--accent-color);
         }
         
         /* Header */
@@ -64,6 +81,9 @@
             padding: 20px 0;
             background: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
         .header-container {
@@ -91,28 +111,32 @@
             margin: 0;
             padding: 0;
             gap: 25px;
+            align-items: center;
         }
         
         nav a {
             text-decoration: none;
-            color: #333;
+            color: var(--dark-color);
             font-weight: 600;
             font-size: 16px;
-            transition: color 0.3s;
+            transition: all 0.3s;
             position: relative;
+            padding: 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         nav a:hover {
-            color: #007bff;
+            color: var(--primary-color);
         }
         
         nav a:after {
             content: '';
             position: absolute;
             width: 0;
-            height: 2px;
-            background: #007bff;
-            bottom: -5px;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: 0;
             left: 0;
             transition: width 0.3s;
         }
@@ -134,21 +158,37 @@
         .section-heading {
             font-size: 2.5rem;
             margin-bottom: 15px;
-            color: #222;
+            color: var(--secondary-color);
             font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-heading:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
         }
         
         .section-subtitle {
-            color: #666;
+            color: var(--text-light);
             font-size: 1.1rem;
             margin-bottom: 50px;
             font-style: italic;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         /* Servicios */
         #servicios {
-            padding: 80px 0;
-            background: #f9f9f9;
+            padding: 100px 0;
+            background: var(--light-color);
         }
         
         .action-boxes {
@@ -165,11 +205,12 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid var(--primary-color);
         }
         
         .action-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
         
         .fa-stack {
@@ -177,17 +218,24 @@
         }
         
         .text-primary {
-            color: #007bff !important;
+            color: var(--primary-color) !important;
         }
         
         .service-description {
             text-align: left;
             margin-top: 20px;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+        
+        .service-description br {
+            display: block;
+            margin: 8px 0;
         }
         
         /* Proceso */
         #proceso {
-            padding: 80px 0;
+            padding: 100px 0;
             background: white;
         }
         
@@ -208,6 +256,7 @@
             overflow: hidden;
             border-radius: 8px;
             height: 250px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
         .process-image-wrapper img {
@@ -227,7 +276,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 51, 102, 0.9);
             color: white;
             display: flex;
             flex-direction: column;
@@ -242,7 +291,7 @@
         }
         
         .process-hover h3 {
-            color: #FFD700;
+            color: var(--accent-color);
             margin-bottom: 10px;
             font-size: 1.5rem;
         }
@@ -254,14 +303,15 @@
         
         .process-label {
             margin-top: 15px;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 1.1rem;
+            color: var(--secondary-color);
         }
         
         /* Quiénes Somos */
         #quienes-somos {
-            padding: 80px 0;
-            background: #f9f9f9;
+            padding: 100px 0;
+            background: var(--light-color);
         }
         
         .about-content {
@@ -274,19 +324,33 @@
             flex: 1;
         }
         
+        .about-text p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
         .about-image {
             flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
         
         .about-image img {
             width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
         }
         
         /* Compra/Venta */
         #vender {
-            padding: 80px 0;
+            padding: 100px 0;
             background: white;
         }
         
@@ -298,26 +362,44 @@
         
         .sell-box {
             flex: 1;
-            background: #f9f9f9;
-            padding: 30px;
+            background: var(--light-color);
+            padding: 40px;
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             transition: transform 0.3s;
+            border-left: 4px solid var(--primary-color);
         }
         
         .sell-box:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .sell-box h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .sell-box p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 15px;
         }
         
         /* Contacto */
         #contacto {
-            padding: 80px 0;
-            background: #f9f9f9;
+            padding: 100px 0;
+            background: var(--light-color);
         }
         
         #contactForm {
             max-width: 800px;
             margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
         .form-group {
@@ -331,39 +413,88 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            font-family: 'Open Sans', sans-serif;
         }
         
         .form-control:focus {
-            border-color: #007bff;
+            border-color: var(--primary-color);
             outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
         }
         
         textarea.form-control {
             min-height: 150px;
+            resize: vertical;
         }
         
         .btn-primary {
-            background-color: #007bff;
+            background-color: var(--primary-color);
             color: white;
             padding: 15px 30px;
             border: none;
             border-radius: 4px;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .btn-primary:hover {
-            background-color: #0069d9;
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
         }
         
         /* Footer */
         .footer {
-            background: #222;
+            background: var(--dark-color);
             color: white;
-            padding: 30px 0;
+            padding: 50px 0 30px;
             text-align: center;
+        }
+        
+        .footer-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+        }
+        
+        .footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Efectos y animaciones */
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         /* Responsive */
@@ -374,7 +505,15 @@
             
             .action-box, .sell-box {
                 flex: 100%;
-                margin-bottom: 20px;
+                margin-bottom: 30px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .section-heading {
+                font-size: 2.2rem;
             }
         }
         
@@ -397,6 +536,11 @@
                 text-align: center;
             }
             
+            nav a {
+                font-size: 14px;
+                padding: 8px 0;
+            }
+            
             nav a:after {
                 display: none;
             }
@@ -417,18 +561,27 @@
             .process-hover {
                 position: relative;
                 opacity: 1;
-                background: #f8f9fa;
-                color: #333;
+                background: var(--secondary-color);
+                color: white;
                 padding: 15px;
                 height: auto;
             }
             
             .process-hover h3 {
-                color: #007bff;
+                color: var(--accent-color);
             }
             
             .section-heading {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            
+            .footer-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            #contactForm {
+                padding: 30px 20px;
             }
         }
     </style>
@@ -441,6 +594,7 @@
             <div class="top-info-contact">
                 <span><i class="fas fa-envelope"></i> negocios@masterstockcolombia.com</span>
                 <span><i class="fab fa-whatsapp"></i> <a href="https://wa.me/573102139141" target="_blank">(+57) 3102139141</a></span>
+                <span><i class="fab fa-whatsapp"></i> <a href="https://wa.me/573125605545" target="_blank">(+57) 3125605545</a></span>
             </div>
         </div>
     </div>
@@ -467,10 +621,10 @@
 
     <main>
         <!-- ==================== SECCIÓN DE SERVICIOS ==================== -->
-        <section id="servicios">
+        <section id="servicios" class="fade-in">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Nuestros Servicios</h2>
+                    <h2 class="section-heading">Nuestros Servicios</h2>
                     <p class="section-subtitle">Soluciones inteligentes para la gestión de tu inventario</p>
                 </div>
                 <div class="action-boxes">
@@ -505,10 +659,10 @@
         </section>
 
         <!-- ==================== SECCIÓN DE PROCESO ==================== -->
-        <section id="proceso">
+        <section id="proceso" class="fade-in">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Nuestro Proceso</h2>
+                    <h2 class="section-heading">Nuestro Proceso</h2>
                     <p class="section-subtitle">Garantía de calidad en cada etapa</p>
                 </div>
                 <div class="process-images">
@@ -564,11 +718,11 @@
         </section>
 
         <!-- ==================== QUIÉNES SOMOS ==================== -->
-        <section id="quienes-somos">
+        <section id="quienes-somos" class="fade-in">
             <div class="container">
                 <div class="about-content">
                     <div class="about-text">
-                        <h2 class="section-heading text-uppercase">Quiénes Somos</h2>
+                        <h2 class="section-heading">Quiénes Somos</h2>
                         <p>En Master Stock Colombia nos especializamos en ayudar a empresas a gestionar su exceso de inventario de manera inteligente y rentable. Somos el puente entre empresas que necesitan liberar espacio en sus almacenes y compradores que buscan productos de calidad a precios excepcionales.</p>
                         <p>Nuestro equipo cuenta con más de 10 años de experiencia en el mercado textil y de accesorios, ofreciendo transparencia, confiabilidad y soluciones personalizadas para cada caso. Trabajamos con los más altos estándares de calidad para garantizar la satisfacción de todas las partes involucradas.</p>
                     </div>
@@ -580,10 +734,10 @@
         </section>
 
         <!-- ==================== COMPRA/VENTA ==================== -->
-        <section id="vender">
+        <section id="vender" class="fade-in">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Compra y Venta de Overstock</h2>
+                    <h2 class="section-heading">Compra y Venta de Overstock</h2>
                     <p class="section-subtitle">Soluciones a medida para cada necesidad</p>
                 </div>
                 <div class="sell-section">
@@ -602,10 +756,10 @@
         </section>
 
         <!-- ==================== CONTACTO ==================== -->
-        <section id="contacto">
+        <section id="contacto" class="fade-in">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Contacto</h2>
+                    <h2 class="section-heading">Contacto</h2>
                     <p class="section-subtitle">Contáctanos para más información sobre nuestros servicios</p>
                 </div>
                 <form id="contactForm">
@@ -632,14 +786,48 @@
     <!-- Footer-->
     <footer class="footer">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-12 text-center">
-                    <p class="mb-0">Copyright &copy; Master Stock Colombia 2025</p>
-                </div>
+            <div class="footer-info">
+                <span><i class="fas fa-envelope"></i> <a href="mailto:negocios@masterstockcolombia.com">negocios@masterstockcolombia.com</a></span>
+                <span><i class="fab fa-whatsapp"></i> <a href="https://wa.me/573102139141" target="_blank">(+57) 3102139141</a></span>
+                <span><i class="fab fa-whatsapp"></i> <a href="https://wa.me/573125605545" target="_blank">(+57) 3125605545</a></span>
+            </div>
+            <div class="copyright">
+                Copyright &copy; Master Stock Colombia 2025. Todos los derechos reservados.
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling para los enlaces del menú
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Animación al hacer scroll
+        window.addEventListener('scroll', revealOnScroll);
+        
+        function revealOnScroll() {
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight - 100) {
+                    section.classList.add('fade-in');
+                }
+            });
+        }
+        
+        // Ejecutar al cargar la página
+        revealOnScroll();
+    </script>
 </body>
 </html>
