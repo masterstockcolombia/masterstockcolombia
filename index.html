@@ -1,59 +1,186 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Master Stock Colombia</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
- 
-    <header>
-        <div class="logo">
-            <img src="./images/logo.png" alt="Master Stock Colombia">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#contacto">Contacto</a></li>
-                <li><a href="#quienes-somos">Quiénes somos</a></li>
-                <li><a href="#servicios">Nuestros servicios</a></li>
-            </ul>
-        </nav>
-        <a href="#comprar" class="btn-principal">Comprar ahora</a>
-    </header>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #fff;
+    color: #333;
+}
 
-    <main>
+/* ==================== HEADER ==================== */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #ccc;
+}
 
-        <!-- ==================== NUEVA SECCIÓN DE OVERSTOCK ==================== -->
-        <section class="overstock-actions">
-            <div class="container">
-                <div class="action-boxes">
-                    <div class="action-box">
-                        <h3>OFERTAS DE OVERSTOCK</h3>
-                        <p>Oportunidades exclusivas en ropa y accesorios de calidad</p>
-                        <a href="#ofertas" class="action-btn">Ver ofertas</a>
-                    </div>
-                    <div class="action-box">
-                        <h3>VENDE TU OVERSTOCK</h3>
-                        <p>Asóciate con nosotros para mover inventario</p>
-                        <a href="#vender" class="action-btn">Conviértete en proveedor</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- ==================== FIN NUEVA SECCIÓN ==================== -->
+.logo img {
+    height: 70px;
+}
 
-        <!-- SECCIÓN DE IMÁGENES DE PRODUCTOS -->
-        <section class="imagenes-productos">
-            <img src="./images/pallets.png" alt="Pallets">
-            <img src="./images/cajas.png" alt="Cajas de inventario">
-            <img src="./images/sala-reuniones.jpg" alt="Sala de reuniones">
-        </section>
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    padding: 0;
+    margin: 0;
+}
 
-    </main>
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
 
-    <footer>
-        <p>© 2025 Master Stock Colombia | Todos los derechos reservados.</p>
-    </footer>
+.btn-principal {
+    padding: 0.5rem 1rem;
+    background: #00b2b2;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
 
-</body>
-</html>
+/* ==================== MAIN ==================== */
+main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+button {
+    padding: 0.7rem 1.5rem;
+    background: #00b2b2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+/* ==================== OVERSTOCK ACTIONS ==================== */
+.overstock-actions {
+    padding: 60px 0;
+    background: url('./images/background.png') center center / cover no-repeat;
+    position: relative;
+}
+
+.overstock-actions::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7); /* capa blanca semi-transparente */
+    z-index: 0;
+}
+
+.overstock-actions .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    padding: 0 2rem;
+    margin: 0 auto;
+}
+
+.action-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: nowrap;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.action-box {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    padding: 40px;
+    flex: 1 1 40%;
+    min-width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.action-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.action-box h3 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.action-box p {
+    color: #7f8c8d;
+    margin-bottom: 25px;
+    font-size: 16px;
+}
+
+.action-btn {
+    display: inline-block;
+    background: #3498db;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* ==================== IMÁGENES DE PRODUCTOS ==================== */
+.imagenes-productos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+    width: 100%;
+    padding: 0;
+    margin: 2rem 0 0;
+    gap: 10px;
+}
+
+.imagenes-productos img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* ==================== FOOTER ==================== */
+footer {
+    padding: 1rem;
+    text-align: center;
+    background: #f7f7f7;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .action-boxes {
+        flex-direction: column;
+        padding: 0 1rem;
+    }
+    .action-box {
+        max-width: 100%;
+    }
+    .imagenes-productos {
+        grid-template-columns: 1fr; /* 1 columna en móvil */
+    }
+    .imagenes-productos img {
+        height: auto;
+    }
+}
