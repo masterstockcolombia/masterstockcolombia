@@ -1,8 +1,30 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #fff;
-    color: #333;
+/* ==================== TOP BAR ==================== */
+.top-bar {
+    background: #000;
+    color: #fff;
+    padding: 0.3rem 0;
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+.top-bar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.top-bar .contact-info span {
+    margin-left: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.top-bar .contact-info i {
+    color: #00b2b2;
 }
 
 /* ==================== HEADER ==================== */
@@ -10,23 +32,14 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 2rem;
-    background: #fff;
+    padding: 0.8rem 2rem;
     border-bottom: 1px solid #ccc;
-    position: relative;
+    background: #fff;
 }
 
 .logo img {
-    height: 160px;
-    width: auto;
-    transition: all 0.3s ease;
-}
-
-nav {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    height: 100px;
+    transition: all 0.3s;
 }
 
 nav ul {
@@ -35,108 +48,34 @@ nav ul {
     gap: 2rem;
     padding: 0;
     margin: 0;
-    align-items: center;
-}
-
-nav li {
-    position: relative;
 }
 
 nav a {
     text-decoration: none;
     color: #333;
     font-weight: bold;
-    padding: 0.5rem 0;
     transition: color 0.3s;
-    white-space: nowrap;
 }
 
 nav a:hover {
-    color: #00b2b2;
+    color: #007bff;
 }
 
-/* ==================== DROPDOWN ==================== */
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: #fff;
-    min-width: 180px;
-    padding: 0.5rem 0;
-    border-radius: 4px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    display: none;
-    z-index: 1000;
-}
-
-.dropdown-menu li {
-    padding: 0;
+/* ==================== BODY & SECTIONS ==================== */
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
-}
-
-.dropdown-menu a {
-    padding: 0.5rem 1rem;
-    display: block;
+    background: #fff;
     color: #333;
 }
 
-.dropdown:hover .dropdown-menu {
-    display: block;
-}
-
-/* ==================== BOTÓN PRINCIPAL ==================== */
-.btn-principal {
-    padding: 0.5rem 1rem;
-    background: #00b2b2;
-    color: #fff;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-/* ==================== MAIN ==================== */
 main {
     padding: 2rem;
     text-align: center;
 }
 
-.ofertas, .vende {
-    margin: 2rem 0;
-}
+/* ... aquí puedes mantener el resto del CSS que ya tienes para action-boxes, process-images, etc. */
 
-button {
-    padding: 0.7rem 1.5rem;
-    background: #00b2b2;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.imagenes-productos {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-}
-
-.imagenes-productos img {
-    max-width: 250px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-footer {
-    padding: 1rem;
-    text-align: center;
-    background: #f7f7f7;
-    font-size: 0.9rem;
-    color: #777;
-}
-
-/* ==================== OVERSTOCK ACTIONS ==================== */
 .overstock-actions {
     position: relative;
     padding: 60px 0;
@@ -150,7 +89,7 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.7); /* Capa blanca translúcida */
     z-index: 0;
 }
 
@@ -186,58 +125,21 @@ footer {
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
-.action-box h3 {
-    font-size: 24px;
-    color: #2c3e50;
-    margin-bottom: 15px;
-    font-weight: 700;
-}
-
-.action-box p {
-    color: #7f8c8d;
-    margin-bottom: 25px;
-    font-size: 16px;
-}
-
-.action-btn {
-    display: inline-block;
-    background: #3498db;
-    color: white;
-    padding: 12px 30px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.action-btn:hover {
-    background: #2980b9;
-    transform: translateY(-2px);
-}
-
-/* ==================== RESPONSIVE ==================== */
+/* Responsive */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
-        align-items: flex-start;
-    }
-    .logo img {
-        height: 120px;
     }
     nav ul {
         flex-direction: column;
+        align-items: center;
         gap: 1rem;
-        width: 100%;
     }
-    .dropdown-menu {
-        position: relative;
-        box-shadow: none;
-    }
-    .action-boxes {
+    .top-bar-content {
         flex-direction: column;
-        padding: 0 20px;
     }
-    .action-box {
-        max-width: 100%;
+    .contact-info {
+        flex-direction: column;
+        gap: 0.5rem;
     }
 }
