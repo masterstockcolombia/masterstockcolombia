@@ -197,7 +197,7 @@ footer {
         font-size: 0.9rem;
     }
 }
-
+ 
 /* Ajustes específicos para el navbar toggler */
 .navbar-toggler:focus {
     box-shadow: 0 0 0 0.25rem rgba(0, 178, 178, 0.5);
