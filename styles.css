@@ -40,11 +40,11 @@ nav a {
     font-weight: bold;
 }
 
-/* Main content wider */
+/* Main content controlado */
 main {
-    padding: 2rem 4rem; /* más ancho lateral */
+    padding: 2rem;
     text-align: center;
-    max-width: 1600px;
+    max-width: 1200px; /* ancho controlado */
     margin: 0 auto;
 }
 
@@ -76,14 +76,14 @@ button {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(52, 152, 219, 0.3); /* capa azul corporativa */
+    background: rgba(52, 152, 219, 0.3); /* capa azul transparente */
     z-index: 0;
 }
 
 .overstock-actions .container {
     position: relative;
     z-index: 1;
-    max-width: 1400px; /* más ancho que antes */
+    max-width: 1200px;
     padding: 0 2rem;
     margin: 0 auto;
 }
@@ -91,7 +91,7 @@ button {
 .action-boxes {
     display: flex;
     justify-content: center;
-    gap: 40px; /* más espacio entre cajas */
+    gap: 40px;
     flex-wrap: wrap;
 }
 
@@ -146,8 +146,8 @@ button {
 .imagenes-productos {
     display: flex;
     justify-content: space-between;
-    gap: 3rem; /* mayor separación entre imágenes */
-    padding: 0 2rem; /* margen lateral igual que el main */
+    gap: 2rem;
+    padding: 0 2rem;
     margin-top: 2rem;
     flex-wrap: wrap;
 }
