@@ -71,7 +71,7 @@ button {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.7); /* capa clara para que los boxes sean legibles */
+    background: rgba(255, 255, 255, 0.7); /* capa blanca semi-transparente */
     z-index: 0;
 }
 
@@ -88,6 +88,8 @@ button {
     justify-content: center;
     gap: 40px;
     flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .action-box {
@@ -141,7 +143,7 @@ button {
 .imagenes-productos {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 3rem;
     padding: 0 2rem;
     margin-top: 2rem;
     flex-wrap: wrap;
@@ -164,18 +166,18 @@ footer {
     color: #777;
 }
 
-/* Responsive */
+/* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
     .action-boxes {
         flex-direction: column;
         padding: 0 1rem;
     }
+    .action-box {
+        max-width: 100%;
+    }
     .imagenes-productos {
         flex-direction: column;
         gap: 2rem;
         padding: 0 1rem;
-    }
-    .action-box {
-        max-width: 100%;
     }
 }
