@@ -1,10 +1,3 @@
-/* Reset global para box-sizing */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -21,7 +14,7 @@ header {
 }
 
 .logo img {
-    height: 50px;
+    height: 100px; /* Logo más grande */
 }
 
 nav ul {
@@ -52,8 +45,7 @@ main {
     text-align: center;
 }
 
-.ofertas,
-.vende {
+.ofertas, .vende {
     margin: 2rem 0;
 }
 
@@ -70,13 +62,12 @@ button {
 .imagenes-productos {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    gap: 2.5rem; /* Más espacio entre imágenes */
     margin-top: 2rem;
-    flex-wrap: wrap;
 }
 
 .imagenes-productos img {
-    max-width: 200px;
+    max-width: 280px; /* Imágenes más grandes */
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
@@ -95,18 +86,12 @@ footer {
     background: #f8f9fa;
 }
 
-.container {
-    max-width: 1200px;
-    padding: 0 20px;
-    margin: 0 auto;
-}
-
 .action-boxes {
     display: flex;
     justify-content: center;
     gap: 30px;
-    flex-wrap: wrap;
-    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .action-box {
@@ -115,7 +100,6 @@ footer {
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     padding: 40px;
     flex: 1 1 45%;
-    min-width: 280px;
     text-align: center;
     transition: transform 0.3s ease;
 }
@@ -156,7 +140,11 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
+    .action-boxes {
+        flex-direction: column;
+        padding: 0 20px;
+    }
     .action-box {
-        flex: 1 1 100%;
+        max-width: 100%;
     }
 }
