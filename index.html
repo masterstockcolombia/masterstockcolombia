@@ -2,39 +2,48 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MasterStock Colombia</title>
-    <link rel="stylesheet" href="CSS/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Master Stock Colombia</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
-        <div class="logo-container">
-            <div class="logo-line1">Master</div>
-            <div class="logo-line2">Stock</div>
-            <div class="logo-line3">COLOMBIA</div>
+        <div class="logo">
+            <img src="./images/masterstockcolombia-logo.png" alt="Master Stock Colombia">
         </div>
-        <nav class="main-nav">
-            <a href="contacto.html">CONTACTO</a>
-            <a href="nosotros.html">QUIÉNES SOMOS</a>
-            <a href="ayuda.html">AYUDA</a>
+        <nav>
+            <ul>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#quienes-somos">Quiénes somos</a></li>
+                <li><a href="#servicios">Nuestros servicios</a></li>
+            </ul>
         </nav>
+        <a href="#comprar" class="btn-principal">Comprar ahora</a>
     </header>
 
-    <main class="content">
-        <section class="offer-section">
-            <div class="offer-card">
-                <h2>OFERTAS DE OVERSTOCK</h2>
-                <p>Ahorra en muebles, decoración y más</p>
-                <a href="ofertas.html" class="action-button">Ver ofertas</a>
-            </div>
-            
-            <div class="offer-card">
-                <h2>VENDE TU OVERSTOCK</h2>
-                <p>Asóciate con nosotros para mover inventario</p>
-                <a href="proveedores.html" class="action-button">Conviértete en proveedor</a>
-            </div>
+    <main>
+        <section class="ofertas">
+            <h1>Ofertas de Overstock</h1>
+            <p>Ahorra en muebles, decoración y más.</p>
+            <button>Ver ofertas</button>
+        </section>
+
+        <section class="vende">
+            <h1>Vende tu Overstock</h1>
+            <p>Asóciate con nosotros para mover tu inventario.</p>
+            <button>Conviértete en proveedor</button>
+        </section>
+
+        <section class="imagenes-productos">
+            <img src="./images/mueble-sofa.png" alt="Sofá">
+            <img src="./images/cama.png" alt="Cama">
+            <img src="./images/tapete.png" alt="Tapete">
         </section>
     </main>
+
+    <footer>
+        <p>© 2025 Master Stock Colombia | Todos los derechos reservados.</p>
+    </footer>
+
 </body>
 </html>
