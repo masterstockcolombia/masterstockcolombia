@@ -1,3 +1,10 @@
+/* Reset global para box-sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -45,7 +52,8 @@ main {
     text-align: center;
 }
 
-.ofertas, .vende {
+.ofertas,
+.vende {
     margin: 2rem 0;
 }
 
@@ -64,6 +72,7 @@ button {
     justify-content: center;
     gap: 1rem;
     margin-top: 2rem;
+    flex-wrap: wrap;
 }
 
 .imagenes-productos img {
@@ -86,12 +95,18 @@ footer {
     background: #f8f9fa;
 }
 
+.container {
+    max-width: 1200px;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+
 .action-boxes {
     display: flex;
     justify-content: center;
     gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .action-box {
@@ -100,6 +115,7 @@ footer {
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     padding: 40px;
     flex: 1 1 45%;
+    min-width: 280px;
     text-align: center;
     transition: transform 0.3s ease;
 }
@@ -140,11 +156,7 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
-    .action-boxes {
-        flex-direction: column;
-        padding: 0 20px;
-    }
     .action-box {
-        max-width: 100%;
+        flex: 1 1 100%;
     }
 }
