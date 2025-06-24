@@ -13,8 +13,17 @@ header {
     border-bottom: 1px solid #ccc;
 }
 
+/* ==================== LOGO MÁS GRANDE ==================== */
 .logo img {
-    height: 70px; /* Logo más grande */
+    height: 140px;   /* Tamaño del logo */
+    width: auto;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .logo img {
+        height: 100px; /* Más pequeño en pantallas chicas */
+    }
 }
 
 nav ul {
