@@ -18,134 +18,31 @@
     <!-- Tu CSS personalizado -->
     <link rel="stylesheet" href="styles.css">
     <style>
-        .navbar-brand img {
-            height: 100px;
-            transition: all 0.3s;
-        }
-        .navbar-brand img:hover {
-            transform: scale(1.05);
-        }
-        .navbar-nav {
-            margin-left: auto;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-        .nav-item {
-            margin: 0 15px;
-        }
-        .nav-link {
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-        .nav-link:hover {
-            color: #007bff !important;
-        }
-        .masthead {
-            padding: 0;
-            background: none;
-            height: auto;
-        }
-        .action-boxes {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 40px 0;
-        }
-        .action-box {
-            text-align: center;
-            max-width: 300px;
-        }
-        .service-description {
-            margin-top: 20px;
-            text-align: center;
-            line-height: 1.6;
-        }
-        .process-section {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        .process-images {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 30px 0;
-        }
-        .process-image-container {
-            text-align: center;
-        }
-        .process-images img {
-            width: 200px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-        .process-label {
-            margin-top: 10px;
-            font-weight: 500;
-        }
-        .about-content {
-            display: flex;
-            align-items: flex-start;
-            padding: 60px 0;
-        }
-        .about-text {
-            flex: 1;
-            padding-right: 30px;
-            text-align: justify;
-            line-height: 1.8;
-        }
-        .about-image {
-            flex: 1;
-            text-align: center;
-        }
-        .about-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .sell-section {
-            display: flex;
-            gap: 30px;
-            margin: 40px 0;
-        }
-        .sell-box {
-            flex: 1;
-            padding: 30px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-        }
-        .sell-box h3 {
-            color: #007bff;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .contact-form .form-control {
-            padding: 15px;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-        .contact-form textarea {
-            min-height: 200px;
-        }
-        @media (max-width: 768px) {
-            .navbar-nav {
-                flex-direction: column;
-                align-items: flex-end;
-            }
-            .about-content, .sell-section, .process-images {
-                flex-direction: column;
-            }
-            .about-text {
-                padding-right: 0;
-                margin-bottom: 30px;
-            }
-            .process-image-container, .sell-box {
-                margin-bottom: 20px;
-            }
-        }
+        .navbar-brand img { height: 100px; transition: all 0.3s; }
+        .navbar-brand img:hover { transform: scale(1.05); }
+        .navbar-nav { margin-left: auto; display: flex; flex-direction: row; align-items: center; }
+        .nav-item { margin: 0 15px; }
+        .nav-link { font-weight: 600; transition: color 0.3s; }
+        .nav-link:hover { color: #007bff !important; }
+        .masthead { padding: 0; background: none; height: auto; }
+        .action-boxes { display: flex; justify-content: center; gap: 30px; margin: 40px 0; }
+        .action-box { text-align: center; max-width: 300px; }
+        .service-description { margin-top: 20px; text-align: center; line-height: 1.6; }
+        .process-section { text-align: center; margin-bottom: 50px; }
+        .process-images { display: flex; justify-content: center; gap: 20px; margin: 30px 0; }
+        .process-image-container { text-align: center; }
+        .process-images img { width: 200px; height: 150px; object-fit: cover; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
+        .process-label { margin-top: 10px; font-weight: 500; }
+        .about-content { display: flex; align-items: flex-start; padding: 60px 0; }
+        .about-text { flex: 1; padding-right: 30px; text-align: justify; line-height: 1.8; }
+        .about-image { flex: 1; text-align: center; }
+        .about-image img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .sell-section { display: flex; gap: 30px; margin: 40px 0; }
+        .sell-box { flex: 1; padding: 30px; background-color: #f8f9fa; border-radius: 8px; }
+        .sell-box h3 { color: #007bff; margin-bottom: 20px; text-align: center; }
+        .contact-form .form-control { padding: 15px; font-size: 1.1rem; margin-bottom: 20px; }
+        .contact-form textarea { min-height: 200px; }
+        @media (max-width: 768px) { .navbar-nav { flex-direction: column; align-items: flex-end; } .about-content, .sell-section, .process-images { flex-direction: column; } .about-text { padding-right: 0; margin-bottom: 30px; } .process-image-container, .sell-box { margin-bottom: 20px; } }
     </style>
 </head>
 <body id="page-top">
@@ -183,21 +80,27 @@
                     <div class="action-box">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-tags fa-stack-1x fa-inverse"></i>
+                            <i class="fas fa-cart-shopping fa-stack-1x fa-inverse"></i>
                         </span>
-                        <h3>OFERTAS DE OVERSTOCK</h3>
+                        <h3>COMPRA LOTES EN DESCUENTO</h3>
                         <p class="service-description">
-                            Conectamos a minoristas con las mejores oportunidades del mercado. Obtén productos nuevos y en excelente estado por debajo del precio normal directamente de inventarios excedentes.
+                            Te conectamos directamente con los mejores lotes de mercancía 100% nueva. Nuestro Inventario Proviene de:
+                            <br>✓ Excedentes de fábricas certificadas
+                            <br>✓ Cierres de temporada de grandes marcas
+                            <br>✓ Remanentes de distribuidores autorizados
                         </p>
                     </div>
                     <div class="action-box">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-handshake fa-stack-1x fa-inverse"></i>
+                            <i class="fas fa-hand-holding-usd fa-stack-1x fa-inverse"></i>
                         </span>
-                        <h3>VENDE TU OVERSTOCK</h3>
+                        <h3>LIBERA TU CAPITAL Y GANA ESPACIO EN TU BODEGA</h3>
                         <p class="service-description">
-                            ¿Tienes mercancía que no logras vender? Ofrecemos una solución rápida y confidencial para tu exceso de inventario. Compramos tus productos a precios competitivos.
+                            ¿Tienes mercancía nueva que no lograste vender? Te ayudamos a convertir ese inventario en liquidez:
+                            <br>✓ Excedentes de producción que ya no necesitas
+                            <br>✓ Cierres de temporada de tus colecciones
+                            <br>✓ Stock almacenado que ocupa espacio innecesario
                         </p>
                     </div>
                 </div>
