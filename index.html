@@ -19,22 +19,16 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         .navbar-brand img {
-            height: 80px;
+            height: 80px; /* Ajusta el tamaño del logo */
         }
         .navbar-nav {
-            margin-left: auto;
-        }
-        .masthead {
-            padding: 15rem 0;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./images/hero-bg.jpg');
-            background-size: cover;
-            background-position: center;
+            margin-left: auto; /* Mueve el menú a la derecha */
         }
         .action-boxes {
             display: flex;
             justify-content: center;
             gap: 30px;
-            margin: 40px 0;
+            margin-top: 40px;
         }
         .action-box {
             text-align: center;
@@ -42,15 +36,10 @@
         }
         .portfolio-item {
             margin-bottom: 30px;
-            transition: transform 0.3s;
-        }
-        .portfolio-item:hover {
-            transform: scale(1.03);
         }
         .about-content {
             display: flex;
             align-items: center;
-            padding: 60px 0;
         }
         .about-text {
             flex: 1;
@@ -63,22 +52,6 @@
         .about-image img {
             max-width: 100%;
             height: auto;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .cta-section {
-            background-color: #f8f9fa;
-            padding: 60px 0;
-            text-align: center;
-        }
-        .cta-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .cta-btn {
-            margin-top: 20px;
-            padding: 12px 30px;
-            font-weight: 700;
         }
     </style>
 </head>
@@ -99,7 +72,7 @@
                 <ul class="navbar-nav text-uppercase py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link" href="#servicios">Nuestros servicios</a></li>
                     <li class="nav-item"><a class="nav-link" href="#quienes-somos">Quiénes somos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#galeria">Galería</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#ofertas">Ofertas</a></li>
                     <li class="nav-item"><a class="nav-link" href="#vender">Vende tu overstock</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                 </ul>
@@ -109,11 +82,13 @@
 
     <!-- Masthead/Header -->
     <header class="masthead">
-        <!-- Header vacío como solicitaste -->
+        <div class="container">
+            <!-- Se eliminó el texto de bienvenida según solicitud -->
+        </div>
     </header>
 
     <main>
-        <!-- Sección de Servicios -->
+        <!-- ==================== SECCIÓN DE OVERSTOCK ==================== -->
         <section class="overstock-actions" id="servicios">
             <div class="container">
                 <div class="text-center">
@@ -138,46 +113,59 @@
             </div>
         </section>
 
-        <!-- Galería de Imágenes -->
-        <section class="page-section" id="galeria">
+        <!-- Portfolio Grid-->
+        <section class="page-section" id="ofertas">
             <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Ofertas</h2>
+                </div>
                 <div class="row">
                     <div class="col-lg-4 col-sm-6 mb-4">
                         <div class="portfolio-item">
-                            <img class="img-fluid" src="./images/pallets.png" alt="Pallets de ropa" />
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="./images/pallets.png" alt="Pallets de ropa" />
+                            </a>
                         </div>
                     </div>
                     <div class="col-lg-4 col-sm-6 mb-4">
                         <div class="portfolio-item">
-                            <img class="img-fluid" src="./images/cajas.png" alt="Cajas de inventario" />
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="./images/cajas.png" alt="Cajas de inventario" />
+                            </a>
                         </div>
                     </div>
                     <div class="col-lg-4 col-sm-6 mb-4">
                         <div class="portfolio-item">
-                            <img class="img-fluid" src="./images/sala-reuniones.jpg" alt="Productos varios" />
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="./images/sala-reuniones.jpg" alt="Productos varios" />
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Quiénes Somos -->
+        <!-- About-->
         <section class="page-section" id="quienes-somos">
             <div class="container">
                 <div class="about-content">
                     <div class="about-text">
                         <h2 class="section-heading text-uppercase">Quiénes Somos</h2>
-                        <p class="lead">Expertos en soluciones de inventario para tu negocio</p>
-                        <p>En Master Stock Colombia nos especializamos en ayudar a empresas a gestionar su exceso de inventario de manera inteligente y rentable. Somos el puente entre empresas que necesitan liberar espacio en sus almacenes y compradores que buscan productos de calidad a precios excepcionales.</p>
-                        <p>Nuestro equipo cuenta con más de 10 años de experiencia en el mercado textil y de accesorios, ofreciendo transparencia, confiabilidad y soluciones personalizadas para cada caso.</p>
-                        <ul class="list-unstyled">
-                            <li><i class="fas fa-check text-primary me-2"></i> Compramos tu exceso de inventario</li>
-                            <li><i class="fas fa-check text-primary me-2"></i> Precios competitivos en el mercado</li>
-                            <li><i class="fas fa-check text-primary me-2"></i> Proceso rápido y confidencial</li>
-                        </ul>
+                        <p>Master Stock Colombia es una empresa especializada en la compra y venta de overstock, ayudando a pequeñas y medianas empresas a liberar espacio en sus almacenes y recuperar valor de su inventario excedente.</p>
+                        <p>Nuestro equipo cuenta con años de experiencia en el manejo de inventarios y logística, ofreciendo soluciones personalizadas para cada cliente. Trabajamos con transparencia y profesionalismo, asegurando procesos ágiles y confidenciales.</p>
+                        <p>Si tienes exceso de inventario que no logras mover, podemos ayudarte a convertirlo en liquidez inmediata. Contáctanos para una evaluación sin costo de tu mercancía.</p>
                     </div>
                     <div class="about-image">
-                        <img src="./images/fundacion.jpg" alt="Equipo Master Stock Colombia">
+                        <img src="./images/fundacion.jpg" alt="Master Stock Colombia">
                     </div>
                 </div>
             </div>
@@ -188,36 +176,24 @@
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Vende tu Overstock</h2>
-                    <p class="lead">¿Tienes mercancía que no logras vender? Nosotros te la compramos</p>
+                    <p>¿Tienes mercancía que no logras vender? Nosotros te la compramos.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Sección CTA -->
-        <section class="cta-section">
-            <div class="container">
-                <div class="cta-content">
-                    <h3 class="mb-4">¿Buscas prendas de primera calidad a precios excepcionales?</h3>
-                    <p class="mb-5">En Master Stock Colombia conectamos a minoristas y mayoristas con las mejores oportunidades del mercado. Obtén productos nuevos y en excelente estado por debajo del precio normal directamente de inventarios excedentes.</p>
-                    <a href="#contacto" class="btn btn-primary btn-lg cta-btn">Contáctanos ahora</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contacto -->
+        <!-- Contact-->
         <section class="page-section" id="contacto">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Contacto</h2>
-                    <p class="section-subheading">Completa el formulario y nos pondremos en contacto contigo</p>
                 </div>
                 <form id="contactForm">
                     <div class="row align-items-stretch mb-5">
                         <div class="col-md-6">
-                            <div class="form-group mb-4">
+                            <div class="form-group">
                                 <input class="form-control" id="name" type="text" placeholder="Tu Nombre *" required />
                             </div>
-                            <div class="form-group mb-4">
+                            <div class="form-group">
                                 <input class="form-control" id="email" type="email" placeholder="Tu Email *" required />
                             </div>
                             <div class="form-group mb-md-0">
@@ -226,7 +202,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-group-textarea mb-md-0">
-                                <textarea class="form-control" id="message" placeholder="Tu Mensaje *" rows="6" required></textarea>
+                                <textarea class="form-control" id="message" placeholder="Tu Mensaje *" required></textarea>
                             </div>
                         </div>
                     </div>
