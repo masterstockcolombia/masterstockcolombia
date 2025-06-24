@@ -11,7 +11,7 @@
     inset: 0;
     background: rgba(255, 255, 255, 0.7); /* capa blanca translúcida */
     z-index: 0;
-}
+} 
 
 .overstock-actions .container {
     position: relative;
