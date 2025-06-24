@@ -61,51 +61,21 @@ button {
 
 .imagenes-productos {
     display: flex;
-    justify-content: space-between;
-    gap: 2rem;
+    justify-content: center;
+    gap: 1rem;
     margin-top: 2rem;
-    padding: 0 2rem;
 }
 
 .imagenes-productos img {
-    flex: 1;
-    width: 100%;
-    height: auto;
+    max-width: 200px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    object-fit: cover;
 }
 
-/* Footer */
 footer {
     padding: 1rem;
     text-align: center;
     background: #f7f7f7;
     font-size: 0.9rem;
     color: #777;
-}
-
-/* ================== Responsive ================== */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    nav ul {
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 1rem 0;
-    }
-
-    .imagenes-productos {
-        flex-direction: column;
-        padding: 0 1rem;
-        gap: 1.5rem;
-    }
-
-    .imagenes-productos img {
-        width: 100%;
-        flex: none;
-    }
 }
