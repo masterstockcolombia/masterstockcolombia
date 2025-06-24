@@ -12,15 +12,59 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Nuevos estilos para la top bar */
+        .top-info-bar {
+            background-color: #000;
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .top-info-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+        }
+        
+        .top-info-contact {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .top-info-contact span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .top-info-contact a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .top-info-contact a:hover {
+            color: #f8f9fa;
+        }
+        
+        /* Ajustes para el header */
+        header {
+            margin-top: 0;
+        }
+    </style>
 </head>
 <body id="page-top">
 
-    <!-- ==================== TOP BAR ==================== -->
-    <div class="top-bar">
-        <div class="container top-bar-content">
-            <div class="contact-info">
+    <!-- ==================== TOP INFO BAR ==================== -->
+    <div class="top-info-bar">
+        <div class="top-info-container">
+            <div class="top-info-contact">
                 <span><i class="fas fa-envelope"></i> negocios@masterstockcolombia.com</span>
-                <span><i class="fab fa-whatsapp"></i> <a href="https://wa.me/573102139141" target="_blank" style="color:#fff;text-decoration:none;">(+57) 3102139141</a></span>
+                <span><i class="fab fa-whatsapp"></i> <a href="https://wa.me/573102139141" target="_blank">(+57) 3102139141</a></span>
             </div>
         </div>
     </div>
