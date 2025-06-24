@@ -6,67 +6,53 @@
     <meta name="description" content="Master Stock Colombia - Soluciones en manejo de overstock y liquidación de inventarios">
     <meta name="author" content="Master Stock Colombia">
     <title>Master Stock Colombia</title>
+    <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="./images/fundacion.jpg">
+    <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css">
+    <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet">
+    <!-- Tu CSS personalizado -->
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Logo más grande */
-        .navbar-brand img {
-            height: 140px;
-            transition: all 0.3s;
-        }
-        .navbar-brand img:hover {
-            transform: scale(1.05);
-        }
-        /* Centrar el menú */
-        #navbarResponsive {
-            justify-content: center;
-        }
-        .navbar-nav {
-            align-items: center;
-        }
-        .nav-item {
-            margin: 0 15px;
-        }
-        .nav-link {
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-        .nav-link:hover {
-            color: #007bff !important;
-        }
-        /* Hacer que la sección de contacto sea más grande visualmente */
-        #contacto {
-            padding: 80px 0; /* Aumentamos padding vertical */
-        }
-        #contacto h2 {
-            font-size: 2.5rem;
-        }
-        #contacto .form-control {
-            padding: 20px;
-            font-size: 1.2rem;
-        }
-        /* Asegurar que otras imágenes y estructura del layout no cambien */
-        .process-images img {
-            width: 200px;
-            height: 150px;
-        }
-        @media (max-width: 768px) {
-            .navbar-brand img {
-                height: 100px;
-            }
-        }
+        .navbar-brand img { height: 100px; transition: all 0.3s; }
+        .navbar-brand img:hover { transform: scale(1.05); }
+        .navbar-nav { margin-left: auto; display: flex; flex-direction: row; align-items: center; }
+        .nav-item { margin: 0 15px; }
+        .nav-link { font-weight: 600; transition: color 0.3s; }
+        .nav-link:hover { color: #007bff !important; }
+        .masthead { padding: 0; background: none; height: auto; }
+        .action-boxes { display: flex; justify-content: center; gap: 30px; margin: 40px 0; }
+        .action-box { text-align: center; max-width: 300px; }
+        .service-description { margin-top: 20px; text-align: center; line-height: 1.6; }
+        .process-section { text-align: center; margin-bottom: 50px; }
+        .process-images { display: flex; justify-content: center; gap: 20px; margin: 30px 0; }
+        .process-image-container { text-align: center; }
+        .process-images img { width: 200px; height: 150px; object-fit: cover; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
+        .process-label { margin-top: 10px; font-weight: 500; }
+        .about-content { display: flex; align-items: flex-start; padding: 60px 0; }
+        .about-text { flex: 1; padding-right: 30px; text-align: justify; line-height: 1.8; }
+        .about-image { flex: 1; text-align: center; }
+        .about-image img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .sell-section { display: flex; gap: 30px; margin: 40px 0; }
+        .sell-box { flex: 1; padding: 30px; background-color: #f8f9fa; border-radius: 8px; }
+        .sell-box h3 { color: #007bff; margin-bottom: 20px; text-align: center; }
+        .contact-form .form-control { padding: 15px; font-size: 1.1rem; margin-bottom: 20px; }
+        .contact-form textarea { min-height: 200px; }
+        @media (max-width: 768px) { .navbar-nav { flex-direction: column; align-items: flex-end; } .about-content, .sell-section, .process-images { flex-direction: column; } .about-text { padding-right: 0; margin-bottom: 30px; } .process-image-container, .sell-box { margin-bottom: 20px; } }
     </style>
 </head>
 <body id="page-top">
-    <!-- Navigation -->
+    <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="#page-top">
-                <img src="./images/logo.png" alt="Master Stock Colombia">
+                <div class="logo">
+                    <img src="./images/logo.png" alt="Master Stock Colombia">
+                </div>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
@@ -85,68 +71,145 @@
 
     <main>
         <!-- ==================== SECCIÓN DE SERVICIOS ==================== -->
-        <!-- (Se mantiene igual que antes) -->
-
-        <!-- ==================== SECCIÓN DE PROCESO ==================== -->
-        <!-- (Se mantiene igual que antes) -->
-
-        <!-- ==================== QUIÉNES SOMOS ==================== -->
-        <!-- (Se mantiene igual que antes) -->
-
-        <!-- ==================== COMPRA/VENTA ==================== -->
-        <!-- (Se mantiene igual que antes) -->
-
-        <!-- ==================== CONTACTO ==================== -->
-        <section class="page-section" id="contacto">
+        <section class="overstock-actions" id="servicios">
             <div class="container">
-                <h2 class="section-heading text-uppercase text-center mb-5">Contacto</h2>
-                <div class="row align-items-center">
-                    <!-- Columna izquierda: texto invitación -->
-                    <div class="col-md-6 mb-4">
-                        <h3 class="text-center mb-4">¡Únete a Master Stock Colombia!</h3>
-                        <p class="lead text-center">
-                            Tanto si eres comprador en busca de oportunidades de overstock como si eres proveedor con exceso de inventario, somos tu mejor aliado para convertir tus oportunidades en éxito.
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Nuestros Servicios</h2>
+                </div>
+                <div class="action-boxes">
+                    <div class="action-box">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-cart-shopping fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h3>COMPRA LOTES EN DESCUENTO</h3>
+                        <p class="service-description">
+                            Te conectamos directamente con los mejores lotes de mercancía 100% nueva. Nuestro Inventario Proviene de:
+                            <br>✓ Excedentes de fábricas certificadas
+                            <br>✓ Cierres de temporada de grandes marcas
+                            <br>✓ Remanentes de distribuidores autorizados
                         </p>
                     </div>
-                    <!-- Columna derecha: formulario más amplio -->
-                    <div class="col-md-6">
-                        <form id="contactForm">
-                            <div class="row">
-                                <div class="col-md-12 mb-3">
-                                    <input class="form-control" id="name" type="text" placeholder="Tu Nombre *" required />
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <input class="form-control" id="email" type="email" placeholder="Tu Email *" required />
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <input class="form-control" id="phone" type="tel" placeholder="Tu Teléfono *" required />
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <textarea class="form-control" id="message" placeholder="Tu Mensaje *" required></textarea>
-                                </div>
-                                <div class="col-md-12 text-center mt-4">
-                                    <button class="btn btn-primary btn-xl text-uppercase" type="submit">Enviar Mensaje</button>
-                                </div>
-                            </div>
-                        </form>
+                    <div class="action-box">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-hand-holding-usd fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h3>LIBERA TU CAPITAL Y GANA ESPACIO EN TU BODEGA</h3>
+                        <p class="service-description">
+                            ¿Tienes mercancía nueva que no lograste vender? Te ayudamos a convertir ese inventario en liquidez:
+                            <br>✓ Excedentes de producción que ya no necesitas
+                            <br>✓ Cierres de temporada de tus colecciones
+                            <br>✓ Stock almacenado que ocupa espacio innecesario
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- ==================== SECCIÓN DE PROCESO ==================== -->
+        <section class="page-section" id="proceso">
+            <div class="container">
+                <div class="process-section">
+                    <h2 class="section-heading text-uppercase">Nuestro Proceso</h2>
+                    <div class="process-images">
+                        <div class="process-image-container">
+                            <img src="./images/pallets.png" alt="Proceso 1">
+                            <div class="process-label">Proceso 1</div>
+                        </div>
+                        <div class="process-image-container">
+                            <img src="./images/cajas.png" alt="Proceso 2">
+                            <div class="process-label">Proceso 2</div>
+                        </div>
+                        <div class="process-image-container">
+                            <img src="./images/sala-reuniones.jpg" alt="Proceso 3">
+                            <div class="process-label">Proceso 3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== QUIÉNES SOMOS ==================== -->
+        <section class="page-section" id="quienes-somos">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2 class="section-heading text-uppercase">Quiénes Somos</h2>
+                        <p>En Master Stock Colombia nos especializamos en ayudar a empresas a gestionar su exceso de inventario de manera inteligente y rentable. Somos el puente entre empresas que necesitan liberar espacio en sus almacenes y compradores que buscan productos de calidad a precios excepcionales.</p>
+                        <p>Nuestro equipo cuenta con más de 10 años de experiencia en el mercado textil y de accesorios, ofreciendo transparencia, confiabilidad y soluciones personalizadas para cada caso.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="./images/fundacion.jpg" alt="Equipo Master Stock Colombia">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== COMPRA/VENTA ==================== -->
+        <section class="page-section" id="vender">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Compra y Venta de Overstock</h2>
+                </div>
+                <div class="sell-section">
+                    <div class="sell-box">
+                        <h3>Para Proveedores</h3>
+                        <p>¿Tienes exceso de inventario que no logras vender? En Master Stock Colombia te ofrecemos una solución rápida y confidencial. Compramos tu mercancía excedente a precios competitivos, ayudándote a liberar espacio en tus almacenes y recuperar parte de tu inversión.</p>
+                        <p>Nuestro proceso es simple: evalúamos tu mercancía, te hacemos una oferta justa y cerramos el trato en el menor tiempo posible. Trabajamos con todo tipo de productos textiles y accesorios, nuevos y en excelente estado.</p>
+                    </div>
+                    <div class="sell-box">
+                        <h3>Para Minoristas</h3>
+                        <p>¿Buscas productos de calidad a precios excepcionales? Ofrecemos mercancía de primera calidad proveniente de inventarios excedentes de grandes marcas y fabricantes. Perfecto para minoristas que desean ampliar su oferta con productos competitivos.</p>
+                        <p>Trabajamos con lotes de diferentes tamaños, desde pequeñas cantidades hasta contenedores completos. Todos nuestros productos son nuevos y están en perfecto estado, con etiquetas originales y empaques intactos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CONTACTO ==================== -->
+        <section class="page-section" id="contacto">
+            <div class="container">
+                <h2 class="section-heading text-uppercase text-center">Contacto</h2>
+                <form id="contactForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input class="form-control" id="name" type="text" placeholder="Tu Nombre *" required />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" id="email" type="email" placeholder="Tu Email *" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input class="form-control" id="phone" type="tel" placeholder="Tu Teléfono *" required />
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" id="message" placeholder="Tu Mensaje *" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-xl text-uppercase" type="submit">Enviar Mensaje</button>
+                    </div>
+                </form>
+            </div>
+        </section>
     </main>
 
-    <!-- Footer -->
+    <!-- Footer-->
     <footer class="footer py-4">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12 text-center">
-                    <p class="mb-0">&copy; Master Stock Colombia 2025</p>
+                    <p class="mb-0">Copyright &copy; Master Stock Colombia 2025</p>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap core JS -->
+    <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
