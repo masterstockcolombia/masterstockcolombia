@@ -19,30 +19,60 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         .navbar-brand img {
-            height: 80px;
+            height: 100px;
+            transition: all 0.3s;
+        }
+        .navbar-brand img:hover {
+            transform: scale(1.05);
         }
         .navbar-nav {
             margin-left: auto;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .nav-item {
+            margin: 0 15px;
+        }
+        .nav-link {
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #007bff !important;
         }
         .masthead {
-            padding: 0; /* Eliminado el padding grande */
-            background: none; /* Eliminado el fondo gris */
+            padding: 0;
+            background: none;
+            height: auto;
         }
         .action-boxes {
             display: flex;
             justify-content: center;
             gap: 30px;
             margin: 40px 0;
-        } 
+        }
         .action-box {
             text-align: center;
             max-width: 300px;
+        }
+        .service-description {
+            margin-top: 20px;
+            text-align: center;
+            line-height: 1.6;
+        }
+        .process-section {
+            text-align: center;
+            margin-bottom: 50px;
         }
         .process-images {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin: 30px 0;
+        }
+        .process-image-container {
+            text-align: center;
         }
         .process-images img {
             width: 200px;
@@ -51,14 +81,20 @@
             border-radius: 8px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
+        .process-label {
+            margin-top: 10px;
+            font-weight: 500;
+        }
         .about-content {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             padding: 60px 0;
         }
         .about-text {
             flex: 1;
             padding-right: 30px;
+            text-align: justify;
+            line-height: 1.8;
         }
         .about-image {
             flex: 1;
@@ -70,23 +106,6 @@
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        .benefits-list {
-            list-style: none;
-            padding-left: 0;
-        }
-        .benefits-list li {
-            margin-bottom: 10px;
-            padding-left: 25px;
-            position: relative;
-        }
-        .benefits-list li:before {
-            content: "\f00c";
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            color: #007bff;
-            position: absolute;
-            left: 0;
-        }
         .sell-section {
             display: flex;
             gap: 30px;
@@ -94,13 +113,38 @@
         }
         .sell-box {
             flex: 1;
-            padding: 20px;
+            padding: 30px;
             background-color: #f8f9fa;
             border-radius: 8px;
         }
         .sell-box h3 {
             color: #007bff;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .contact-form .form-control {
+            padding: 15px;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        .contact-form textarea {
+            min-height: 200px;
+        }
+        @media (max-width: 768px) {
+            .navbar-nav {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+            .about-content, .sell-section, .process-images {
+                flex-direction: column;
+            }
+            .about-text {
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+            .process-image-container, .sell-box {
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
@@ -114,25 +158,19 @@
                 </div>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars ms-1"></i>
+                <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav text-uppercase py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#servicios">Nuestros servicios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#quienes-somos">Quiénes somos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#proceso">Nuestro proceso</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#vender">Vende tu overstock</a></li>
+                <ul class="navbar-nav text-uppercase">
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#quienes-somos">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proceso">Proceso</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#vender">Compra/Venta</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-
-    <!-- Masthead/Header -->
-    <header class="masthead">
-        <!-- Sección vacía sin fondo gris -->
-    </header>
 
     <main>
         <!-- ==================== SECCIÓN DE SERVICIOS ==================== -->
@@ -148,6 +186,9 @@
                             <i class="fas fa-tags fa-stack-1x fa-inverse"></i>
                         </span>
                         <h3>OFERTAS DE OVERSTOCK</h3>
+                        <p class="service-description">
+                            Conectamos a minoristas con las mejores oportunidades del mercado. Obtén productos nuevos y en excelente estado por debajo del precio normal directamente de inventarios excedentes.
+                        </p>
                     </div>
                     <div class="action-box">
                         <span class="fa-stack fa-4x">
@@ -155,6 +196,9 @@
                             <i class="fas fa-handshake fa-stack-1x fa-inverse"></i>
                         </span>
                         <h3>VENDE TU OVERSTOCK</h3>
+                        <p class="service-description">
+                            ¿Tienes mercancía que no logras vender? Ofrecemos una solución rápida y confidencial para tu exceso de inventario. Compramos tus productos a precios competitivos.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -163,13 +207,22 @@
         <!-- ==================== SECCIÓN DE PROCESO ==================== -->
         <section class="page-section" id="proceso">
             <div class="container">
-                <div class="text-center">
+                <div class="process-section">
                     <h2 class="section-heading text-uppercase">Nuestro Proceso</h2>
-                </div>
-                <div class="process-images">
-                    <img src="./images/pallets.png" alt="Proceso 1">
-                    <img src="./images/cajas.png" alt="Proceso 2">
-                    <img src="./images/sala-reuniones.jpg" alt="Proceso 3">
+                    <div class="process-images">
+                        <div class="process-image-container">
+                            <img src="./images/pallets.png" alt="Proceso 1">
+                            <div class="process-label">Proceso 1</div>
+                        </div>
+                        <div class="process-image-container">
+                            <img src="./images/cajas.png" alt="Proceso 2">
+                            <div class="process-label">Proceso 2</div>
+                        </div>
+                        <div class="process-image-container">
+                            <img src="./images/sala-reuniones.jpg" alt="Proceso 3">
+                            <div class="process-label">Proceso 3</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -180,14 +233,8 @@
                 <div class="about-content">
                     <div class="about-text">
                         <h2 class="section-heading text-uppercase">Quiénes Somos</h2>
-                        <p class="lead">Expertos en soluciones de inventario para tu negocio</p>
                         <p>En Master Stock Colombia nos especializamos en ayudar a empresas a gestionar su exceso de inventario de manera inteligente y rentable. Somos el puente entre empresas que necesitan liberar espacio en sus almacenes y compradores que buscan productos de calidad a precios excepcionales.</p>
                         <p>Nuestro equipo cuenta con más de 10 años de experiencia en el mercado textil y de accesorios, ofreciendo transparencia, confiabilidad y soluciones personalizadas para cada caso.</p>
-                        <ul class="benefits-list">
-                            <li>Compramos tu exceso de inventario</li>
-                            <li>Precios competitivos en el mercado</li>
-                            <li>Proceso rápido y confidencial</li>
-                        </ul>
                     </div>
                     <div class="about-image">
                         <img src="./images/fundacion.jpg" alt="Equipo Master Stock Colombia">
@@ -196,11 +243,11 @@
             </div>
         </section>
 
-        <!-- ==================== VENDE TU OVERSTOCK ==================== -->
+        <!-- ==================== COMPRA/VENTA ==================== -->
         <section class="page-section" id="vender">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Vende tu Overstock</h2>
+                    <h2 class="section-heading text-uppercase">Compra y Venta de Overstock</h2>
                 </div>
                 <div class="sell-section">
                     <div class="sell-box">
@@ -220,26 +267,23 @@
         <!-- ==================== CONTACTO ==================== -->
         <section class="page-section" id="contacto">
             <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Contacto</h2>
-                    <p class="section-subheading">Completa el formulario y nos pondremos en contacto contigo</p>
-                </div>
+                <h2 class="section-heading text-uppercase text-center">Contacto</h2>
                 <form id="contactForm">
-                    <div class="row align-items-stretch mb-5">
+                    <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group mb-4">
+                            <div class="form-group">
                                 <input class="form-control" id="name" type="text" placeholder="Tu Nombre *" required />
                             </div>
-                            <div class="form-group mb-4">
+                            <div class="form-group">
                                 <input class="form-control" id="email" type="email" placeholder="Tu Email *" required />
-                            </div>
-                            <div class="form-group mb-md-0">
-                                <input class="form-control" id="phone" type="tel" placeholder="Tu Teléfono *" required />
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group form-group-textarea mb-md-0">
-                                <textarea class="form-control" id="message" placeholder="Tu Mensaje *" rows="6" required></textarea>
+                            <div class="form-group">
+                                <input class="form-control" id="phone" type="tel" placeholder="Tu Teléfono *" required />
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" id="message" placeholder="Tu Mensaje *" required></textarea>
                             </div>
                         </div>
                     </div>
@@ -264,7 +308,5 @@
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
 </body>
 </html>
