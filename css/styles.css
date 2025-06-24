@@ -3,13 +3,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
     background-color: #f8f9fa;
     color: #333;
-    line-height: 1.6;
 }
 
 /* Encabezado */
@@ -22,42 +21,39 @@ header {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.logo {
+.logo-container {
     display: flex;
-    align-items: baseline;
+    flex-direction: column;
+    line-height: 1;
 }
 
-.logo-part1 {
-    font-size: 24px;
+.logo-line1 {
+    font-size: 28px;
     font-weight: 700;
     color: #2c3e50;
 }
 
-.logo-part2 {
-    font-size: 24px;
+.logo-line2 {
+    font-size: 28px;
     font-weight: 700;
     color: #3498db;
-    margin-left: 5px;
+    margin-top: -5px;
 }
 
-.logo-part3 {
-    font-size: 16px;
+.logo-line3 {
+    font-size: 14px;
     font-weight: 400;
     color: #7f8c8d;
-    margin-left: 5px;
-    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: -3px;
 }
 
-nav ul {
+.main-nav {
     display: flex;
-    list-style: none;
+    gap: 30px;
 }
 
-nav ul li {
-    margin-left: 30px;
-}
-
-nav ul li a {
+.main-nav a {
     text-decoration: none;
     color: #2c3e50;
     font-weight: 600;
@@ -66,18 +62,21 @@ nav ul li a {
     transition: color 0.3s;
 }
 
-nav ul li a:hover {
+.main-nav a:hover {
     color: #3498db;
 }
 
-/* Sección principal */
-.hero-section {
+/* Contenido principal */
+.content {
+    padding: 50px 5%;
+}
+
+.offer-section {
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 80px 5%;
     gap: 40px;
     flex-wrap: wrap;
+    margin-top: 30px;
 }
 
 .offer-card {
@@ -92,11 +91,11 @@ nav ul li a:hover {
 }
 
 .offer-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
 }
 
 .offer-card h2 {
-    font-size: 28px;
+    font-size: 24px;
     margin-bottom: 15px;
     color: #2c3e50;
 }
@@ -116,30 +115,27 @@ nav ul li a:hover {
     text-decoration: none;
     border-radius: 4px;
     font-weight: 600;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
 }
 
 .action-button:hover {
     background-color: #2980b9;
+    box-shadow: 0 5px 15px rgba(41, 128, 185, 0.3);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
-        padding: 20px;
+        align-items: flex-start;
     }
     
-    .logo {
-        margin-bottom: 15px;
-    }
-    
-    nav ul li {
-        margin-left: 15px;
+    .main-nav {
+        margin-top: 20px;
+        gap: 15px;
     }
     
     .offer-card {
         width: 100%;
-        min-width: auto;
     }
 }
