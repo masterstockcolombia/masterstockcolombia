@@ -14,7 +14,7 @@ header {
 }
 
 .logo img {
-    height: 70px;
+    height: 70px; /* Logo más grande */
 }
 
 nav ul {
@@ -40,11 +40,16 @@ nav a {
     font-weight: bold;
 }
 
+/* Main content controlado */
 main {
     padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
     text-align: center;
+    max-width: 1200px; /* ancho controlado */
+    margin: 0 auto;
+}
+
+.ofertas, .vende {
+    margin: 2rem 0;
 }
 
 button {
@@ -59,9 +64,9 @@ button {
 
 /* ==================== NUEVA SECCIÓN OVERSTOCK ACTIONS ==================== */
 .overstock-actions {
+    position: relative;
     padding: 60px 0;
     background: url('./images/background.png') center center / cover no-repeat;
-    position: relative;
 }
 
 .overstock-actions::before {
@@ -71,7 +76,7 @@ button {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.7); /* capa blanca semi-transparente */
+    background: rgba(52, 152, 219, 0.3); /* capa azul transparente */
     z-index: 0;
 }
 
@@ -88,12 +93,10 @@ button {
     justify-content: center;
     gap: 40px;
     flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 .action-box {
-    background: #fff;
+    background: white;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     padding: 40px;
@@ -101,8 +104,8 @@ button {
     max-width: 500px;
     text-align: center;
     transition: transform 0.3s ease;
-    position: relative;
     z-index: 1;
+    position: relative;
 }
 
 .action-box:hover {
@@ -142,16 +145,16 @@ button {
 /* ==================== SECCIÓN DE IMÁGENES DE PRODUCTOS ==================== */
 .imagenes-productos {
     display: flex;
-    justify-content: center;
-    gap: 3rem;
+    justify-content: space-between;
+    gap: 2rem;
     padding: 0 2rem;
     margin-top: 2rem;
     flex-wrap: wrap;
 }
 
 .imagenes-productos img {
-    flex: 1 1 250px;
-    max-width: 350px;
+    flex: 1;
+    max-width: 100%;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     height: auto;
@@ -166,18 +169,24 @@ footer {
     color: #777;
 }
 
-/* ==================== RESPONSIVE ==================== */
+/* Responsive */
 @media (max-width: 768px) {
+    main {
+        padding: 1rem;
+    }
+
     .action-boxes {
         flex-direction: column;
         padding: 0 1rem;
     }
-    .action-box {
-        max-width: 100%;
-    }
+
     .imagenes-productos {
         flex-direction: column;
         gap: 2rem;
         padding: 0 1rem;
+    }
+
+    .action-box {
+        max-width: 100%;
     }
 }
