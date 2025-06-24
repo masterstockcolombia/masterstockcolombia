@@ -7,7 +7,7 @@
     <meta name="author" content="Master Stock Colombia">
     <title>Master Stock Colombia</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./images/fundacion.jpg">
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
@@ -17,6 +17,70 @@
     <link href="css/styles.css" rel="stylesheet">
     <!-- Tu CSS personalizado -->
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .navbar-brand img {
+            height: 80px;
+        }
+        .navbar-nav {
+            margin-left: auto;
+        }
+        .masthead {
+            padding: 15rem 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./images/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .action-boxes {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .action-box {
+            text-align: center;
+            max-width: 300px;
+        }
+        .portfolio-item {
+            margin-bottom: 30px;
+            transition: transform 0.3s;
+        }
+        .portfolio-item:hover {
+            transform: scale(1.03);
+        }
+        .about-content {
+            display: flex;
+            align-items: center;
+            padding: 60px 0;
+        }
+        .about-text {
+            flex: 1;
+            padding-right: 30px;
+        }
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .cta-section {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cta-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body id="page-top">
     <!-- Navigation-->
@@ -27,11 +91,15 @@
                     <img src="./images/logo.png" alt="Master Stock Colombia">
                 </div>
             </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav mx-auto py-4 py-lg-0">
+                <ul class="navbar-nav text-uppercase py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link" href="#servicios">Nuestros servicios</a></li>
                     <li class="nav-item"><a class="nav-link" href="#quienes-somos">Quiénes somos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#ofertas">Ofertas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#galeria">Galería</a></li>
                     <li class="nav-item"><a class="nav-link" href="#vender">Vende tu overstock</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                 </ul>
@@ -41,20 +109,15 @@
 
     <!-- Masthead/Header -->
     <header class="masthead">
-        <div class="container">
-            <div class="masthead-subheading">Bienvenido a Master Stock Colombia</div>
-            <div class="masthead-heading text-uppercase">Soluciones inteligentes para tu inventario</div>
-            <a class="btn btn-primary btn-xl text-uppercase" href="#servicios">Conoce más</a>
-        </div>
+        <!-- Header vacío como solicitaste -->
     </header>
 
     <main>
-        <!-- ==================== SECCIÓN DE OVERSTOCK ==================== -->
+        <!-- Sección de Servicios -->
         <section class="overstock-actions" id="servicios">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Nuestros Servicios</h2>
-                    <h3 class="section-subheading text-muted">Optimiza tu inventario con nuestras estrategias</h3>
                 </div>
                 <div class="action-boxes">
                     <div class="action-box">
@@ -63,8 +126,6 @@
                             <i class="fas fa-tags fa-stack-1x fa-inverse"></i>
                         </span>
                         <h3>OFERTAS DE OVERSTOCK</h3>
-                        <p class="text-muted">Oportunidades exclusivas en ropa y accesorios de calidad</p>
-                        <a href="#ofertas" class="action-btn">Ver ofertas</a>
                     </div>
                     <div class="action-box">
                         <span class="fa-stack fa-4x">
@@ -72,229 +133,109 @@
                             <i class="fas fa-handshake fa-stack-1x fa-inverse"></i>
                         </span>
                         <h3>VENDE TU OVERSTOCK</h3>
-                        <p class="text-muted">Asóciate con nosotros para mover inventario</p>
-                        <a href="#vender" class="action-btn">Conviértete en proveedor</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Portfolio Grid-->
-        <section class="page-section bg-light" id="ofertas">
+        <!-- Galería de Imágenes -->
+        <section class="page-section" id="galeria">
             <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Ofertas</h2>
-                    <h3 class="section-subheading text-muted">Productos de calidad a precios excepcionales</h3>
-                </div>
                 <div class="row">
                     <div class="col-lg-4 col-sm-6 mb-4">
                         <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="./images/pallets.png" alt="Pallets de ropa" />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Ropa por pallets</div>
-                                <div class="portfolio-caption-subheading text-muted">Variedad de prendas</div>
-                            </div>
+                            <img class="img-fluid" src="./images/pallets.png" alt="Pallets de ropa" />
                         </div>
                     </div>
                     <div class="col-lg-4 col-sm-6 mb-4">
                         <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal2">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="./images/cajas.png" alt="Cajas de inventario" />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Accesorios</div>
-                                <div class="portfolio-caption-subheading text-muted">Variedad de estilos</div>
-                            </div>
+                            <img class="img-fluid" src="./images/cajas.png" alt="Cajas de inventario" />
                         </div>
                     </div>
                     <div class="col-lg-4 col-sm-6 mb-4">
                         <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal3">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                <img class="img-fluid" src="./images/sala-reuniones.jpg" alt="Asesoría personalizada" />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Asesoría</div>
-                                <div class="portfolio-caption-subheading text-muted">Soluciones a medida</div>
-                            </div>
+                            <img class="img-fluid" src="./images/sala-reuniones.jpg" alt="Productos varios" />
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- About-->
+        <!-- Quiénes Somos -->
         <section class="page-section" id="quienes-somos">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
+                <div class="about-content">
+                    <div class="about-text">
                         <h2 class="section-heading text-uppercase">Quiénes Somos</h2>
-                        <h3 class="section-subheading">Especialistas en soluciones de inventario</h3>
-                        <p>Master Stock Colombia nació con el propósito de ayudar a pequeñas y medianas empresas a liberar su overstock y optimizar sus inventarios. Somos expertos en conectar a empresas con exceso de inventario con compradores interesados en productos de calidad a precios competitivos.</p>
-                        <p>Nuestra misión es facilitar el flujo de mercancía en el mercado colombiano, ofreciendo soluciones personalizadas que beneficien tanto a vendedores como a compradores. Con años de experiencia en el sector, hemos desarrollado un modelo de negocio que maximiza el valor para todas las partes involucradas.</p>
+                        <p class="lead">Expertos en soluciones de inventario para tu negocio</p>
+                        <p>En Master Stock Colombia nos especializamos en ayudar a empresas a gestionar su exceso de inventario de manera inteligente y rentable. Somos el puente entre empresas que necesitan liberar espacio en sus almacenes y compradores que buscan productos de calidad a precios excepcionales.</p>
+                        <p>Nuestro equipo cuenta con más de 10 años de experiencia en el mercado textil y de accesorios, ofreciendo transparencia, confiabilidad y soluciones personalizadas para cada caso.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-primary me-2"></i> Compramos tu exceso de inventario</li>
+                            <li><i class="fas fa-check text-primary me-2"></i> Precios competitivos en el mercado</li>
+                            <li><i class="fas fa-check text-primary me-2"></i> Proceso rápido y confidencial</li>
+                        </ul>
                     </div>
-                    <div class="col-lg-6">
-                        <img class="img-fluid" src="./images/fundacion.jpg" alt="Fundación Master Stock Colombia">
+                    <div class="about-image">
+                        <img src="./images/fundacion.jpg" alt="Equipo Master Stock Colombia">
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact-->
+        <!-- Vende tu overstock -->
+        <section class="page-section bg-light" id="vender">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Vende tu Overstock</h2>
+                    <p class="lead">¿Tienes mercancía que no logras vender? Nosotros te la compramos</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección CTA -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h3 class="mb-4">¿Buscas prendas de primera calidad a precios excepcionales?</h3>
+                    <p class="mb-5">En Master Stock Colombia conectamos a minoristas y mayoristas con las mejores oportunidades del mercado. Obtén productos nuevos y en excelente estado por debajo del precio normal directamente de inventarios excedentes.</p>
+                    <a href="#contacto" class="btn btn-primary btn-lg cta-btn">Contáctanos ahora</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto -->
         <section class="page-section" id="contacto">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Contáctanos</h2>
-                    <h3 class="section-subheading text-muted">Estamos listos para ayudarte con tus necesidades de inventario.</h3>
+                    <h2 class="section-heading text-uppercase">Contacto</h2>
+                    <p class="section-subheading">Completa el formulario y nos pondremos en contacto contigo</p>
                 </div>
-                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                <form id="contactForm">
                     <div class="row align-items-stretch mb-5">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <input class="form-control" id="name" type="text" placeholder="Tu Nombre *" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="name:required">Se requiere un nombre.</div>
+                            <div class="form-group mb-4">
+                                <input class="form-control" id="name" type="text" placeholder="Tu Nombre *" required />
                             </div>
-                            <div class="form-group">
-                                <input class="form-control" id="email" type="email" placeholder="Tu Email *" data-sb-validations="required,email" />
-                                <div class="invalid-feedback" data-sb-feedback="email:required">Se requiere un email.</div>
-                                <div class="invalid-feedback" data-sb-feedback="email:email">Email no válido.</div>
+                            <div class="form-group mb-4">
+                                <input class="form-control" id="email" type="email" placeholder="Tu Email *" required />
                             </div>
                             <div class="form-group mb-md-0">
-                                <input class="form-control" id="phone" type="tel" placeholder="Tu Teléfono *" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">Se requiere un teléfono.</div>
+                                <input class="form-control" id="phone" type="tel" placeholder="Tu Teléfono *" required />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-group-textarea mb-md-0">
-                                <textarea class="form-control" id="message" placeholder="Tu Mensaje *" data-sb-validations="required"></textarea>
-                                <div class="invalid-feedback" data-sb-feedback="message:required">Se requiere un mensaje.</div>
+                                <textarea class="form-control" id="message" placeholder="Tu Mensaje *" rows="6" required></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="d-none" id="submitSuccessMessage">
-                        <div class="text-center text-white mb-3">
-                            <div class="fw-bolder">¡Formulario enviado con éxito!</div>
-                            Nos pondremos en contacto contigo pronto.
-                        </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-xl text-uppercase" type="submit">Enviar Mensaje</button>
                     </div>
-                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">Enviar Mensaje</button></div>
                 </form>
             </div>
         </section>
-
-        <!-- Portfolio Modals-->
-        <!-- Portfolio item 1 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <h2 class="text-uppercase">Ropa por pallets</h2>
-                                    <p class="item-intro text-muted">Variedad de prendas a precios excepcionales.</p>
-                                    <img class="img-fluid d-block mx-auto" src="./images/pallets.png" alt="Pallets de ropa" />
-                                    <p>Ofrecemos pallets completos de ropa de diversas categorías y tallas. Productos nuevos y en excelente estado, perfectos para minoristas o mayoristas. Contamos con inventario constante y disponibilidad inmediata.</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Categorías:</strong>
-                                            Casual, deportiva, formal
-                                        </li>
-                                        <li>
-                                            <strong>Disponibilidad:</strong>
-                                            Inmediata
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Cerrar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 2 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <h2 class="text-uppercase">Accesorios</h2>
-                                    <p class="item-intro text-muted">Complementos para completar tu oferta.</p>
-                                    <img class="img-fluid d-block mx-auto" src="./images/cajas.png" alt="Accesorios" />
-                                    <p>Selección de accesorios de moda incluyendo bolsos, cinturones, joyería y más. Productos de marcas reconocidas a precios de liquidación. Ideal para ampliar tu inventario con artículos complementarios.</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Categorías:</strong>
-                                            Bolsos, joyería, cinturones
-                                        </li>
-                                        <li>
-                                            <strong>Condición:</strong>
-                                            Nuevo y sobrestock
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Cerrar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 3 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <h2 class="text-uppercase">Asesoría Personalizada</h2>
-                                    <p class="item-intro text-muted">Soluciones a medida para tu negocio.</p>
-                                    <img class="img-fluid d-block mx-auto" src="./images/sala-reuniones.jpg" alt="Asesoría" />
-                                    <p>Nuestro equipo de expertos te ofrece asesoramiento personalizado para manejar tu inventario excedente o para encontrar las mejores oportunidades de compra. Analizamos tu caso y te proponemos la solución más adecuada a tus necesidades.</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Servicios:</strong>
-                                            Análisis de inventario, estrategias de venta
-                                        </li>
-                                        <li>
-                                            <strong>Enfoque:</strong>
-                                            Personalizado y confidencial
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Cerrar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
 
     <!-- Footer-->
@@ -312,7 +253,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
-    <!-- SB Forms JS-->
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 </html>
