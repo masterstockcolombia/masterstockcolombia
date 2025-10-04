@@ -66,45 +66,6 @@
             padding: 0;
         }
 
-        .top-info-bar {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 8px 0;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .top-info-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-
-        .top-info-contact {
-            display: flex;
-            gap: 20px;
-        }
-
-        .top-info-contact span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .top-info-contact a {
-            color: white;
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 14px;
-        }
-
-        .top-info-contact a:hover {
-            color: var(--accent-color);
-        }
-
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -190,13 +151,13 @@
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 2.5rem; /* Reducido de 3rem */
             margin-bottom: 1.5rem;
             font-weight: 700;
         }
 
         .hero p {
-            font-size: 1.25rem;
+            font-size: 1.1rem; /* Reducido de 1.25rem */
             max-width: 700px;
             margin: 0 auto 2rem;
             opacity: 0.9;
@@ -214,7 +175,7 @@
         }
 
         .section-title h2 {
-            font-size: 2.25rem;
+            font-size: 1.8rem; /* Reducido de 2.25rem */
             color: var(--secondary-color);
             margin-bottom: 1rem;
             font-weight: 700;
@@ -235,7 +196,7 @@
 
         .section-subtitle {
             color: var(--text-light);
-            font-size: 1.1rem;
+            font-size: 1rem; /* Reducido de 1.1rem */
             margin-bottom: 50px;
             max-width: 700px;
             margin-left: auto;
@@ -264,8 +225,8 @@
         }
 
         .service-icon {
-            width: 80px;
-            height: 80px;
+            width: 70px; /* Reducido de 80px */
+            height: 70px; /* Reducido de 80px */
             background-color: var(--light-color);
             border-radius: 50%;
             display: flex;
@@ -273,12 +234,12 @@
             justify-content: center;
             margin: 0 auto 1.5rem;
             color: var(--primary-color);
-            font-size: 2rem;
+            font-size: 1.7rem; /* Reducido de 2rem */
         }
 
         .service-card h3 {
             margin-bottom: 1rem;
-            font-size: 1.5rem;
+            font-size: 1.3rem; /* Reducido de 1.5rem */
             color: var(--secondary-color);
             text-align: center;
         }
@@ -336,8 +297,8 @@
         }
 
         .process-icon {
-            width: 80px;
-            height: 80px;
+            width: 70px; /* Reducido de 80px */
+            height: 70px; /* Reducido de 80px */
             background-color: var(--light-color);
             border-radius: 50%;
             display: flex;
@@ -345,7 +306,7 @@
             justify-content: center;
             margin: 0 auto 1.5rem;
             color: var(--primary-color);
-            font-size: 2rem;
+            font-size: 1.7rem; /* Reducido de 2rem */
             position: relative;
         }
 
@@ -367,7 +328,7 @@
 
         .process-card h3 {
             margin-bottom: 1rem;
-            font-size: 1.25rem;
+            font-size: 1.2rem; /* Reducido de 1.25rem */
             color: var(--secondary-color);
         }
 
@@ -390,7 +351,7 @@
         }
 
         .about-text h2 {
-            font-size: 2.25rem;
+            font-size: 1.8rem; /* Reducido de 2.25rem */
             color: var(--secondary-color);
             margin-bottom: 1.5rem;
             position: relative;
@@ -477,7 +438,7 @@
         .buy-sell-card h3 {
             color: var(--secondary-color);
             margin-bottom: 1.5rem;
-            font-size: 1.5rem;
+            font-size: 1.3rem; /* Reducido de 1.5rem */
         }
 
         .buy-sell-card p {
@@ -585,7 +546,7 @@
 
         .footer-column h3 {
             margin-bottom: 1.5rem;
-            font-size: 1.25rem;
+            font-size: 1.1rem; /* Reducido de 1.25rem */
         }
 
         .footer-links {
@@ -611,6 +572,46 @@
             padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Barra de información movida al final */
+        .info-bar {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 15px 0;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .info-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .info-contact {
+            display: flex;
+            gap: 20px;
+        }
+
+        .info-contact span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .info-contact a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .info-contact a:hover {
+            color: var(--accent-color);
         }
 
         /* Efectos y animaciones */
@@ -663,14 +664,14 @@
             }
             
             .section-title h2 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
             
             .process-grid {
                 grid-template-columns: 1fr;
             }
             
-            .top-info-contact {
+            .info-contact {
                 flex-direction: column;
                 gap: 10px;
                 align-items: flex-start;
@@ -697,21 +698,21 @@
             .footer-content {
                 grid-template-columns: 1fr;
             }
+            
+            .info-container {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .info-contact {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body id="page-top">
-    <!-- ==================== TOP INFO BAR ==================== -->
-    <div class="top-info-bar">
-        <div class="top-info-container">
-            <div class="top-info-contact">
-                <span><i class="fas fa-envelope"></i> negocios@masterstockcolombia.com</span>
-                <span><i class="fab fa-whatsapp"></i> <a href="https://wa.me/573203151105" target="_blank">(+57) 3203176460</a></span>
-                <span><i class="fab fa-whatsapp"></i> <a href="https://wa.me/573125605545" target="_blank">(+57) 3125605545</a></span>
-            </div>
-        </div>
-    </div>
-
     <!-- ==================== HEADER ==================== -->
     <header>
         <div class="navbar">
@@ -904,6 +905,17 @@
             </div>
         </section>
     </main>
+
+    <!-- Barra de información movida al final -->
+    <div class="info-bar">
+        <div class="info-container">
+            <div class="info-contact">
+                <span><i class="fas fa-envelope"></i> negocios@masterstockcolombia.com</span>
+                <span><i class="fab fa-whatsapp"></i> <a href="https://wa.me/573203151105" target="_blank">(+57) 3203176460</a></span>
+                <span><i class="fab fa-whatsapp"></i> <a href="https://wa.me/573125605545" target="_blank">(+57) 3125605545</a></span>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer-->
     <footer>
