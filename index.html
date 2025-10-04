@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MasterStock Colombia - Transformamos Inventario en Oportunidades</title>
+    <meta name="description" content="Conectamos empresas con inventario estancado con compradores que buscan oportunidades únicas. Libera capital, optimiza tu espacio y dale una segunda vida a tus productos.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(0, 169, 198, 0.1) 0%, rgba(255, 255, 255, 1) 100%);
+        }
+        .stats-bg {
+            background: #1A2E40;
+        }
+        .primary-color {
+            color: #00A9C6;
+        }
+        .primary-bg {
+            background-color: #00A9C6;
+        }
+        .primary-bg:hover {
+            background-color: #008BA3;
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="smooth-scroll">
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white bg-opacity-95 backdrop-blur-sm border-b border-gray-200 z-50">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <img src="logo.png" alt="MasterStock Colombia" class="h-10 w-auto">
+            </div>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#compradores" class="text-gray-700 hover:text-blue-600 transition-colors">Compradores</a>
+                <a href="#vendedores" class="text-gray-700 hover:text-blue-600 transition-colors">Vendedores</a>
+                <a href="#proceso" class="text-gray-700 hover:text-blue-600 transition-colors">Proceso</a>
+                <a href="#nosotros" class="text-gray-700 hover:text-blue-600 transition-colors">Nosotros</a>
+                <a href="#contacto" class="text-gray-700 hover:text-blue-600 transition-colors">Contacto</a>
+            </nav>
+            <button class="primary-bg hover:primary-bg text-white px-6 py-2 rounded-lg transition-colors">
+                Vender Inventario
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 hero-bg">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                    Transforma tu Exceso de Inventario en 
+                    <span class="primary-color">Liquidez Inmediata</span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                    Conectamos empresas con inventario estancado con compradores que buscan oportunidades únicas. 
+                    Libera capital, optimiza tu espacio y dale una segunda vida a tus productos.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="primary-bg hover:primary-bg text-white px-8 py-4 text-lg rounded-lg transition-colors">
+                        <i class="fas fa-box mr-2"></i>
+                        Quiero Vender Mi Inventario
+                    </button>
+                    <button class="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-4 text-lg rounded-lg transition-colors">
+                        <i class="fas fa-search mr-2"></i>
+                        Buscar Lotes con Descuento
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 stats-bg text-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold primary-color mb-2">500+</div>
+                    <div class="text-gray-300">Clientes Satisfechos</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold primary-color mb-2">$50M+</div>
+                    <div class="text-gray-300">Inventario Liquidado</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold primary-color mb-2">1M+</div>
+                    <div class="text-gray-300">Productos Vendidos</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold primary-color mb-2">48h</div>
+                    <div class="text-gray-300">Tiempo Promedio de Respuesta</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Para Compradores -->
+    <section id="compradores" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block">Para Compradores</span>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                        Oportunidades Únicas para Compradores Inteligentes
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Accede a lotes de mercancía 100% nueva de marcas reconocidas con descuentos que no encontrarás en otro lugar. 
+                        Ideal para minoristas, outlets y emprendedores que buscan maximizar su rentabilidad.
+                    </p>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-check-circle text-green-500 text-xl mt-1"></i>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Precios Excepcionales</h3>
+                                <p class="text-gray-600">Compra por debajo del costo de distribución</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-check-circle text-green-500 text-xl mt-1"></i>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Calidad Garantizada</h3>
+                                <p class="text-gray-600">Productos nuevos y en perfecto estado</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-check-circle text-green-500 text-xl mt-1"></i>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Variedad de Categorías</h3>
+                                <p class="text-gray-600">Desde moda y tecnología hasta hogar y más</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="primary-bg hover:primary-bg text-white px-6 py-3 rounded-lg transition-colors">
+                        Ver Inventario Disponible
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                <div class="relative">
+                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-blue-50 rounded-lg p-4 text-center">
+                                <i class="fas fa-chart-line text-blue-600 text-2xl mb-2"></i>
+                                <div class="font-semibold">Hasta 70% OFF</div>
+                                <div class="text-sm text-gray-600">En marcas premium</div>
+                            </div>
+                            <div class="bg-green-50 rounded-lg p-4 text-center">
+                                <i class="fas fa-shield-alt text-green-600 text-2xl mb-2"></i>
+                                <div class="font-semibold">100% Garantía</div>
+                                <div class="text-sm text-gray-600">Productos verificados</div>
+                            </div>
+                            <div class="bg-purple-50 rounded-lg p-4 text-center">
+                                <i class="fas fa-warehouse text-purple-600 text-2xl mb-2"></i>
+                                <div class="font-semibold">Lotes Variados</div>
+                                <div class="text-sm text-gray-600">Desde pequeños a grandes</div>
+                            </div>
+                            <div class="bg-yellow-50 rounded-lg p-4 text-center">
+                                <i class="fas fa-bolt text-yellow-600 text-2xl mb-2"></i>
+                                <div class="font-semibold">Entrega Rápida</div>
+                                <div class="text-sm text-gray-600">Logística eficiente</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Para Vendedores -->
+    <section id="vendedores" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="relative order-2 lg:order-1">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-25 rounded-2xl p-8">
+                        <div class="grid grid-cols-1 gap-6">
+                            <div class="bg-white rounded-lg p-6 shadow-lg">
+                                <i class="fas fa-dollar-sign text-green-600 text-3xl mb-4"></i>
+                                <h3 class="font-semibold text-lg mb-2">Liquidez Inmediata</h3>
+                                <p class="text-gray-600">Convierte tu stock en dinero rápidamente</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-6 shadow-lg">
+                                <i class="fas fa-box text-blue-600 text-3xl mb-4"></i>
+                                <h3 class="font-semibold text-lg mb-2">Liberación de Espacio</h3>
+                                <p class="text-gray-600">Optimiza tu almacén para nueva mercancía</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-6 shadow-lg">
+                                <i class="fas fa-shield-alt text-purple-600 text-3xl mb-4"></i>
+                                <h3 class="font-semibold text-lg mb-2">Proceso Discreto</h3>
+                                <p class="text-gray-600">Protegemos tu marca y tus canales de venta</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block">Para Vendedores</span>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                        Libera tu Capital y Almacén. ¡Te lo Compramos!
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        ¿Tienes exceso de producción, cierres de temporada o inventario que no rota? Te ofrecemos una solución 
+                        rápida, confidencial y rentable. Evaluamos tu mercancía y te hacemos una oferta justa en tiempo récord.
+                    </p>
+                    <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition-colors">
+                        Solicitar Evaluación Gratuita
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso -->
+    <section id="proceso" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                    Nuestro Proceso: Simple, Rápido y Transparente
+                </h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    En solo 4 pasos convertimos tu inventario estancado en una oportunidad de negocio
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center card-hover">
+                    <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-search text-blue-600 text-2xl"></i>
+                    </div>
+                    <div class="primary-bg text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-4 text-sm font-bold">1</div>
+                    <h3 class="font-semibold text-lg mb-2">Contacto y Evaluación</h3>
+                    <p class="text-gray-600">Nos envías los detalles de tu inventario y nuestro equipo lo evalúa</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center card-hover">
+                    <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-bullseye text-green-600 text-2xl"></i>
+                    </div>
+                    <div class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-4 text-sm font-bold">2</div>
+                    <h3 class="font-semibold text-lg mb-2">Oferta Justa</h3>
+                    <p class="text-gray-600">Te presentamos una oferta competitiva basada en el mercado</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center card-hover">
+                    <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-dollar-sign text-blue-600 text-2xl"></i>
+                    </div>
+                    <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-4 text-sm font-bold">3</div>
+                    <h3 class="font-semibold text-lg mb-2">Recogida y Pago</h3>
+                    <p class="text-gray-600">Coordinamos la logística y recibes tu pago de forma segura</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center card-hover">
+                    <div class="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-handshake text-purple-600 text-2xl"></i>
+                    </div>
+                    <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-4 text-sm font-bold">4</div>
+                    <h3 class="font-semibold text-lg mb-2">Redistribución</h3>
+                    <p class="text-gray-600">Conectamos tu producto con nuestra red de compradores verificados</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Lo que Dicen Nuestros Clientes</h2>
+                <p class="text-lg text-gray-600">Historias reales de éxito con MasterStock Colombia</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        "MasterStock nos ayudó a liquidar $2M en inventario estancado en solo 3 semanas. 
+                        Su proceso es transparente y profesional."
+                    </p>
+                    <div class="border-t pt-4">
+                        <div class="font-semibold">Carlos Mendoza</div>
+                        <div class="text-sm text-gray-500">Gerente de Operaciones, TextilCorp</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        "Como comprador, he encontrado productos increíbles a precios que no creía posibles. 
+                        Mi margen de ganancia se triplicó."
+                    </p>
+                    <div class="border-t pt-4">
+                        <div class="font-semibold">Ana Rodríguez</div>
+                        <div class="text-sm text-gray-500">Propietaria, Boutique Elegance</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        "El equipo de MasterStock es excepcional. Nos dieron una segunda oportunidad a productos 
+                        que pensábamos eran pérdida total."
+                    </p>
+                    <div class="border-t pt-4">
+                        <div class="font-semibold">Miguel Torres</div>
+                        <div class="text-sm text-gray-500">Director Comercial, InnovaFashion</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Nosotros -->
+    <section id="nosotros" class="py-20 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                    Apasionados por Crear Oportunidades
+                </h2>
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    En MasterStock Colombia, entendemos los desafíos del mercado actual. Nacimos para ser el puente que 
+                    convierte un problema (el exceso de inventario) en una doble oportunidad: liquidez para los vendedores 
+                    y acceso a productos increíbles para los compradores. Somos tu aliado estratégico para un crecimiento sostenible.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulario de Contacto -->
+    <section id="contacto" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Inicia la Conversación</h2>
+                    <p class="text-lg text-gray-600">
+                        Completa el formulario y uno de nuestros especialistas se pondrá en contacto contigo a la brevedad.
+                    </p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nombre</label>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tu nombre completo" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="tu@email.com" required>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Teléfono</label>
+                                <input type="tel" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="+57 300 123 4567" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Soy...</label>
+                                <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Selecciona una opción</option>
+                                    <option value="comprador">Comprador</option>
+                                    <option value="vendedor">Vendedor</option>
+                                    <option value="ambos">Ambos</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Mensaje</label>
+                            <textarea rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cuéntanos sobre tu inventario o qué tipo de productos buscas..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full primary-bg hover:primary-bg text-white py-3 rounded-lg transition-colors">
+                            Enviar Solicitud
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="stats-bg text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <img src="logo.png" alt="MasterStock Colombia" class="h-12 w-auto mb-4 filter brightness-0 invert">
+                    <p class="text-gray-300 mb-4">
+                        Transformamos inventario en oportunidades para empresas en toda Colombia.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4">Servicios</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#compradores" class="hover:text-blue-400 transition-colors">Para Compradores</a></li>
+                        <li><a href="#vendedores" class="hover:text-blue-400 transition-colors">Para Vendedores</a></li>
+                        <li><a href="#proceso" class="hover:text-blue-400 transition-colors">Nuestro Proceso</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4">Empresa</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#nosotros" class="hover:text-blue-400 transition-colors">Sobre Nosotros</a></li>
+                        <li><a href="#contacto" class="hover:text-blue-400 transition-colors">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4">Contacto</h3>
+                    <div class="space-y-3 text-gray-300">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-envelope"></i>
+                            <span>negocios@masterstockcolombia.com</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-phone"></i>
+                            <span>(+57) 320 317 6460</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-phone"></i>
+                            <span>(+57) 312 560 5545</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 MasterStock Colombia. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu interés! Nos pondremos en contacto contigo pronto.');
+        });
+    </script>
+</body>
+</html>
