@@ -135,16 +135,21 @@ section {
 /* Hero Section */
 .hero-section {
     min-height: 90vh;
-    background: linear-gradient(rgba(13, 27, 42, 0.8), rgba(13, 27, 42, 0.6)), url('hero-bg.png');
+    /* Using radial gradient to highlight the center 'world' background */
+    background: radial-gradient(circle at center, rgba(13, 27, 42, 0.2) 0%, rgba(13, 27, 42, 0.95) 90%), url('hero-bg.png');
     background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-position: center top;
+    background-attachment: scroll;
+    /* Fixed makes it hard to see on some mobile browsers, scroll is safer */
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: calc(-1 * var(--nav-height));
     /* Counteract body padding for full screen */
+    padding-top: var(--nav-height);
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-content {
