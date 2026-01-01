@@ -312,15 +312,31 @@
         window.addEventListener('resize', resize);
         resize();
 
-        // City hubs (approximate relative positions on screen to mimic a map feel)
-        // Values are effectively random but clustered to look like US activity
+        // Defined US Tech Hubs (Approximate % coordinates on screen)
+        // Correlating with the US map background
+        const regions = [
+            { x: 0.25, y: 0.45 }, // West Coast (NorCal)
+            { x: 0.28, y: 0.75 }, // SoCal
+            { x: 0.25, y: 0.25 }, // Washington
+            { x: 0.85, y: 0.35 }, // NYC / Northeast
+            { x: 0.80, y: 0.75 }, // Florida
+            { x: 0.50, y: 0.65 }, // Texas
+            { x: 0.65, y: 0.35 }, // Chicago / Midwest
+            { x: 0.45, y: 0.35 }, // Denver area
+            { x: 0.75, y: 0.55 }  // Atlanta
+        ];
+
         const hubs = [];
-        for (let i = 0; i < 15; i++) {
-            hubs.push({
-                x: Math.random() * 0.8 + 0.1, // Keep away from extreme edges
-                y: Math.random() * 0.6 + 0.2
-            });
-        }
+        // Create 2-3 nodes per region to create density
+        regions.forEach(r => {
+            const count = Math.floor(Math.random() * 2) + 1;
+            for (let i = 0; i < count; i++) {
+                hubs.push({
+                    x: r.x + (Math.random() - 0.5) * 0.1, // Jitter
+                    y: r.y + (Math.random() - 0.5) * 0.1
+                });
+            }
+        });
 
         const particles = [];
 

@@ -295,9 +295,9 @@ section {
 /* Hero Section */
 .hero-section {
     min-height: 90vh;
-    /* Darker overlay for subtlety, allowing the glowing connections to pop */
-    background: radial-gradient(circle at center, rgba(13, 27, 42, 0.4) 0%, rgba(13, 27, 42, 0.95) 100%), url('hero-bg.png');
-    background-size: 110% auto;
+    /* Clearer center to show the new Digital US Map */
+    background: radial-gradient(circle at center, rgba(13, 27, 42, 0.3) 0%, rgba(13, 27, 42, 0.95) 90%), url('hero-bg-us.png');
+    background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     text-align: center;
