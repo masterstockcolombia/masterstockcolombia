@@ -1123,6 +1123,14 @@ section {
     margin-bottom: 0.5rem;
 }
 
+.footer-brand-col {
+    text-align: left;
+}
+
+.footer-col {
+    text-align: left;
+}
+
 .footer-col h4 {
     color: var(--text-white);
     margin-bottom: 1.5rem;

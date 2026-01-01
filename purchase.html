@@ -62,33 +62,35 @@
     </section>
 
     <!-- Trusted By Stats -->
-    <section style="border-bottom: 1px solid rgba(255,255,255,0.05); background: #0D1623; padding: 2rem 0;">
+    <section style="border-bottom: 1px solid rgba(255,255,255,0.05); background: #0D1623; padding: 4rem 0;">
         <div class="container">
             <div
-                style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 2rem;">
+                style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4rem;">
                 <div style="flex: 2;">
-                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Trusted by 200+ enterprise buyers worldwide.
+                    <h3 style="font-size: 2rem; margin-bottom: 1.5rem;">Trusted by 200+ enterprise buyers worldwide.
                     </h3>
-                    <div style="display: flex; gap: 1.5rem; opacity: 0.6;">
+                    <div style="display: flex; gap: 2.5rem; opacity: 0.8; font-size: 1.2rem;">
                         <!-- Placeholder Logos using Text/Icons for now -->
-                        <span><ion-icon name="business"></ion-icon> RetailChains</span>
-                        <span><ion-icon name="hardware-chip"></ion-icon> TechDistrubutors</span>
-                        <span><ion-icon name="globe"></ion-icon> GlobalLogistics</span>
+                        <span><ion-icon name="business" style="margin-right:8px;"></ion-icon> RetailChains</span>
+                        <span><ion-icon name="hardware-chip" style="margin-right:8px;"></ion-icon>
+                            TechDistributors</span>
+                        <span><ion-icon name="globe" style="margin-right:8px;"></ion-icon> GlobalLogistics</span>
                     </div>
                 </div>
                 <div
-                    style="flex: 1; display: flex; justify-content: space-around; gap: 2rem; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 2rem;">
+                    style="flex: 1; display: flex; justify-content: space-around; gap: 3rem; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 3rem;">
                     <div>
-                        <div style="font-size: 2rem; font-weight: 800; color: #3B82F6;">92%</div>
-                        <div style="font-size: 0.8rem; opacity: 0.7;">Retention Rate</div>
+                        <div id="stat-retention" style="font-size: 3.5rem; font-weight: 800; color: #3B82F6;">0%</div>
+                        <div style="font-size: 0.9rem; opacity: 0.7; font-weight: 600;">RETENTION RATE</div>
                     </div>
                     <div>
-                        <div style="font-size: 2rem; font-weight: 800; color: #3B82F6;">$50M+</div>
-                        <div style="font-size: 0.8rem; opacity: 0.7;">Transacted</div>
+                        <div id="stat-transacted" style="font-size: 3.5rem; font-weight: 800; color: #3B82F6;">$0M+
+                        </div>
+                        <div style="font-size: 0.9rem; opacity: 0.7; font-weight: 600;">TRANSACTED</div>
                     </div>
                     <div>
-                        <div style="font-size: 2rem; font-weight: 800; color: #3B82F6;">20+</div>
-                        <div style="font-size: 0.8rem; opacity: 0.7;">Countries Served</div>
+                        <div id="stat-countries" style="font-size: 3.5rem; font-weight: 800; color: #3B82F6;">0+</div>
+                        <div style="font-size: 0.9rem; opacity: 0.7; font-weight: 600;">COUNTRIES</div>
                     </div>
                 </div>
             </div>
@@ -177,13 +179,7 @@
                         shipped globally.</p>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 3rem;">
-                <div
-                    style="display: inline-block; background: rgba(16, 185, 129, 0.1); border: 1px solid #10B981; color: #10B981; padding: 0.5rem 1.5rem; border-radius: 20px;">
-                    <ion-icon name="play-circle" style="vertical-align: middle;"></ion-icon> Process takes < 5 days
-                        </div>
-                </div>
-            </div>
+        </div>
     </section>
 
     <!-- FAQ Section -->
@@ -310,7 +306,7 @@
     <footer class="footer">
         <div class="container footer-cols">
             <div class="footer-brand-col">
-                <img src="./logo_new.png" alt="MasterStock" class="footer-logo white-logo">
+                <img src="./logo_new.png" alt="MasterStock" class="footer-logo white-logo" style="height: 30px;">
                 <p>The premier B2B marketplace for excess technology inventory. Secure, private, and efficient
                     liquidation.</p>
             </div>
@@ -441,6 +437,53 @@
             }
             animate();
         }
+
+        // Stats Animation
+        function animateValue(obj, start, end, duration, formatStr) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                // Ease out cubic
+                const ease = 1 - Math.pow(1 - progress, 3);
+
+                let value = Math.floor(progress * (end - start) + start);
+
+                // Formatting
+                if (formatStr === '%') obj.innerHTML = value + "%";
+                else if (formatStr === '$') obj.innerHTML = "$" + value + "M+";
+                else if (formatStr === '+') obj.innerHTML = value + "+";
+
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    // Ensure final value matches
+                    if (formatStr === '%') obj.innerHTML = end + "%";
+                    else if (formatStr === '$') obj.innerHTML = "$" + end + "M+";
+                    else if (formatStr === '+') obj.innerHTML = end + "+";
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        const observerOptions = { threshold: 0.5 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.id === 'stat-retention') animateValue(entry.target, 0, 92, 2000, '%');
+                    if (entry.target.id === 'stat-transacted') animateValue(entry.target, 0, 50, 2000, '$');
+                    if (entry.target.id === 'stat-countries') animateValue(entry.target, 0, 20, 2000, '+');
+                } else {
+                    if (entry.target.id === 'stat-retention') entry.target.innerHTML = "0%";
+                    if (entry.target.id === 'stat-transacted') entry.target.innerHTML = "$0M+";
+                    if (entry.target.id === 'stat-countries') entry.target.innerHTML = "0+";
+                }
+            });
+        }, observerOptions);
+
+        observer.observe(document.getElementById('stat-retention'));
+        observer.observe(document.getElementById('stat-transacted'));
+        observer.observe(document.getElementById('stat-countries'));
     </script>
 </body>
 
