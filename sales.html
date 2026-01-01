@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Inventory | MasterStock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html">
+            <img src="./logo_new.png" alt="MasterStock Logo" class="nav-logo">
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="sales.html" class="nav-link active">Sell Inventory</a>
+            <a href="purchase.html" class="nav-link">Buy Inventory</a>
+            <a href="about.html" class="nav-link">About Us</a>
+        </div>
+        <a href="contact.html" class="nav-cta">Contact Us</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section"
+        style="background-image: linear-gradient(rgba(13, 27, 42, 0.9), rgba(13, 27, 42, 0.8)), url('hero-bg.png');">
+        <div class="hero-content">
+            <div class="hero-subtitle">Capital Recovery Solutions</div>
+            <h1 class="hero-title">Unlock Cash Flow from <span class="text-cyan">Excess Inventory</span></h1>
+            <p class="hero-desc">Transform dormant assets into immediate working capital without compromising brand
+                integrity.</p>
+
+            <div class="btn-group">
+                <a href="#submit-form" class="btn btn-primary">Start Valuation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Sell Section -->
+    <div class="container">
+        <h2 style="text-align: center; margin-bottom: 3rem;">Why Sell to MasterStock?</h2>
+        <div class="process-steps">
+            <div class="step">
+                <h3 class="text-cyan" style="margin-bottom: 1rem;">Capital Liberation</h3>
+                <p>Turn storage costs into liquidity for your primary business operations.</p>
+            </div>
+            <div class="step">
+                <h3 class="text-cyan" style="margin-bottom: 1rem;">Brand Protection</h3>
+                <p>We operate with military precision to move stock without flooding your core channels.</p>
+            </div>
+            <div class="step">
+                <h3 class="text-cyan" style="margin-bottom: 1rem;">Logistics Handled</h3>
+                <p>We manage the entire reverse logistics chain from your warehouse to ours.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Form (Placeholder) -->
+    <section id="submit-form" class="container"
+        style="max-width: 600px; margin-top: 4rem; background: var(--bg-card); padding: 3rem; border-radius: 8px;">
+        <h2 style="text-align: center; margin-bottom: 1.5rem;">Request Confidential Valuation</h2>
+        <p style="text-align: center; margin-bottom: 2rem; color: var(--text-grey);">No obligation. 100% Confidential.
+        </p>
+
+        <form onsubmit="event.preventDefault(); alert('Request sent! We will contact you shortly.');">
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem;">Company Name</label>
+                <input type="text"
+                    style="width: 100%; padding: 0.8rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem;">Inventory Type</label>
+                <select
+                    style="width: 100%; padding: 0.8rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 4px;">
+                    <option>Consumer Electronics</option>
+                    <option>Enterprise Hardware</option>
+                    <option>Mobile Devices</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 2rem;">
+                <label style="display: block; margin-bottom: 0.5rem;">Estimated Value (USD)</label>
+                <input type="text"
+                    style="width: 100%; padding: 0.8rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 4px;">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; border: none;">Submit Request</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="sales.html">Sell Inventory</a>
+                <a href="purchase.html">Buy Inventory</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <p class="copyright">&copy; 2024 MasterStock Colombia | Confidential B2B Document</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
