@@ -864,11 +864,137 @@ section {
     margin-top: 2rem;
 }
 
+/* White Logo Utility */
+.white-logo {
+    filter: brightness(0) invert(1);
+}
+
 .comp-card {
     background: rgba(255, 255, 255, 0.02);
     border-radius: 12px;
     padding: 2rem;
     border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.comp-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* --- Split Contact Form (Modern Implementation) --- */
+.split-form-container {
+    display: flex;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #0D1623;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.form-left {
+    flex: 1.5;
+    padding: 3rem;
+}
+
+.form-right {
+    flex: 1;
+    background: #2563EB;
+    /* Bright Blue */
+    padding: 3rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative background elements for right side */
+.form-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+.form-input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.modern-input {
+    width: 100%;
+    padding: 1rem;
+    background: #1A2332;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.modern-input:focus {
+    border-color: var(--accent-cyan);
+}
+
+.modern-label {
+    display: block;
+    color: #94A3B8;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.upload-area {
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.02);
+    margin-bottom: 2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.upload-area:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent-cyan);
+}
+
+.contact-info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.testimonial-card-small {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+@media (max-width: 900px) {
+    .split-form-container {
+        flex-direction: column;
+    }
+
+    .form-input-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .comp-list {

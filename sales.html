@@ -64,7 +64,7 @@
                     </ul>
                     <div
                         style="border-left: 3px solid #EF4444; padding-left: 1.5rem; color: var(--text-grey); font-style: italic;">
-                        Every day unsold inventory loses value – we turn that loss into immediate recovery.
+                        Every day unsold inventory loses value, we turn that loss into immediate recovery.
                     </div>
                     <a href="#valuation-form"
                         style="display: inline-flex; align-items: center; gap: 5px; color: #3B82F6; font-weight: 600; margin-top: 1.5rem; text-decoration: none;">Start
@@ -188,8 +188,8 @@
                     <div class="step-num-circle">4</div>
                     <div class="step-icon-large"><ion-icon name="boat-outline"></ion-icon></div>
                     <h4>Ship & Pay</h4>
-                    <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 1rem;">Goods are picked up, and
-                        funds are released instantly.</p>
+                    <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 1rem;">We handle full national and
+                        international logistics, wherever the product is located.</p>
                 </div>
             </div>
         </div>
@@ -239,40 +239,84 @@
     <!-- Contact / Valuation Form (Refined) -->
     <section class="section-pad bg-alt" id="valuation-form">
         <div class="container">
-            <div class="contact-grid"
-                style="grid-template-columns: 1fr; max-width: 700px; margin: 0 auto; background: var(--bg-card); padding: 4rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
-                <div style="text-align: center; margin-bottom: 2rem;">
-                    <h2 style="font-size: 2rem;">Request Your Confidential Valuation</h2>
-                    <p style="color: var(--text-grey);">No obligation. Fast response.</p>
+            <div class="split-form-container">
+
+                <!-- Left Side: Form -->
+                <div class="form-left">
+                    <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Request Your Confidential Valuation - No
+                        Obligation</h2>
+                    <p style="color: var(--text-grey); font-size: 0.9rem; margin-bottom: 2rem;">Receive your inventory
+                        quote promptly. Secure process.</p>
+
+                    <form>
+                        <div class="form-input-grid">
+                            <div>
+                                <label class="modern-label">Company Name</label>
+                                <input type="text" class="modern-input" placeholder="Enter company name">
+                            </div>
+                            <div>
+                                <label class="modern-label">Contact Person</label>
+                                <input type="text" class="modern-input" placeholder="Full name">
+                            </div>
+                        </div>
+
+                        <div class="form-input-grid">
+                            <div>
+                                <label class="modern-label">Email Address</label>
+                                <input type="email" class="modern-input" placeholder="name@company.com">
+                            </div>
+                            <div>
+                                <label class="modern-label">Inventory Category</label>
+                                <input type="text" class="modern-input" placeholder="e.g. Laptops, Mobile...">
+                            </div>
+                        </div>
+
+                        <label class="modern-label">Upload Manifest / Inventory List</label>
+                        <div class="upload-area">
+                            <ion-icon name="cloud-upload"
+                                style="font-size: 2rem; color: var(--accent-cyan); margin-bottom: 1rem;"></ion-icon>
+                            <p style="color: white; font-weight: 600;">Click to upload or drag and drop</p>
+                            <p style="color: var(--text-grey); font-size: 0.8rem;">XLS, CSV, PDF (Max 10MB)</p>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary"
+                            style="width: 100%; border:none; padding: 1rem;">Submit for Valuation</button>
+
+                        <p
+                            style="color: green; font-size: 0.8rem; text-align: center; margin-top: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                            <ion-icon name="lock-closed"></ion-icon> Your data is secure and never shared.
+                        </p>
+                    </form>
                 </div>
-                <form class="contact-form">
-                    <div class="form-group">
-                        <label>Company Name</label>
-                        <input type="text"
-                            style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px;">
+
+                <!-- Right Side: Info -->
+                <div class="form-right">
+                    <div>
+                        <h3 style="margin-bottom: 2rem; font-size: 1.2rem;">Contact Sales Directly</h3>
+
+                        <div class="contact-info-item">
+                            <ion-icon name="call"></ion-icon> <span>+57 325 555-0123</span>
+                        </div>
+                        <div class="contact-info-item">
+                            <ion-icon name="mail"></ion-icon> <span>purchasing@masterstock.co</span>
+                        </div>
+                        <div class="contact-info-item">
+                            <ion-icon name="location"></ion-icon> <span>Bogotá, Colombia</span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Contact Email</label>
-                        <input type="email"
-                            style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px;">
+
+                    <div class="testimonial-card-small">
+                        "MasterStock helped us liquidate 5,000 units of last season's inventory in under a week. Highly
+                        professional."
+                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 1rem;">
+                            <div
+                                style="width: 30px; height: 30px; background: rgba(255,255,255,0.3); border-radius: 50%;">
+                            </div>
+                            <span style="font-size: 0.8rem; font-weight: 600;">VP of Logistics, Major Retailer</span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Inventory Type</label>
-                        <input type="text"
-                            style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px;">
-                    </div>
-                    <div class="form-group">
-                        <label>Stock Location</label>
-                        <input type="text"
-                            style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px;">
-                    </div>
-                    <button type="submit" class="btn btn-primary"
-                        style="width: 100%; padding: 1rem; font-size: 1.1rem; margin-top: 1rem;">Get Valuation
-                        Now</button>
-                    <p style="font-size: 0.8rem; color: var(--text-grey); text-align: center; margin-top: 2rem;">
-                        <ion-icon name="lock-closed"></ion-icon> Your data is encrypted and never shared.
-                    </p>
-                </form>
+                </div>
+
             </div>
         </div>
     </section>
@@ -359,6 +403,7 @@
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
+                        // Reset and Restart Animation
                         let start = 0;
                         const end = -15;
                         const duration = 1500;
@@ -381,7 +426,9 @@
                             }
                         }
                         requestAnimationFrame(update);
-                        observer.unobserve(entry.target);
+                    } else {
+                        // Optional: Reset to 0 when out of view so it animates from 0 again
+                        depValue.textContent = "0%";
                     }
                 });
             }, { threshold: 0.5 });
