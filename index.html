@@ -29,6 +29,7 @@
 
     <!-- Hero Section -->
     <section class="hero-section">
+        <canvas id="network-canvas"></canvas>
         <div class="hero-content">
             <h1 class="hero-title">Unlock Cash From <span class="text-cyan">Excess Inventory</span></h1>
             <p class="hero-desc">We connect qualified buyers with surplus technology stock—globally, securely, and
@@ -298,6 +299,110 @@
         });
     </script>
 
+    <!-- Network Animation Script -->
+    <script>
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        function resize() {
+            width = canvas.width = canvas.offsetWidth;
+            height = canvas.height = canvas.offsetHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // City hubs (approximate relative positions on screen to mimic a map feel)
+        // Values are effectively random but clustered to look like US activity
+        const hubs = [];
+        for (let i = 0; i < 15; i++) {
+            hubs.push({
+                x: Math.random() * 0.8 + 0.1, // Keep away from extreme edges
+                y: Math.random() * 0.6 + 0.2
+            });
+        }
+
+        const particles = [];
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                // Pick random start and end hubs
+                const startHub = hubs[Math.floor(Math.random() * hubs.length)];
+                let endHub = hubs[Math.floor(Math.random() * hubs.length)];
+                while (endHub === startHub) endHub = hubs[Math.floor(Math.random() * hubs.length)];
+
+                this.x = startHub.x * width;
+                this.y = startHub.y * height;
+                this.targetX = endHub.x * width;
+                this.targetY = endHub.y * height;
+
+                this.progress = 0;
+                this.speed = Math.random() * 0.01 + 0.005;
+                this.life = 1;
+                this.color = Math.random() > 0.5 ? '#00B5C6' : '#FFFFFF'; // Cyan or White
+            }
+
+            update() {
+                this.progress += this.speed;
+                if (this.progress >= 1) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                const currentX = this.x + (this.targetX - this.x) * this.progress;
+                const currentY = this.y + (this.targetY - this.y) * this.progress;
+
+                // Draw trail
+                const tailLength = 0.1;
+                if (this.progress > tailLength) {
+                    ctx.beginPath();
+                    const prevX = this.x + (this.targetX - this.x) * (this.progress - tailLength);
+                    const prevY = this.y + (this.targetY - this.y) * (this.progress - tailLength);
+                    ctx.moveTo(prevX, prevY);
+                    ctx.lineTo(currentX, currentY);
+                    ctx.strokeStyle = this.color;
+                    // Fade out based on distance to center or life
+                    ctx.globalAlpha = 1 - this.progress;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+
+                // Draw head
+                ctx.beginPath();
+                ctx.arc(currentX, currentY, 2, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = 1;
+                ctx.fill();
+            }
+        }
+
+        // Create particles
+        for (let i = 0; i < 8; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw static hubs (faint)
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            hubs.forEach(hub => {
+                ctx.beginPath();
+                ctx.arc(hub.x * width, hub.y * height, 3, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
 </body>
 
 </html>
