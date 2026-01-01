@@ -1112,6 +1112,40 @@ footer {
     opacity: 0.5;
 }
 
+/* Enhanced Process Graphics */
+.step-icon-large {
+    font-size: 3rem;
+    color: var(--accent-cyan);
+    margin-bottom: 1rem;
+    background: rgba(0, 181, 198, 0.1);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+    border: 1px solid rgba(0, 181, 198, 0.3);
+}
+
+.process-line {
+    position: absolute;
+    top: 40px;
+    /* Aligns with circle center approx */
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2) 20%, rgba(255, 255, 255, 0.2) 80%, transparent);
+    z-index: 0;
+}
+
+.process-step-item {
+    z-index: 1;
+    /* Keep cards above line */
+    background: #080F18;
+    /* Ensure bg covers line */
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .hero-title {
@@ -1129,5 +1163,15 @@ footer {
 
     .timeline {
         flex-direction: column;
+    }
+
+    .process-line {
+        display: none;
+        /* Hide horizontal line on mobile stack */
+    }
+
+    div[style*="align-items: center; gap: 4rem"] {
+        flex-direction: column;
+        gap: 2rem !important;
     }
 }
