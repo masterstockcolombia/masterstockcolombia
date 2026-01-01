@@ -330,12 +330,16 @@ section {
 }
 
 .hero-desc {
-    font-size: 1.25rem;
-    opacity: 0.9;
-    margin-bottom: 3rem;
-    max-width: 600px;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.95);
+    /* Much brighter */
+    margin-bottom: 2.5rem;
+    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    /* Enhances readability against background */
+    line-height: 1.6;
 }
 
 /* --- Workflow Grid (Matching Screenshot) --- */
@@ -708,25 +712,27 @@ section {
     font-size: 1.2rem;
 }
 
-/* --- Categories --- */
+/* --- Industry Categories (Enhanced) --- */
+#categories-section {
+    background-color: #050A10;
+    /* Darker than workflow */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    /* Technical Grid Pattern */
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 .category-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
-    margin-top: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    /* Wider for list content */
+    gap: 1.5rem;
+    padding-bottom: 2rem;
 }
 
 .cat-item {
-    background: var(--bg-card);
-    padding: 1.5rem;
-    border-radius: 8px;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    cursor: pointer;
     transition: all 0.3s;
 }
 
