@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MasterStock | Global Inventory Solutions</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Ionicons for workflow icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
@@ -16,18 +19,17 @@
             <img src="./logo_new.png" alt="MasterStock Logo" class="nav-logo">
         </a>
         <div class="nav-links">
-            <a href="index.html" class="nav-link active">Home</a>
-            <a href="sales.html" class="nav-link">Sell Inventory</a>
-            <a href="purchase.html" class="nav-link">Buy Inventory</a>
-            <a href="about.html" class="nav-link">About Us</a>
+            <a href="purchase.html" class="nav-link">Buyers</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="#" class="nav-link">Free Liquidation</a>
         </div>
-        <a href="contact.html" class="nav-cta">Contact Us</a>
+        <a href="sales.html" class="nav-cta">Sell Inventory</a>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-content">
-            <div class="hero-subtitle">B2B Technology Portfolios</div>
+            <div class="hero-badge">✦ Global Infrastructure Active</div>
             <h1 class="hero-title">Convert Dormant Inventory Into <span class="text-cyan">Immediate Liquidity</span>
             </h1>
             <p class="hero-desc">The enterprise-grade hub connecting dormant stock with verified global buyers.
@@ -35,66 +37,196 @@
 
             <div class="btn-group">
                 <a href="sales.html" class="btn btn-primary">Sell Inventory</a>
-                <a href="purchase.html" class="btn btn-outline">Browse Global Stock</a>
+                <a href="purchase.html" class="btn btn-dark">Browse Global Stock</a>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
+    <!-- Stats Bar -->
     <div class="container">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-value text-cyan">15+</div>
-                <div class="stat-label">Years Experience</div>
+        <div class="stats-bar">
+            <div class="stat-block">
+                <span class="stat-number">$50M+</span>
+                <span class="stat-label">Liquidated YTD</span>
             </div>
-            <div class="stat-item">
-                <div class="stat-value text-cyan">50M+</div>
-                <div class="stat-label">Units Processed</div>
+            <div class="stat-block">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Verified Enterprises</span>
             </div>
-            <div class="stat-item">
-                <div class="stat-value text-cyan">$120M+</div>
-                <div class="stat-label">Capital Optimized</div>
+            <div class="stat-block">
+                <span class="stat-number">48h</span>
+                <span class="stat-label">Avg. Reporting</span>
+            </div>
+            <div class="stat-block">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Confidential</span>
             </div>
         </div>
     </div>
 
-    <!-- Introduction Section -->
+    <!-- Ecosystem Section -->
     <section class="container" style="text-align: center;">
-        <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">The MasterStock Ecosystem</h2>
-        <p style="max-width: 700px; margin: 0 auto 3rem; color: var(--text-grey);">
-            We facilitate enterprise-level procurement of premium consumer and industrial technology. Verified lots
-            sourced direct-from-manufacturer.
-        </p>
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">The MasterStock Ecosystem</h2>
+        <p style="color: var(--text-grey);">Seamless integration from warehouse to liquidity.</p>
 
-        <div class="process-steps">
-            <div class="step">
-                <div class="step-num">01</div>
-                <h3>Sourcing</h3>
-                <p>Global manufacturing network access.</p>
+        <div class="ecosystem-diagram">
+            <div class="eco-card">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏭</div>
+                <h4>Excess Inventory</h4>
+                <p style="font-size: 0.8rem; color: var(--text-grey);">Dormant Assets & Promos</p>
             </div>
-            <div class="step">
-                <div class="step-num">02</div>
-                <h3>Selection</h3>
-                <p>Verified manifests & device health checks.</p>
+            <div class="eco-connector"></div>
+            <div class="eco-card highlight">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem; color: white;">❄️</div>
+                <h4>MasterStock Network</h4>
+                <p style="font-size: 0.8rem; color: rgba(255,255,255,0.8);">Processing Hub</p>
             </div>
-            <div class="step">
-                <div class="step-num">03</div>
-                <h3>Logistics</h3>
-                <p>Secure global shipping & fulfillment.</p>
+            <div class="eco-connector"></div>
+            <div class="eco-card">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🛡️</div>
+                <h4>Verified Buyers</h4>
+                <p style="font-size: 0.8rem; color: var(--text-grey);">Retailers & Wholesalers</p>
             </div>
         </div>
     </section>
 
+    <!-- Operational Workflow -->
+    <section class="container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="font-size: 2rem;">Operational Workflow</h2>
+            <p style="color: var(--text-grey);">Four steps to liquidity.</p>
+        </div>
+
+        <div class="workflow-grid">
+            <div class="work-card">
+                <div class="work-icon"><ion-icon name="document-text"></ion-icon></div>
+                <h4>1. Submit Inventory</h4>
+                <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">Upload manifest instantly.
+                    Our AI Assesses optimal liquidation channels naturally.</p>
+            </div>
+            <div class="work-card">
+                <div class="work-icon"><ion-icon name="analytics"></ion-icon></div>
+                <h4>2. Intelligent Match</h4>
+                <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">Algorithmic demand
+                    identification connects verified buyers.</p>
+            </div>
+            <div class="work-card">
+                <div class="work-icon"><ion-icon name="shield-checkmark"></ion-icon></div>
+                <h4>3. Secure Escrow</h4>
+                <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">Funds are verified in escrow
+                    before inventory leaves your facility.</p>
+            </div>
+            <div class="work-card">
+                <div class="work-icon"><ion-icon name="boat"></ion-icon></div>
+                <h4>4. Rapid Logistics</h4>
+                <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">End-to-end freight
+                    coordination ensures compliance across borders.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industry Categories -->
+    <section class="container">
+        <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Industry Categories</h2>
+        <p style="color: var(--text-grey); margin-bottom: 2rem;">We focus on categories with high secondary demand.</p>
+
+        <div class="category-grid">
+            <div class="cat-item">
+                <ion-icon name="shirt-outline" style="font-size: 1.5rem; color: var(--text-white);"></ion-icon>
+                <span style="font-size: 0.9rem; font-weight: 600; color: white;">Fashion & Apparel</span>
+            </div>
+            <div class="cat-item">
+                <ion-icon name="watch-outline" style="font-size: 1.5rem; color: var(--text-white);"></ion-icon>
+                <span style="font-size: 0.9rem; font-weight: 600; color: white;">Consumer Tech</span>
+            </div>
+            <div class="cat-item">
+                <ion-icon name="bed-outline" style="font-size: 1.5rem; color: var(--text-white);"></ion-icon>
+                <span style="font-size: 0.9rem; font-weight: 600; color: white;">Home Goods</span>
+            </div>
+            <div class="cat-item">
+                <ion-icon name="rose-outline" style="font-size: 1.5rem; color: var(--text-white);"></ion-icon>
+                <span style="font-size: 0.9rem; font-weight: 600; color: white;">Health & Beauty</span>
+            </div>
+            <div class="cat-item">
+                <ion-icon name="cube-outline" style="font-size: 1.5rem; color: var(--text-white);"></ion-icon>
+                <span style="font-size: 0.9rem; font-weight: 600; color: white;">Occas. Merch</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <div class="bottom-cta">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Optimize?</h2>
+            <p style="color: var(--text-grey); margin-bottom: 3rem;">Join the confidential network powering modern B2B
+                liquidation.</p>
+
+            <div class="btn-group">
+                <a href="sales.html" class="btn btn-primary"><ion-icon name="flash"
+                        style="vertical-align: middle; margin-right: 5px;"></ion-icon> Start Selling</a>
+                <a href="purchase.html" class="btn btn-dark"><ion-icon name="search"
+                        style="vertical-align: middle; margin-right: 5px;"></ion-icon> Request Buyer Access</a>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-links">
-                <a href="index.html">Home</a>
-                <a href="sales.html">Sell Inventory</a>
-                <a href="purchase.html">Buy Inventory</a>
-                <a href="about.html">About Us</a>
+
+            <div class="discretion-block">
+                <div class="shield-icon"><ion-icon name="shield"></ion-icon></div>
+                <h3 style="margin-bottom: 1rem;">Discretion by Design</h3>
+                <p style="color: var(--text-grey);">MasterStock Colombia isn't just a marketplace; it's a strategic
+                    shield for your brand equity. We operate with military precision to move dormant capital without
+                    alerting your core channels.</p>
             </div>
-            <p class="copyright">&copy; 2024 MasterStock Colombia | Confidential B2B Document</p>
+
+            <div class="footer-cols">
+                <div class="footer-col">
+                    <img src="./logo_new.png" alt="MasterStock"
+                        style="height: 40px; margin-bottom: 1.5rem; filter: brightness(0) invert(1);">
+                    <p style="font-size: 0.9rem; color: var(--text-grey);">The enterprise standard for surplus inventory
+                        management.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="sales.html">Sell Now</a></li>
+                        <li><a href="purchase.html">Buyers</a></li>
+                        <li><a href="about.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Solutions</h4>
+                    <ul>
+                        <li><a href="#">Tech Refurb</a></li>
+                        <li><a href="#">Brand Safe</a></li>
+                        <li><a href="#">Logistics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:contact@masterstock.co">contact@masterstock.co</a></li>
+                        <li><a href="#">+1 (555) 123-4567</a></li>
+                        <li>
+                            <p style="font-size: 0.8rem; color: var(--text-grey); margin-top: 1rem;">123 Innovation
+                                Drive, Sector 5<br>Los Angeles, CA 90012</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-grey);">
+                <p>&copy; 2024 MasterStock Colombia. All rights reserved.</p>
+                <div>
+                    <!-- Social Icons could go here -->
+                </div>
+            </div>
         </div>
     </footer>
 
