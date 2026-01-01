@@ -832,16 +832,20 @@ section {
     backdrop-filter: blur(5px);
 }
 
-/*Buttons variant*/
+/*Button variants*/
 .btn-dark {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--text-white);
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    color: var(--bg-dark);
+    /* Dark text for contrast */
+    font-weight: 700;
 }
 
 .btn-dark:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: #E2E8F0;
+    border-color: #E2E8F0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
 }
 
 /* Sold Out Utility (Used by n8n) */
