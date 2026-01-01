@@ -243,8 +243,8 @@
 
                 <!-- Left Side: Form -->
                 <div class="form-left">
-                    <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Request Your Confidential Valuation - No
-                        Obligation</h2>
+                    <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Request Your Confidential Valuation <span
+                            style="color: var(--accent-cyan); font-weight: 400;">No Obligation</span></h2>
                     <p style="color: var(--text-grey); font-size: 0.9rem; margin-bottom: 2rem;">Receive your inventory
                         quote promptly. Secure process.</p>
 
@@ -271,7 +271,7 @@
                             </div>
                         </div>
 
-                        <label class="modern-label">Upload Manifest / Inventory List</label>
+                        <label class="modern-label">Upload Manifest / Inventory List (Optional)</label>
                         <div class="upload-area">
                             <ion-icon name="cloud-upload"
                                 style="font-size: 2rem; color: var(--accent-cyan); margin-bottom: 1rem;"></ion-icon>
@@ -295,14 +295,9 @@
                         <h3 style="margin-bottom: 2rem; font-size: 1.2rem;">Contact Sales Directly</h3>
 
                         <div class="contact-info-item">
-                            <ion-icon name="call"></ion-icon> <span>+57 325 555-0123</span>
+                            <ion-icon name="mail"></ion-icon> <span>contact@masterstock.com</span>
                         </div>
-                        <div class="contact-info-item">
-                            <ion-icon name="mail"></ion-icon> <span>purchasing@masterstock.co</span>
-                        </div>
-                        <div class="contact-info-item">
-                            <ion-icon name="location"></ion-icon> <span>Bogotá, Colombia</span>
-                        </div>
+                        <!-- Removed Phone and Location as requested -->
                     </div>
 
                     <div class="testimonial-card-small">
@@ -372,26 +367,133 @@
             });
         });
 
-        // Reuse Network Canvas Logic (Simplified for Sales Page)
+        // Network Canvas Logic (Full Animation from Home)
         const canvas = document.getElementById('network-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
             let width, height;
-            function resize() { width = canvas.width = canvas.offsetWidth; height = canvas.height = canvas.offsetHeight; }
+
+            // Mouse interaction
+            let mouse = { x: null, y: null, radius: 150 };
+            window.addEventListener('mousemove', (event) => {
+                mouse.x = event.x;
+                mouse.y = event.y;
+            });
+
+            function resize() {
+                width = canvas.width = canvas.offsetWidth;
+                height = canvas.height = canvas.offsetHeight;
+            }
             window.addEventListener('resize', resize);
             resize();
-            // Just draw subtle nodes for Sales page, less distraction
+
+            // Hubs Definition (US Tech Hubs Approx)
+            const hubs = [
+                { x: 0.15, y: 0.3, name: 'San Francisco' }, // CA
+                { x: 0.18, y: 0.4, name: 'Los Angeles' },   // CA
+                { x: 0.45, y: 0.35, name: 'Denver' },       // CO
+                { x: 0.55, y: 0.55, name: 'Dallas' },       // TX
+                { x: 0.65, y: 0.35, name: 'Chicago' },      // IL
+                { x: 0.85, y: 0.25, name: 'New York' },     // NY
+                { x: 0.88, y: 0.45, name: 'Atlanta' },      // GA
+                { x: 0.85, y: 0.75, name: 'Miami' }         // FL
+            ];
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.size = Math.random() * 2 + 1;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                    // Mouse interaction
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius) {
+                        const angle = Math.atan2(dy, dx);
+                        const force = (mouse.radius - distance) / mouse.radius;
+                        const pushX = Math.cos(angle) * force * 1.0;
+                        const pushY = Math.sin(angle) * force * 1.0;
+                        this.x -= pushX;
+                        this.y -= pushY;
+                    }
+                }
+                draw() {
+                    ctx.fillStyle = 'rgba(0, 255, 230, 0.4)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
             const particles = [];
-            for (let i = 0; i < 10; i++) particles.push({ x: Math.random() * width, y: Math.random() * height, vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5 });
+            for (let i = 0; i < 60; i++) particles.push(new Particle());
+
             function animate() {
                 ctx.clearRect(0, 0, width, height);
-                ctx.fillStyle = 'rgba(255,255,255,0.05)';
-                particles.forEach(p => {
-                    p.x += p.vx; p.y += p.vy;
-                    if (p.x < 0 || p.x > width) p.vx *= -1;
-                    if (p.y < 0 || p.y > height) p.vy *= -1;
-                    ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI * 2); ctx.fill();
+
+                // Draw Hubs
+                hubs.forEach(hub => {
+                    const hx = hub.x * width;
+                    const hy = hub.y * height;
+
+                    // Pulse
+                    const time = Date.now() * 0.002;
+                    const pulse = Math.sin(time + hx) * 5;
+
+                    ctx.beginPath();
+                    ctx.arc(hx, hy, 4 + pulse / 2, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(0, 255, 230, 0.6)';
+                    ctx.fill();
+
+                    // Rings
+                    ctx.beginPath();
+                    ctx.arc(hx, hy, 10 + pulse, 0, Math.PI * 2);
+                    ctx.strokeStyle = 'rgba(0, 255, 230, 0.1)';
+                    ctx.stroke();
                 });
+
+                // Particles & Connections
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+
+                    // Connect to nearest hub
+                    let closestHub = null;
+                    let minDist = 200; // Connection range
+
+                    hubs.forEach(hub => {
+                        const hx = hub.x * width;
+                        const hy = hub.y * height;
+                        const dx = particles[i].x - hx;
+                        const dy = particles[i].y - hy;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < minDist) {
+                            closestHub = { x: hx, y: hy, dist: dist };
+                        }
+                    });
+
+                    if (closestHub) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 255, 230, ${0.15 * (1 - closestHub.dist / 200)})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(closestHub.x, closestHub.y);
+                        ctx.stroke();
+                    }
+                }
+
                 requestAnimationFrame(animate);
             }
             animate();
