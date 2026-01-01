@@ -43,115 +43,129 @@
         </div>
     </section>
 
-    <!-- Stats Bar -->
+    <!-- Stats Bar (Distinct Floating Block) -->
     <div class="container">
-        <div class="stats-bar">
-            <div class="stat-block">
-                <span class="stat-number">$50M+</span>
-                <span class="stat-label">Liquidated YTD</span>
-            </div>
-            <div class="stat-block">
-                <span class="stat-number">500+</span>
-                <span class="stat-label">Verified Enterprises</span>
-            </div>
-            <div class="stat-block">
-                <span class="stat-number">48h</span>
-                <span class="stat-label">Avg. Reporting</span>
-            </div>
-            <div class="stat-block">
-                <span class="stat-number">100%</span>
-                <span class="stat-label">Confidential</span>
+        <div class="stats-container">
+            <div class="stats-bar">
+                <div class="stat-block">
+                    <span class="stat-number">$50M+</span>
+                    <span class="stat-label">Liquidated YTD</span>
+                </div>
+                <div class="stat-block">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Verified Enterprises</span>
+                </div>
+                <div class="stat-block">
+                    <span class="stat-number">48h</span>
+                    <span class="stat-label">Avg. Reporting</span>
+                </div>
+                <div class="stat-block">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Confidential</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Ecosystem Section -->
-    <section class="container" style="text-align: center;">
-        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">The MasterStock Ecosystem</h2>
-        <p style="color: var(--text-grey);">Seamless integration from warehouse to liquidity.</p>
+    <!-- Ecosystem Section (Base Background) -->
+    <section class="section-pad" style="text-align: center;">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">The MasterStock Ecosystem</h2>
+            <p style="color: var(--text-grey);">Seamless integration from warehouse to liquidity.</p>
 
-        <div class="ecosystem-diagram">
-            <div class="eco-card">
-                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏭</div>
-                <h4>Excess Inventory</h4>
-                <p style="font-size: 0.8rem; color: var(--text-grey);">Dormant Assets & Promos</p>
-            </div>
-            <div class="eco-connector"></div>
-            <div class="eco-card highlight">
-                <div style="font-size: 2rem; margin-bottom: 0.5rem; color: white;">❄️</div>
-                <h4>MasterStock Network</h4>
-                <p style="font-size: 0.8rem; color: rgba(255,255,255,0.8);">Processing Hub</p>
-            </div>
-            <div class="eco-connector"></div>
-            <div class="eco-card">
-                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🛡️</div>
-                <h4>Verified Buyers</h4>
-                <p style="font-size: 0.8rem; color: var(--text-grey);">Retailers & Wholesalers</p>
+            <div class="ecosystem-diagram">
+                <div class="eco-card" id="eco-step-1">
+                    <div class="icon-box">🏭</div>
+                    <h4>Excess Inventory</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-grey);">Dormant Assets & Promos</p>
+                </div>
+                <div class="eco-connector">
+                    <div class="flow-dot"></div>
+                </div>
+                <div class="eco-card" id="eco-step-2">
+                    <div class="icon-box" style="color: white;">❄️</div>
+                    <h4>MasterStock Network</h4>
+                    <p style="font-size: 0.8rem; color: rgba(255,255,255,0.8);">Processing Hub</p>
+                </div>
+                <div class="eco-connector">
+                    <div class="flow-dot"></div>
+                </div>
+                <div class="eco-card" id="eco-step-3">
+                    <div class="icon-box">🛡️</div>
+                    <h4>Verified Buyers</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-grey);">Retailers & Wholesalers</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Operational Workflow -->
-    <section class="container">
-        <div style="text-align: center; margin-bottom: 3rem;">
-            <h2 style="font-size: 2rem;">Operational Workflow</h2>
-            <p style="color: var(--text-grey);">Four steps to liquidity.</p>
-        </div>
+    <!-- Operational Workflow (Alt Background) -->
+    <section class="section-pad bg-alt">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem;">Operational Workflow</h2>
+                <p style="color: var(--text-grey);">Four steps to liquidity.</p>
+            </div>
 
-        <div class="workflow-grid">
-            <div class="work-card">
-                <div class="work-icon"><ion-icon name="document-text"></ion-icon></div>
-                <h4>1. Submit Inventory</h4>
-                <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">Upload manifest instantly.
-                    Our AI Assesses optimal liquidation channels naturally.</p>
-            </div>
-            <div class="work-card">
-                <div class="work-icon"><ion-icon name="analytics"></ion-icon></div>
-                <h4>2. Intelligent Match</h4>
-                <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">Algorithmic demand
-                    identification connects verified buyers.</p>
-            </div>
-            <div class="work-card">
-                <div class="work-icon"><ion-icon name="shield-checkmark"></ion-icon></div>
-                <h4>3. Secure Escrow</h4>
-                <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">Funds are verified in escrow
-                    before inventory leaves your facility.</p>
-            </div>
-            <div class="work-card">
-                <div class="work-icon"><ion-icon name="boat"></ion-icon></div>
-                <h4>4. Rapid Logistics</h4>
-                <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">End-to-end freight
-                    coordination ensures compliance across borders.</p>
+            <div class="workflow-grid">
+                <div class="work-card">
+                    <div class="work-icon"><ion-icon name="document-text"></ion-icon></div>
+                    <h4>1. Submit Inventory</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">Upload manifest instantly
+                        or sync via API.</p>
+                </div>
+                <div class="work-card">
+                    <div class="work-icon"><ion-icon name="analytics"></ion-icon></div>
+                    <h4>2. Intelligent Match</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">Algorithmic demand
+                        identification.</p>
+                </div>
+                <div class="work-card">
+                    <div class="work-icon"><ion-icon name="shield-checkmark"></ion-icon></div>
+                    <h4>3. Secure Escrow</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">Funds verified before
+                        inventory moves.</p>
+                </div>
+                <div class="work-card">
+                    <div class="work-icon"><ion-icon name="boat"></ion-icon></div>
+                    <h4>4. Rapid Logistics</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">Coordinates compliance
+                        across borders.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Industry Categories -->
-    <section class="container">
-        <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Industry Categories</h2>
-        <p style="color: var(--text-grey); margin-bottom: 2rem;">Specialized in high-value technology sectors.</p>
+    <!-- Industry Categories (Base Background) -->
+    <section class="section-pad">
+        <div class="container">
+            <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Industry Categories</h2>
+            <p style="color: var(--text-grey); margin-bottom: 2rem;">Specialized in high-value technology sectors.</p>
 
-        <div class="category-grid">
-            <div class="cat-item">
-                <ion-icon name="laptop-outline" style="font-size: 1.5rem; color: var(--text-white);"></ion-icon>
-                <span style="font-size: 0.9rem; font-weight: 600; color: white;">Computing</span>
-            </div>
-            <div class="cat-item">
-                <ion-icon name="phone-portrait-outline" style="font-size: 1.5rem; color: var(--text-white);"></ion-icon>
-                <span style="font-size: 0.9rem; font-weight: 600; color: white;">Mobile Devices</span>
-            </div>
-            <div class="cat-item">
-                <ion-icon name="server-outline" style="font-size: 1.5rem; color: var(--text-white);"></ion-icon>
-                <span style="font-size: 0.9rem; font-weight: 600; color: white;">Enterprise Server</span>
-            </div>
-            <div class="cat-item">
-                <ion-icon name="game-controller-outline"
-                    style="font-size: 1.5rem; color: var(--text-white);"></ion-icon>
-                <span style="font-size: 0.9rem; font-weight: 600; color: white;">Gaming</span>
-            </div>
-            <div class="cat-item">
-                <ion-icon name="hardware-chip-outline" style="font-size: 1.5rem; color: var(--text-white);"></ion-icon>
-                <span style="font-size: 0.9rem; font-weight: 600; color: white;">Components</span>
+            <div class="category-grid">
+                <div class="cat-item">
+                    <ion-icon name="laptop-outline" style="font-size: 1.5rem; color: var(--text-white);"></ion-icon>
+                    <span style="font-size: 0.9rem; font-weight: 600; color: white;">Computing</span>
+                </div>
+                <div class="cat-item">
+                    <ion-icon name="phone-portrait-outline"
+                        style="font-size: 1.5rem; color: var(--text-white);"></ion-icon>
+                    <span style="font-size: 0.9rem; font-weight: 600; color: white;">Mobile Devices</span>
+                </div>
+                <div class="cat-item">
+                    <ion-icon name="server-outline" style="font-size: 1.5rem; color: var(--text-white);"></ion-icon>
+                    <span style="font-size: 0.9rem; font-weight: 600; color: white;">Enterprise Server</span>
+                </div>
+                <div class="cat-item">
+                    <ion-icon name="game-controller-outline"
+                        style="font-size: 1.5rem; color: var(--text-white);"></ion-icon>
+                    <span style="font-size: 0.9rem; font-weight: 600; color: white;">Gaming</span>
+                </div>
+                <div class="cat-item">
+                    <ion-icon name="hardware-chip-outline"
+                        style="font-size: 1.5rem; color: var(--text-white);"></ion-icon>
+                    <span style="font-size: 0.9rem; font-weight: 600; color: white;">Components</span>
+                </div>
             </div>
         </div>
     </section>
@@ -225,12 +239,33 @@
             <div
                 style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-grey);">
                 <p>&copy; 2024 MasterStock Colombia. All rights reserved.</p>
-                <div>
-                    <!-- Social Icons could go here -->
-                </div>
             </div>
         </div>
     </footer>
+
+    <!-- Ecosystem Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const steps = [
+                document.getElementById('eco-step-2'), // Start with MasterStock (Center)
+                document.getElementById('eco-step-3'), // Then Verified Buyers
+                document.getElementById('eco-step-1')  // Then Excess Inventory
+            ];
+
+            let currentStep = 0;
+
+            // Initialize first state
+            steps.forEach(el => el.classList.remove('active-step'));
+            steps[0].classList.add('active-step');
+
+            // Cycle every 3 seconds
+            setInterval(() => {
+                steps[currentStep].classList.remove('active-step');
+                currentStep = (currentStep + 1) % steps.length;
+                steps[currentStep].classList.add('active-step');
+            }, 3000);
+        });
+    </script>
 
 </body>
 
