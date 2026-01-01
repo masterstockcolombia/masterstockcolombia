@@ -292,9 +292,18 @@ section {
     justify-content: center;
 }
 
+/* Spacing Utility */
+.section-pad {
+    padding: 2.5rem 0;
+}
+
+.bg-alt {
+    background: #080F18;
+}
+
 /* Hero Section */
 .hero-section {
-    min-height: 90vh;
+    min-height: 75vh;
     /* Clearer center to show the new Digital US Map */
     background: radial-gradient(circle at center, rgba(13, 27, 42, 0.3) 0%, rgba(13, 27, 42, 0.95) 90%), url('hero-bg-us.png');
     background-size: cover;
@@ -1144,6 +1153,13 @@ footer {
     /* Keep cards above line */
     background: #080F18;
     /* Ensure bg covers line */
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    cursor: default;
+}
+
+.process-step-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-cyan);
 }
 
 /* Mobile Responsive */
