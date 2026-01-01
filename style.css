@@ -816,6 +816,178 @@ section {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+/* --- Sales Page Redesign Elements --- */
+
+/* Features Grid (Why Masterstock) - Dark/Blue cards */
+.feature-card {
+    background: #0D1623;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: left;
+    transition: transform 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    background: #111C2D;
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.feature-icon-box {
+    width: 50px;
+    height: 50px;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3B82F6;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Comparison Section (Good vs Bad) */
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.comp-card {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.comp-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+}
+
+.comp-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    color: var(--text-grey);
+}
+
+.comp-list.good li ion-icon {
+    color: #10B981;
+    /* Green */
+    font-size: 1.2rem;
+}
+
+.comp-list.bad li ion-icon {
+    color: #EF4444;
+    /* Red */
+    font-size: 1.2rem;
+}
+
+/* Process Steps (Horizontal with Numbers) */
+.process-steps-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
+.process-step-item {
+    flex: 1;
+    min-width: 200px;
+    background: #080F18;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.step-num-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-grey);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+/* FAQ Accordion */
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: #0D1623;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.faq-question {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 1.5rem;
+    text-align: left;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.faq-answer {
+    padding: 0 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    color: var(--text-grey);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 200px;
+    /* Adjust as needed */
+    padding-bottom: 1.5rem;
+}
+
+.faq-item.active .faq-question ion-icon {
+    transform: rotate(180deg);
+}
+
+/* Alert Box */
+.alert-box {
+    background: rgba(239, 68, 68, 0.1);
+    border-left: 4px solid #EF4444;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.alert-title {
+    color: #EF4444;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.5rem;
+}
+
 .footer-col h4 {
     color: var(--text-white);
     margin-bottom: 1.5rem;
