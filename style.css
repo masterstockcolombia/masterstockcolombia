@@ -1156,7 +1156,16 @@ section {
 }
 
 @media (max-width: 900px) {
-    .ecosystem-diagram {
+    .split-form-container {
+        flex-direction: column;
+    }
+
+    .form-input-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ecosystem-diagram,
+    .process-steps-row {
         flex-direction: column;
         gap: 1.5rem;
     }
@@ -1184,10 +1193,15 @@ section {
         gap: 2rem;
     }
 
-    .stats-bar {
+    .stats-bar,
+    .stat-badge-grid {
         flex-direction: column;
         gap: 1.5rem;
         padding: 1rem 0;
+    }
+
+    .stat-badge-grid {
+        grid-template-columns: 1fr;
     }
 
     .stats-container {
@@ -1378,8 +1392,11 @@ footer {
     .workflow-grid,
     .tech-grid,
     .stats-grid,
-    .process-steps {
-        grid-template-columns: 1fr;
+    .process-steps,
+    .process-steps-row {
+        grid-template-columns: 1fr !important;
+        display: flex !important;
+        flex-direction: column !important;
     }
 
     section {
@@ -1401,8 +1418,23 @@ footer {
         width: 95%;
     }
 
-    div[style*="align-items: center; gap: 4rem"] {
-        flex-direction: column;
+    div[style*="align-items: center; gap: 4rem"],
+    div[style*="justify-content: space-between; align-items: center; gap: 4rem"] {
+        flex-direction: column !important;
         gap: 2rem !important;
+    }
+
+    div[style*="border-left: 1px solid rgba(255,255,255,0.1)"] {
+        border-left: none !important;
+        padding-left: 0 !important;
+        flex-direction: column !important;
+    }
+
+    .ship-img-placeholder {
+        height: 200px;
+    }
+
+    div[style*="height: 300px; position: relative"] {
+        height: 200px !important;
     }
 }
