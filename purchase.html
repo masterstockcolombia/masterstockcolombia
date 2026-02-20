@@ -62,40 +62,34 @@
     </section>
 
     <!-- Trusted By Stats -->
-    <section style="border-bottom: 1px solid rgba(255,255,255,0.05); background: #0D1623; padding: 4rem 0;">
+    <section class="section-pad trust-section"
+        style="border-bottom: 1px solid rgba(255,255,255,0.05); background: #0D1623;">
         <div class="container">
-            <div
-                style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4rem;">
-                <div style="flex: 2;">
-                    <h3 style="font-size: 2rem; margin-bottom: 1.5rem;">Trusted by 200+ enterprise buyers worldwide.
-                    </h3>
-                    <div style="display: flex; gap: 2.5rem; opacity: 0.8; font-size: 1.2rem;">
-                        <!-- Placeholder Logos using Text/Icons for now -->
-                        <span><ion-icon name="business" style="margin-right:8px;"></ion-icon> RetailChains</span>
-                        <span><ion-icon name="hardware-chip" style="margin-right:8px;"></ion-icon>
-                            TechDistributors</span>
-                        <span><ion-icon name="globe" style="margin-right:8px;"></ion-icon> GlobalLogistics</span>
+            <div class="stats-row-container">
+                <div class="trust-content">
+                    <h3 class="trust-title">Trusted by 200+ enterprise buyers worldwide.</h3>
+                    <div class="trust-logos-box">
+                        <span><ion-icon name="business"></ion-icon> RetailChains</span>
+                        <span><ion-icon name="hardware-chip"></ion-icon> TechDistributors</span>
+                        <span><ion-icon name="globe"></ion-icon> GlobalLogistics</span>
                     </div>
                 </div>
-                <div
-                    style="flex: 1; display: flex; justify-content: space-around; gap: 2rem; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 3rem;">
-                    <div style="min-width: 120px; text-align: center;">
-                        <div id="stat-retention"
-                            style="font-size: 2.5rem; font-weight: 800; color: #3B82F6; line-height: 1.2;">0%</div>
-                        <div style="font-size: 0.8rem; opacity: 0.7; font-weight: 600;">RETENTION RATE</div>
+                <div class="stats-grid-box">
+                    <div class="stat-item">
+                        <div id="stat-retention" class="stat-value">0%</div>
+                        <div class="stat-label">RETENTION RATE</div>
                     </div>
-                    <div style="min-width: 120px; text-align: center;">
-                        <div id="stat-transacted"
-                            style="font-size: 2.5rem; font-weight: 800; color: #3B82F6; line-height: 1.2;">$0M+</div>
-                        <div style="font-size: 0.8rem; opacity: 0.7; font-weight: 600;">TRANSACTED</div>
+                    <div class="stat-item">
+                        <div id="stat-transacted" class="stat-value">$0M+</div>
+                        <div class="stat-label">TRANSACTED</div>
                     </div>
-                    <div style="min-width: 120px; text-align: center;">
-                        <div id="stat-countries"
-                            style="font-size: 2.5rem; font-weight: 800; color: #3B82F6; line-height: 1.2;">0+</div>
-                        <div style="font-size: 0.8rem; opacity: 0.7; font-weight: 600;">COUNTRIES</div>
+                    <div class="stat-item">
+                        <div id="stat-countries" class="stat-value">0+</div>
+                        <div class="stat-label">COUNTRIES</div>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
     <!-- Why Corporate Buyers Choose MasterStock -->
