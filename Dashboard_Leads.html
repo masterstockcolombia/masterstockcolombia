@@ -1,0 +1,3246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overstock Intelligence Platform</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="Assets/assignment_system.js"></script>
+    <style>
+        :root {
+            --bg-dark: #111827;
+            --card-dark: #1f2937;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --grid-border: #374151;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 13px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0f172a;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        /* Futuristic Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* UI */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--grid-border);
+            padding: 10px 20px;
+            flex-shrink: 0;
+            background: rgba(31, 41, 55, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .brand {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tagline {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Layout */
+        .main-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 0 20px 40px 20px;
+            width: 100%;
+        }
+
+        .top-analytics {
+            display: grid;
+            grid-template-columns: 240px 1fr 240px;
+            gap: 15px;
+            align-items: start;
+            width: 100%;
+        }
+
+        .ranking-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .col-left {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .col-mid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .col-right {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card {
+            background: var(--card-dark);
+            border-radius: 12px;
+            border: 1px solid var(--grid-border);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        /* Filter Panel */
+        .filter-panel {
+            display: flex;
+            gap: 10px;
+            background: rgba(31, 41, 55, 0.8);
+            padding: 8px 15px;
+            border-radius: 8px;
+            margin: 10px 20px;
+            border: 1px solid var(--grid-border);
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .filter-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        select,
+        input[type="date"] {
+            background: #111827;
+            border: 1px solid #374151;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            outline: none;
+        }
+
+        select:focus {
+            border-color: var(--accent);
+        }
+
+        /* Metrics Grid */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            padding: 0 20px;
+            margin-bottom: 10px;
+        }
+
+        .stat-card {
+            background: var(--card-dark);
+            border: 1px solid var(--grid-border);
+            border-radius: 10px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+            opacity: 0.3;
+        }
+
+        .st-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .st-val {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .st-trend {
+            font-size: 0.7rem;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        /* Table */
+        .hot-lead {
+            background: rgba(239, 68, 68, 0.1) !important;
+            border-left: 3px solid var(--danger) !important;
+        }
+
+        .hot-lead td {
+            color: #fca5a5;
+        }
+
+        .label-badge {
+            font-size: 0.6rem;
+            padding: 2px 5px;
+            border-radius: 4px;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            margin-right: 4px;
+        }
+
+        /* Pills */
+        .cats-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: auto;
+            max-height: 100%;
+        }
+
+        .cat-pill {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(55, 65, 81, 0.3);
+            border: 1px solid #374151;
+            padding: 12px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cat-pill:hover {
+            background: rgba(6, 182, 212, 0.1);
+            border-color: #06b6d4;
+            transform: translateX(5px);
+        }
+
+        .cat-pill.active {
+            background: #06b6d4;
+            border-color: #06b6d4;
+            color: white;
+        }
+
+        .cat-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .cat-count {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 99px;
+            font-size: 0.75rem;
+        }
+
+        /* Table */
+        .table-wrap {
+            overflow: auto;
+            flex-grow: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.85rem;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--grid-border);
+            position: sticky;
+            top: 0;
+            background: var(--card-dark);
+            z-index: 10;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #374151;
+            vertical-align: middle;
+        }
+
+        tr:hover td {
+            background: rgba(6, 182, 212, 0.1);
+            cursor: pointer;
+        }
+
+        .badge-cat {
+            background: rgba(6, 182, 212, 0.15);
+            color: #67e8f9;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        /* Drilldown */
+        .dd-section {
+            margin-bottom: 20px;
+        }
+
+        .dd-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #6b7280;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--card-dark);
+            border-radius: 16px;
+            border: 1px solid var(--grid-border);
+            width: 500px;
+            max-width: 90%;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-close:hover {
+            color: white;
+        }
+
+        /* Comparison View */
+        .comp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .comp-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .comp-header {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        .comp-stat {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+
+        .comp-val {
+            font-weight: 700;
+            color: white;
+        }
+
+        /* Multi-select styling */
+        .select-cell {
+            width: 40px;
+            text-align: center;
+        }
+
+        input[type="checkbox"] {
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+
+        tr.selected td {
+            background: rgba(59, 130, 246, 0.15) !important;
+        }
+
+        /* Role Toggles */
+        .role-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .role-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .role-btn.active-buyer {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+            color: #10b981;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+        }
+
+        .role-btn.active-seller {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: #8b5cf6;
+            color: #8b5cf6;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+        }
+
+        .team-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9ca3af;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .team-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .team-btn.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .count-badge {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1px 6px;
+            border-radius: 9px;
+            font-size: 0.65rem;
+        }
+
+        /* HUB STYLES */
+        .bucket-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+            align-items: stretch;
+        }
+
+        .bucket-panel {
+            background: var(--card-dark);
+            border: 1px solid var(--grid-border);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 600px;
+        }
+
+        .bucket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .buyer-theme {
+            border-top: 4px solid var(--success);
+        }
+
+        .seller-theme {
+            border-top: 4px solid var(--accent);
+        }
+
+        .filter-bar-hub {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .presets {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .preset-btn {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .preset-btn:hover {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .cluster-card {
+            transition: all 0.3s ease;
+        }
+
+        .cluster-card:hover {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: rgba(255, 255, 255, 0.15) !important;
+            transform: translateX(5px);
+        }
+
+        .dispatch-area {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--grid-border);
+            margin-top: auto;
+            transition: border-color 0.3s;
+        }
+
+        .dispatch-area:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .campaign-sel {
+            width: 100%;
+            padding: 10px;
+            background: #111827;
+            border: 1px solid var(--grid-border);
+            border-radius: 6px;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .btn-send {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .terminal {
+            background: #010409;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 0.7rem;
+            height: 100px;
+            overflow-y: auto;
+            border: 1px solid var(--grid-border);
+            margin: 20px 20px;
+            border-radius: 8px;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 20px;
+            margin-left: 40px;
+        }
+
+        .nav-tab {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .nav-tab.active {
+            color: white;
+        }
+
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 1024px) {
+            .stats-row {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+
+            .nav-tabs {
+                margin-left: 0;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr 1fr;
+                padding: 0 15px;
+            }
+
+            .top-analytics {
+                grid-template-columns: 1fr;
+            }
+
+            .bucket-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header div[style*="display:flex; gap:15px"] {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display:flex; align-items:center;">
+            <div class="brand">
+                <img src="Assets/logo_2.0.jpeg" alt="MasterStock USA"
+                    style="height: 40px; width: auto; border-radius: 4px; margin-right: 10px;">
+                <div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span
+                            style="background:#3b82f6; color:white; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:900; animation: pulse 2s infinite;">V4-FIXED</span>
+                        <div style="font-weight:700;">MasterStock USA Intelligence</div>
+                    </div>
+                    <div class="tagline">Advanced USA Overstock Dashboard</div>
+                </div>
+            </div>
+            <div class="nav-tabs">
+                <button id="tab-intel" class="nav-tab active" onclick="switchView('intelligence')">📊 Lead
+                    Intelligence</button>
+                <button id="tab-hub" class="nav-tab" onclick="switchView('hub')">🎯 Campaign Hub</button>
+            </div>
+        </div>
+
+        <div style="display:flex; gap:15px; align-items:center;">
+            <div id="syncStatus"
+                style="font-size:0.7rem; color:var(--text-muted); background:rgba(0,0,0,0.2); padding:4px 10px; border-radius:20px;">
+                READY</div>
+            <button onclick="fetchLiveData()"
+                style="background:linear-gradient(to right, var(--success), #059669); color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600; font-size:0.8rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                <span id="syncIcon">🔄</span> Sync Live
+            </button>
+            <button id="btnBulkUpdate" onclick="bulkSyncRoles()"
+                style="background:rgba(139, 92, 246, 0.1); color:#a78bfa; border:1px solid #8b5cf6; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600; font-size:0.8rem;">
+                🏷️ Update Tags
+            </button>
+            <button onclick="syncTeamDataToExcel()"
+                style="background:linear-gradient(to right, #8b5cf6, #7c3aed); color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600; font-size:0.8rem; margin-right:10px;">📤
+                Sync Team Data</button>
+            <button onclick="syncLeadsToHub(filteredLeads)"
+                style="background:linear-gradient(to right, #0ea5e9, #0284c7); color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:600; font-size:0.8rem; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.4);">
+                📥 Move to Staging
+            </button>
+            <button id="btnRecategorize" onclick="bulkRecategorize()"
+                style="background:linear-gradient(to right, #3b82f6, #2563eb); color:white; border:none; padding:8px 20px; border-radius:8px; cursor:pointer; font-weight:700; font-size:0.8rem; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);">
+                ⚡ Recategorize Others
+            </button>
+            <button onclick="exportToCSV()"
+                style="background:rgba(59, 130, 246, 0.1); color:var(--accent); border:1px solid var(--accent); padding:7px 14px; border-radius:8px; cursor:pointer; font-weight:600; font-size:0.8rem;">
+                📥 CSV
+            </button>
+            <button id="btnManageTeam" onclick="openAssignmentModal()"
+                style="background: #f97316; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:700; font-size:0.8rem; margin-left:10px; box-shadow: 0 4px 6px -1px rgba(249, 115, 22, 0.4);">
+                👥 Manage Team
+            </button>
+
+        </div>
+    </div>
+
+    <!-- Metric Bar -->
+    <div id="view-intelligence">
+        <div class="stats-row">
+            <div class="stat-card" style="border-left:4px solid #3b82f6;" onclick="resetFilters()">
+                <div class="st-label">Total Leads</div>
+                <div id="metTotal" class="st-val">5</div>
+                <div class="st-trend" style="color:var(--success);">↑ ALL DATA</div>
+            </div>
+            <div class="stat-card" style="border-left:4px solid #10b981;" onclick="filterByMetric('buyer')">
+                <div class="st-label">Qualified Buyers</div>
+                <div id="metBuyers" class="st-val">3</div>
+                <div id="metBuyerRate" class="st-trend" style="color:var(--success);">60.0% rate</div>
+            </div>
+            <div class="stat-card" style="border-left:4px solid #f59e0b;" onclick="filterByMetric('potential')">
+                <div class="st-label">Buying Potential</div>
+                <div id="metPotential" class="st-val">$0.3M</div>
+                <div class="st-trend" style="color:var(--warning);">Est. Capacity</div>
+            </div>
+            <div class="stat-card" style="border-left:4px solid #ef4444;" onclick="filterByMetric('hot')">
+                <div class="st-label">Hot Leads</div>
+                <div id="metHot" class="st-val">1</div>
+                <div class="st-trend" style="color:var(--danger);">⚡ High Score</div>
+            </div>
+            <div class="stat-card" style="border-left:4px solid #8b5cf6;" onclick="filterByMetric('seller')">
+                <div class="st-label">Active Sellers</div>
+                <div id="metSellers" class="st-val">1</div>
+                <div class="st-trend" style="color:var(--accent);">Supply Source</div>
+            </div>
+        </div>
+
+        <!-- Filter Panel -->
+
+        <!-- Team Assignment Bar -->
+        <div style="display:flex; align-items:center; gap:15px; padding:0 20px; margin-bottom:15px;">
+            <div style="font-size:0.75rem; font-weight:700; color:#9ca3af; letter-spacing:1px;">👤 TEAM VIEW:</div>
+            <div style="display:flex; gap:10px; align-items:center;" id="dynamicTeamButtons">
+                <button id="btnTeamAll" class="team-btn active" onclick="setAssigneeFilter('ALL')"
+                    style="background:#3b82f6; color:white; border:none; padding:5px 15px; border-radius:20px; font-size:0.75rem; font-weight:600; cursor:pointer;">
+                    🌍 All Platform
+                </button>
+                <!-- Dynamic buttons will appear here -->
+            </div>
+        </div>
+
+        <div class="filter-panel">
+            <div class="filter-group">
+                <span class="filter-label">Business Category</span>
+                <select id="fltBiz" style="width:200px;">
+                    <option value="ALL">All Business Types</option>
+                    <option value="Retail">Retail</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Unknown">Unknown</option>
+                    <option value="Wholesale">Wholesale</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">State</span>
+                <select id="fltState">
+                    <option value="ALL">All States</option>
+                    <option value="FL">FL</option>
+                    <option value="NY">NY</option>
+                    <option value="OR">OR</option>
+                    <option value="TX">TX</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Product Search</span>
+                <select id="fltProd" style="width:140px;">
+                    <option value="ALL">All Products</option>
+                    <option value="Cables">Cables</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Laptops">Laptops</option>
+                    <option value="Planters">Planters</option>
+                    <option value="Tools">Tools</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Role Toggle</span>
+                <div style="display:flex; gap:6px;">
+                    <button id="btnRoleBuyer" class="role-btn" onclick="setRole('BUYER')">BUYER</button>
+                    <button id="btnRoleSeller" class="role-btn" onclick="setRole('SELLER')">SELLER</button>
+                </div>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Capacity</span>
+                <select id="fltCap" style="width:110px;">
+                    <option value="ALL">All Capacity</option>
+                    <option value="HIGH">High</option>
+                    <option value="MEDIUM">Medium</option>
+                    <option value="LOW">Low</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Search Company</span>
+                <div style="display:flex; gap:8px;">
+                    <input type="text" id="fltCo" placeholder="Enter name..."
+                        style="width:150px; background:#111; color:white; border:1px solid #374151; padding:4px 8px; border-radius:4px;">
+                    <button onclick="filterByAdvanced()"
+                        style="background:var(--accent); border:none; color:white; padding:4px 12px; border-radius:4px; font-size:0.75rem; cursor:pointer; font-weight:700;">SEARCH</button>
+                    <button onclick="resetFilters()"
+                        style="background:transparent; border:1px solid #374151; color:white; padding:4px 12px; border-radius:4px; font-size:0.75rem; cursor:pointer;">Reset</button>
+                </div>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Date Captured</span>
+                <div style="display:flex; gap:8px;">
+                    <input type="date" id="fltDate" style="width:125px;">
+                    <button onclick="filterByAdvanced()"
+                        style="background:var(--accent); border:none; color:white; padding:4px 12px; border-radius:4px; font-size:0.75rem; cursor:pointer; font-weight:700;">APPLY
+                        FILTERS</button>
+                    <button onclick="resetFilters()"
+                        style="background:transparent; border:1px solid #374151; color:white; padding:4px 12px; border-radius:4px; font-size:0.75rem; cursor:pointer;">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <div class="top-analytics">
+                <!-- Col Left: ICP + Products -->
+                <div class="col-left">
+                    <div class="card"
+                        style="height: 320px; display: flex; flex-direction: column; border: 1px solid rgba(16, 185, 129, 0.4); background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, rgba(31, 41, 55, 1) 100%); margin-bottom:15px;">
+                        <div class="card-title" style="color: #10b981;">
+                            <span>🎯 ICP Priority Tracker</span>
+                            <span class="label-badge" style="background: #10b981; color: white;">Best Matches</span>
+                        </div>
+                        <div id="icpBuyersList" style="flex-grow:1; overflow-y: auto; padding: 2px;">
+                            <!-- Consolidated ICP List -->
+                        </div>
+                    </div>
+
+                    <div class="card" style="height: 380px; display:flex; flex-direction:column;">
+                        <div class="card-title">Top Product Demand</div>
+                        <div id="topProductsList" style="overflow-y:auto; flex-grow:1;">
+                            <!-- Dynamic List -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Col Mid: Map and Database -->
+                <div class="col-mid">
+                    <div class="card" style="height: 320px; flex-shrink: 0; margin-bottom:15px;">
+                        <div class="card-title">
+                            <span>🇺🇸 Market Opportunity Explorer</span>
+                            <div style="display:flex; gap:10px; align-items:center;">
+                                <div id="mapModeToggle"
+                                    style="display:flex; background:rgba(255,255,255,0.05); padding:2px; border-radius:6px; border:1px solid rgba(255,255,255,0.1);">
+                                    <button id="btnDensity" class="tab-btn active"
+                                        style="padding:2px 8px; font-size:0.65rem;" onclick="setMapMode('density')">👥
+                                        Density</button>
+                                    <button id="btnCapital" class="tab-btn" style="padding:2px 8px; font-size:0.65rem;"
+                                        onclick="setMapMode('capital')">💰 Capital ($)</button>
+                                </div>
+                                <button onclick="openComparison()"
+                                    style="background:rgba(6, 182, 212, 0.1); color:var(--accent); border:1px solid var(--accent); padding:2px 10px; border-radius:4px; cursor:pointer; font-size:0.7rem; font-weight:600;">⚖️
+                                    Compare</button>
+                            </div>
+                        </div>
+                        <div id="usMap" style="width:100%; height:95%;"></div>
+                    </div>
+
+                    <div class="card" style="display: flex; flex-direction: column;">
+                        <div class="card-title">
+                            <span>📋 Lead Intelligence Database</span>
+                            <span id="leadCounter"
+                                style="font-size:0.7rem; font-weight:normal; color:var(--text-muted);">Syncing
+                                leads...</span>
+                        </div>
+                        <div class="table-wrap" style="max-height: 400px; overflow-y: auto;">
+                            <table id="dataTable" style="table-layout: fixed; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 30px;"><input type="checkbox" id="selectAll"
+                                                onclick="toggleSelectAll(this)"></th>
+                                        <th style="width: 15%;">Company</th>
+                                        <th style="width: 40px;">Loc</th>
+                                        <th style="width: 60px;">Cat</th>
+                                        <th style="width: 60px;">Product</th>
+                                        <th style="width: 30px;">Fit</th>
+                                        <th style="width: 15%;">Email</th>
+                                        <th style="width: 10%;">Phone</th>
+                                        <th style="min-width: 60px;">Justification</th>
+                                        <th style="width: 60px;">Assignee</th>
+                                        <th style="width: 50px;" onclick="toggleSort('OverstockScore')">Score ↕</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody"></tbody>
+                            </table>
+                        </div>
+                        <div id="intelligencePanel"
+                            style="margin-top:10px; font-size:0.75rem; color:var(--text-muted); border-top:1px solid rgba(255,255,255,0.05); padding-top:8px;">
+                            Click map state for deep metrics.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Col Right: AI + Rankings -->
+                <div class="col-right">
+                    <div class="card"
+                        style="height: 320px; border: 1px solid var(--accent); background: rgba(59, 130, 246, 0.05); position: relative; display: flex; flex-direction: column; margin-bottom:15px;">
+                        <div class="card-title" style="color: var(--accent); flex-shrink: 0;">
+                            <span>📊 AI Intelligence Center (v15)</span>
+                            <span class="label-badge" style="background: var(--accent); color: white;">LIVE SCAN</span>
+                        </div>
+                        <div id="aiInsightsList"
+                            style="padding: 5px; display: flex; flex-direction: column; gap: 6px; overflow-y: auto; flex-grow: 1;">
+                            <!-- AI Insights Content -->
+                        </div>
+                    </div>
+
+                    <div class="card"
+                        style="height: 380px; overflow: hidden; display:flex; flex-direction:column; margin-bottom:15px;">
+                        <div class="card-title">Top Regional Opportunities</div>
+                        <div id="stateRankingList" style="flex-grow:1; overflow-y:auto; padding:2px;">
+                            <!-- Top States Ranking -->
+                        </div>
+                    </div>
+
+                    <div class="card" style="height: 250px; overflow: hidden; display:flex; flex-direction:column;">
+                        <div class="card-title">Business Category Ranking</div>
+                        <div id="categoryRankingList" style="flex-grow:1; overflow-y:auto; padding:2px;">
+                            <!-- Top Categories Ranking -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- End view-intelligence -->
+
+    <!-- VIEW 2: CAMPAIGN OPTIMIZATION HUB -->
+    <!-- VIEW 2: CAMPAIGN OPTIMIZATION HUB -->
+    <div id="view-hub" style="display:none;">
+        <div
+            style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; background:rgba(0,0,0,0.3); padding:15px; border-radius:12px; border:1px solid var(--grid-border); margin: 0 20px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <span style="font-size: 1.5rem;">🎯</span>
+                <div>
+                    <h1 style="font-size: 1.2rem; margin:0; color:white;">Campaign Optimization Hub</h1>
+                    <p style="font-size: 0.7rem; color: var(--text-muted); margin:0;">UNIFIED NICHE TARGETING & BATCHING
+                    </p>
+                </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+                <button onclick="loadHubTestData()"
+                    style="padding:5px 10px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:var(--accent); border-radius:6px; cursor:pointer; font-size:0.65rem;">🧪
+                    Load Test Data</button>
+                <div style="font-size:0.65rem; color:#10b981; font-weight:800;">🛰️ BRIDGE READY</div>
+            </div>
+        </div>
+
+        <div class="stats-container"
+            style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px; padding: 0 20px;">
+            <div class="stat-card" style="border-left: 4px solid var(--success);">
+                <div style="font-size:0.65rem; color:var(--text-muted);">BUYERS STAGED</div>
+                <div id="hubCountBuyers" style="font-size:1.4rem; font-weight:700; color:white;">0</div>
+            </div>
+            <div class="stat-card" style="border-left: 4px solid var(--accent);">
+                <div style="font-size:0.65rem; color:var(--text-muted);">SELLERS STAGED</div>
+                <div id="hubCountSellers" style="font-size:1.4rem; font-weight:700; color:white;">0</div>
+            </div>
+            <div class="stat-card">
+                <div style="font-size:0.65rem; color:var(--text-muted);">ACTIVE NICHES</div>
+                <div id="hubCountNiches" style="font-size:1.4rem; font-weight:700; color:white;">0</div>
+            </div>
+            <div class="stat-card">
+                <div style="font-size:0.65rem; color:var(--text-muted);">TEST BATCHES SENT</div>
+                <div id="hubCountSent" style="font-size:1.4rem; font-weight:700; color:white;">0</div>
+            </div>
+        </div>
+
+        <div class="bucket-grid">
+            <!-- BUYERS BUCKET -->
+            <div class="bucket-panel buyer-theme">
+                <div class="bucket-header">
+                    <div style="font-weight:700;">🛒 Buyer Groups</div>
+                    <button onclick="clearBucket('buyers')"
+                        style="background:transparent; border:none; color:var(--text-muted); cursor:pointer; font-size:0.6rem;">Clear</button>
+                </div>
+
+                <div class="dd-label" style="margin-bottom:5px;">🤖 Suggested Campaigns</div>
+                <div id="clusterContainerB" class="presets"
+                    style="min-height: 40px; border: 1px dashed rgba(255,255,255,0.1); padding: 5px;">
+                    <span style="color:var(--text-muted); font-size:0.75rem; font-style:italic;">Stage leads to see
+                        clusters...</span>
+                </div>
+
+                <div class="filter-bar-hub">
+                    <div class="filter-item">
+                        <label class="filter-label">Product / Niche</label>
+                        <select id="filtProdB" class="campaign-sel" style="margin-bottom:0;"
+                            onchange="applyHubFilters('buyers')">
+                            <option value="ALL">All Products</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label class="filter-label">State</label>
+                        <select id="filtStateB" class="campaign-sel" style="margin-bottom:0;"
+                            onchange="applyHubFilters('buyers')">
+                            <option value="ALL">All States</option>
+                        </select>
+                    </div>
+                    <div class="filter-item" style="grid-column: span 2;">
+                        <label class="filter-label">Assignee</label>
+                        <select id="filtAssB" class="campaign-sel" style="margin-bottom:0;"
+                            onchange="applyHubFilters('buyers')">
+                            <option value="ALL">All Assignees</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table id="tableBuyers" style="table-layout: fixed;">
+                        <thead>
+                            <tr>
+                                <th style="width: 120px;">Company</th>
+                                <th style="width: 100px;">Product</th>
+                                <th style="width: 45px;">St</th>
+                                <th style="width: 120px;">Email</th>
+                                <th style="width: 100px;">Phone</th>
+                                <th style="width: 150px;">Justification</th>
+                                <th style="width: 45px;">Scr</th>
+                                <th style="width: 80px;">Assignee</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bodyBuyers"></tbody>
+                    </table>
+                </div>
+
+                <div class="dispatch-area" style="display:flex; flex-direction:column; gap:10px;">
+                    <p id="labelCountB" style="margin:0; font-size:0.75rem; font-weight:700; color:var(--success);">
+                        Focused
+                        Group: 0 Leads</p>
+                    <select id="campB" class="campaign-sel">
+                        <option value="inst_buyers_gen">Main Buyer Campaign</option>
+                        <option value="inst_buyers_computers">Special: Computer Buyers</option>
+                        <option value="inst_buyers_repairs">Special: Repair Services</option>
+                    </select>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn-send"
+                            style="background:transparent; border:1px solid var(--grid-border); color:var(--text-muted); width:40%;"
+                            onclick="exportHubToCSV('buyers')">📥 CSV</button>
+                        <button class="btn-send" style="background:var(--success); width:60%;"
+                            onclick="dispatchHub('buyers')">🚀 DISPATCH</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SELLERS BUCKET -->
+            <div class="bucket-panel seller-theme">
+                <div class="bucket-header">
+                    <div style="font-weight:700;">📦 Seller Groups</div>
+                    <button onclick="clearBucket('sellers')"
+                        style="background:transparent; border:none; color:var(--text-muted); cursor:pointer; font-size:0.6rem;">Clear</button>
+                </div>
+
+                <div class="dd-label" style="margin-bottom:5px;">🤖 Suggested Campaigns</div>
+                <div id="clusterContainerS" class="presets"
+                    style="min-height: 40px; border: 1px dashed rgba(255,255,255,0.1); padding: 5px;">
+                    <span style="color:var(--text-muted); font-size:0.75rem; font-style:italic;">Stage leads to see
+                        clusters...</span>
+                </div>
+
+                <div class="filter-bar-hub">
+                    <div class="filter-item">
+                        <label class="filter-label">Product / Niche</label>
+                        <select id="filtProdS" class="campaign-sel" style="margin-bottom:0;"
+                            onchange="applyHubFilters('sellers')">
+                            <option value="ALL">All Products</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label class="filter-label">State</label>
+                        <select id="filtStateS" class="campaign-sel" style="margin-bottom:0;"
+                            onchange="applyHubFilters('sellers')">
+                            <option value="ALL">All States</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table id="tableSellers" style="table-layout: fixed;">
+                        <thead>
+                            <tr>
+                                <th style="width: 120px;">Company</th>
+                                <th style="width: 100px;">Product</th>
+                                <th style="width: 45px;">St</th>
+                                <th style="width: 120px;">Email</th>
+                                <th style="width: 100px;">Phone</th>
+                                <th style="width: 150px;">Justification</th>
+                                <th style="width: 45px;">Scr</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bodySellers"></tbody>
+                    </table>
+                </div>
+
+                <div class="dispatch-area" style="display:flex; flex-direction:column; gap:10px;">
+                    <p id="labelCountS" style="margin:0; font-size:0.75rem; font-weight:700; color:var(--accent);">
+                        Focused
+                        Group: 0 Leads</p>
+                    <select id="campS" class="campaign-sel">
+                        <option value="inst_sellers_gen">Main Seller Campaign</option>
+                    </select>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn-send"
+                            style="background:transparent; border:1px solid var(--grid-border); color:var(--text-muted); width:40%;"
+                            onclick="exportHubToCSV('sellers')">📥 CSV</button>
+                        <button class="btn-send" style="background:var(--accent); width:60%;"
+                            onclick="dispatchHub('sellers')">🚀 DISPATCH</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="terminal" id="termLog">
+                <div style="color:#3b82f6">[SYSTEM] Optimization Hub Online. Awaiting unified lead base...</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modals removed for brevity in search replacement -->
+
+    <div id="leadModal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="Assets/config.js"></script>
+    <script src="Assets/assignment_system_V3.js"></script>
+    <script>
+        // --- WEBHOOK CONFIGURATION (HARDENED V4) ---
+        const WEBHOOK_URL = "https://masterstockcolombiamail3.app.n8n.cloud/webhook/leadsusa";
+        console.log("📍 WEBHOOK_URL SECURED:", WEBHOOK_URL);
+
+        // Prevent external overrides from Iframe broadcast
+        window.OVERRIDE_WEBHOOK = WEBHOOK_URL;
+        // Ensure shared assignment system uses the NEW Update URL
+        window.WORKFLOW_CONFIG = window.WORKFLOW_CONFIG || {};
+        window.WORKFLOW_CONFIG.UPDATE = "https://masterstockcolombia2.app.n8n.cloud/webhook/bb22-update-tags";
+        const STATE_MAP = { "Alabama": "AL", "Alaska": "AK", "Arizona": "AZ", "Arkansas": "AR", "California": "CA", "Colorado": "CO", "Connecticut": "CT", "Delaware": "DE", "Florida": "FL", "Georgia": "GA", "Hawaii": "HI", "Idaho": "ID", "Illinois": "IL", "Indiana": "IN", "Iowa": "IA", "Kansas": "KS", "Kentucky": "KY", "Louisiana": "LA", "Maine": "ME", "Maryland": "MD", "Massachusetts": "MA", "Michigan": "MI", "Minnesota": "MN", "Mississippi": "MS", "Missouri": "MO", "Montana": "MT", "Nebraska": "NE", "Nevada": "NV", "New Hampshire": "NH", "New Jersey": "NJ", "New Mexico": "NM", "New York": "NY", "North Carolina": "NC", "North Dakota": "ND", "Ohio": "OH", "Oklahoma": "OK", "Oregon": "OR", "Pennsylvania": "PA", "Rhode Island": "RI", "South Carolina": "SC", "South Dakota": "SD", "Tennessee": "TN", "Texas": "TX", "Utah": "UT", "Vermont": "VT", "Virginia": "VA", "Washington": "WA", "West Virginia": "WV", "Wisconsin": "WI", "Wyoming": "WY" };
+        const REVERSE_STATE_MAP = Object.fromEntries(Object.entries(STATE_MAP).map(([k, v]) => [v, k]));
+
+        // --- GLOBAL DEBUGGING TOOLS ---
+        window.onerror = function (msg, url, line) {
+            console.error("GLOBAL ERROR:", msg, "at", url, ":", line);
+            alert("⚠️ DASHBOARD ERROR:\n" + msg + "\nLine: " + line);
+        };
+        window.onunhandledrejection = function (event) {
+            console.error("PROMISE REJECTION:", event.reason);
+            alert("⚠️ PROMISE ERROR:\n" + event.reason);
+        };
+
+        let allLeads = [{ "Rank": "1", "Company": "TechNova Solutions", "Ratings": "4.5", "Phone": "", "Email": "info@technova.com", "Website": "www.technova.com", "facebooks": "", "instagrams": "", "linkedIns": "linkedin.com/company/technova", "Address": "123 Tech Blvd", "city": "Austin", "State": "TX", "LeadType": "Desconocido", "Match": "", "Justification": "", "mainCategories": "Electronics", "topProducts": "Laptops", "pricePositioning": "High", "overstockFit": "TRUE", "similarProductsDetected": "", "marketSignals": "Growth", "reviewsCount": "150", "businessCategory": "Technology", "OverstockScore": 70, "RevenueLevel": 6.9, "BuyingCapacity": "MEDIUM", "VelocityScore": "MEDIUM", "OmnichannelScore": "LOW", "PainScore": "HIGH", "IsQualifiedBuyer": true, "IsQualifiedSeller": false, "IsQualified": true, "CaptureDate": "2025-12-07", "LastInteraction": "2025-12-26", "Labels": "Necesidad Urgente", "SuggestedSequence": "{\"Tonality\": \"Consultative\", \"Offer\": \"Discounted catalogue for Laptops\", \"Incentive\": \"5% off first order\"}" }, { "Rank": "2", "Company": "GreenEarth Goods", "Ratings": "3.8", "Phone": "555-0199", "Email": "info@greenearthproducts.eu", "Website": "www.greenearth.com", "facebooks": "facebook.com/greenearth", "instagrams": "", "linkedIns": "", "Address": "456 Eco Ln", "city": "Portland", "State": "OR", "LeadType": "Minorista", "Match": "", "Justification": "", "mainCategories": "Home & Garden", "topProducts": "Planters", "pricePositioning": "Mid", "overstockFit": "FALSE", "similarProductsDetected": "", "marketSignals": "Stable", "reviewsCount": "80", "businessCategory": "Retail", "OverstockScore": 60, "RevenueLevel": 6.3, "BuyingCapacity": "MEDIUM", "VelocityScore": "MEDIUM", "OmnichannelScore": "MEDIUM", "PainScore": "MEDIUM", "IsQualifiedBuyer": true, "IsQualifiedSeller": false, "IsQualified": true, "CaptureDate": "2025-12-03", "LastInteraction": "2025-12-27", "Labels": "Requiere seguimiento", "SuggestedSequence": "{\"Tonality\": \"Consultative\", \"Offer\": \"Discounted catalogue for Planters\", \"Incentive\": \"5% off first order\"}" }, { "Rank": "3", "Company": "MegaDeal Warehouse", "Ratings": "4.2", "Phone": "555-0200", "Email": "contact@megadeal.com", "Website": "www.megadeal.com", "facebooks": "", "instagrams": "", "linkedIns": "linkedin.com/company/megadeal", "Address": "789 Warehouse Dr", "city": "Miami", "State": "FL", "LeadType": "Mayorista", "Match": "", "Justification": "", "mainCategories": "General Merchandise", "topProducts": "Tools", "pricePositioning": "Low", "overstockFit": "TRUE", "similarProductsDetected": "", "marketSignals": "Liquidation", "reviewsCount": "300", "businessCategory": "Wholesale", "OverstockScore": 100, "RevenueLevel": 10.0, "BuyingCapacity": "HIGH", "VelocityScore": "HIGH", "OmnichannelScore": "LOW", "PainScore": "MEDIUM", "IsQualifiedBuyer": false, "IsQualifiedSeller": true, "IsQualified": true, "CaptureDate": "2025-12-21", "LastInteraction": "2025-12-30", "Labels": "Alta conversi\u00f3n, Lead Caliente", "SuggestedSequence": "{\"Tonality\": \"Professional & Direct\", \"Offer\": \"Exclusive bulk deal on Tools\", \"Incentive\": \"Free Shipping\"}" }, { "Rank": "4", "Company": "RapidRetail Inc", "Ratings": "2.5", "Phone": "", "Email": "support@rapidretailonline.com", "Website": "", "facebooks": "", "instagrams": "instagram.com/rapidretail", "linkedIns": "", "Address": "321 Fast St", "city": "New York", "State": "NY", "LeadType": "Retail B2B", "Match": "", "Justification": "", "mainCategories": "Fashion", "topProducts": "Clothing", "pricePositioning": "Mid", "overstockFit": "TRUE", "similarProductsDetected": "", "marketSignals": "Decline", "reviewsCount": "20", "businessCategory": "Retail", "OverstockScore": 40, "RevenueLevel": 5.1, "BuyingCapacity": "HIGH", "VelocityScore": "MEDIUM", "OmnichannelScore": "LOW", "PainScore": "LOW", "IsQualifiedBuyer": true, "IsQualifiedSeller": false, "IsQualified": true, "CaptureDate": "2025-12-13", "LastInteraction": "2025-12-24", "Labels": "Mayor margen", "SuggestedSequence": "{\"Tonality\": \"Educational\", \"Offer\": \"Intro to overstock benefits\", \"Incentive\": \"No MOQ trial\"}" }, { "Rank": "5", "Company": "Unknown Trader", "Ratings": "1.0", "Phone": "", "Email": "", "Website": "", "facebooks": "", "instagrams": "", "linkedIns": "", "Address": "", "city": "", "State": "", "LeadType": "Desconocido", "Match": "", "Justification": "", "mainCategories": "Electronics", "topProducts": "Cables", "pricePositioning": "Low", "overstockFit": "FALSE", "similarProductsDetected": "", "marketSignals": "New", "reviewsCount": "5", "businessCategory": "Unknown", "OverstockScore": 30, "RevenueLevel": 3.9, "BuyingCapacity": "LOW", "VelocityScore": "MEDIUM", "OmnichannelScore": "LOW", "PainScore": "LOW", "IsQualifiedBuyer": false, "IsQualifiedSeller": false, "IsQualified": false, "CaptureDate": "2025-12-30", "LastInteraction": "2025-12-28", "Labels": "Requiere seguimiento", "SuggestedSequence": "{\"Tonality\": \"Educational\", \"Offer\": \"Intro to overstock benefits\", \"Incentive\": \"No MOQ trial\"}" }];
+        var filteredLeads = [...allLeads];
+        let currentSelectedState = 'ALL';
+        let selectedLeads = new Set();
+        let sortConfig = { key: null, direction: 'desc' };
+
+        let activeTab = 'general';
+        let mapMode = 'density';
+        let currentRole = 'ALL';
+
+        function isLeadSeller(l) {
+            if (l.role === 'SELLER') return true;
+            if (l.IsQualifiedSeller === true) return true;
+            const biz = String(l.businessCategory || l.LeadType || l.type || "").toLowerCase();
+            const signals = String(l.marketSignals || "").toLowerCase();
+            return biz.includes('wholesale') || biz.includes('mayorista') ||
+                biz.includes('distrib') || biz.includes('liquidat') ||
+                biz.includes('supplier') || biz.includes('suplidor') ||
+                signals.includes('liquidation');
+        }
+        function isLeadBuyer(l) {
+            if (l.role === 'BUYER') return true;
+            if (l.IsQualifiedBuyer === true) return true;
+            const biz = String(l.businessCategory || l.LeadType || l.type || "").toLowerCase();
+            const signals = String(l.marketSignals || "").toLowerCase();
+            // If it's not a seller, and it's a retailer, outlet, or has growth signals, it's a buyer.
+            if (isLeadSeller(l)) return false;
+            return biz.includes('retail') || biz.includes('minorista') ||
+                biz.includes('shop') || biz.includes('outlet') ||
+                biz.includes('store') || signals.includes('growth') ||
+                (l.overstockFit === 'TRUE' || (parseInt(l.OverstockScore) > 50));
+        }
+
+        const CAPACITY_VALUES = {
+            'ENTERPRISE': 1000000,
+            'HIGH': 250000,
+            'MEDIUM': 50000,
+            'LOW': 5000
+        };
+
+        function setMapMode(mode) {
+            mapMode = mode;
+            document.getElementById('btnDensity').classList.toggle('active', mode === 'density');
+            document.getElementById('btnCapital').classList.toggle('active', mode === 'capital');
+            updateMap(filteredLeads);
+        }
+
+        function setRole(role) {
+            if (currentRole === role) {
+                currentRole = 'ALL';
+            } else {
+                currentRole = role;
+            }
+
+            document.getElementById('btnRoleBuyer').classList.toggle('active-buyer', currentRole === 'BUYER');
+            document.getElementById('btnRoleSeller').classList.toggle('active-seller', currentRole === 'SELLER');
+
+            filterByAdvanced();
+        }
+
+        function toggleSort(key) {
+            if (sortConfig.key === key) {
+                sortConfig.direction = sortConfig.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortConfig.key = key;
+                sortConfig.direction = 'desc';
+            }
+
+            filteredLeads.sort((a, b) => {
+                let valA = a[key];
+                let valB = b[key];
+
+                if (key === 'OverstockScore') {
+                    valA = parseInt(valA) || 0;
+                    valB = parseInt(valB) || 0;
+                }
+
+                if (valA < valB) return sortConfig.direction === 'asc' ? -1 : 1;
+                if (valA > valB) return sortConfig.direction === 'asc' ? 1 : -1;
+                return 0;
+            });
+
+            renderDashboard(filteredLeads);
+        }
+
+        function getBadge(val) {
+            let hue = 'gray';
+            if (val === 'HIGH') hue = 'green';
+            if (val === 'MEDIUM') hue = 'yellow';
+            if (val === 'LOW') hue = 'red';
+            const colors = {
+                'green': 'background:rgba(16, 185, 129, 0.2); color:#34d399;',
+                'red': 'background:rgba(239, 68, 68, 0.2); color:#f87171;',
+                'yellow': 'background:rgba(245, 158, 11, 0.2); color:#fbbf24;',
+                'gray': 'background:rgba(75, 85, 99, 0.2); color:#9ca3af;'
+            };
+            return `<span style="${colors[hue]} padding:2px 6px; border-radius:4px; font-size:0.7rem; font-weight:600;">${val}</span>`;
+        }
+
+        function renderDashboard(data) {
+            console.log("Rendering dashboard with", (data ? data.length : 0), "leads");
+            updateTable(data || []);
+            updateTopMetrics(data || []);
+            updateIntelligencePanel(data || []);
+            updateTopProducts(data || []);
+            if (window.initMapDone) {
+                updateMap(data || []);
+            } else {
+                initMap();
+                window.initMapDone = true;
+            }
+        }
+
+        function updateTopMetrics(leads) {
+            const data = Array.isArray(leads) ? leads : [];
+            const total = data.length;
+            const buyers = data.filter(l => isLeadBuyer(l)).length;
+            const sellers = data.filter(l => isLeadSeller(l)).length;
+
+            // Enhanced Hot Lead Logic (Score + Justification Sentiment)
+            const hot = data.filter(l => {
+                const s = parseInt(l.OverstockScore || 0);
+                const j = String(l.Justification || "").toLowerCase();
+                const highValue = j.includes('high') || j.includes('strategic') || j.includes('key');
+                return s > 82 || (l.overstockFit === 'TRUE' && highValue);
+            }).length;
+
+            const potential = data.reduce((sum, l) => sum + (CAPACITY_VALUES[l.BuyingCapacity] || 50000), 0);
+
+            document.getElementById('metTotal').innerText = data.length;
+            document.getElementById('metBuyers').innerText = buyers;
+            document.getElementById('metBuyerRate').innerText = `${(buyers / (total || 1) * 100).toFixed(1)}% rate`;
+            document.getElementById('metPotential').innerText = `$${(potential / 1000000).toFixed(1)}M`;
+            document.getElementById('metHot').innerText = hot;
+            document.getElementById('metSellers').innerText = sellers;
+
+            // Visual highlight based on role
+            document.getElementById('metBuyers').parentElement.style.opacity = (currentRole === 'ALL' || currentRole === 'BUYER') ? '1' : '0.3';
+            document.getElementById('metSellers').parentElement.style.opacity = (currentRole === 'ALL' || currentRole === 'SELLER') ? '1' : '0.3';
+            document.getElementById('metPotential').parentElement.style.opacity = (currentRole === 'ALL' || currentRole === 'BUYER') ? '1' : '0.3';
+
+            // Also update the rankings
+            updateRankings(data);
+            updateICPPriority(data);
+            updateAIInsights(allLeads);
+        }
+
+        function filterByMetric(type) {
+            if (!Array.isArray(allLeads)) return;
+
+            if (type === 'buyer') {
+                setRole('BUYER');
+                return;
+            } else if (type === 'seller') {
+                setRole('SELLER');
+                return;
+            } else if (type === 'hot') {
+                filteredLeads = allLeads.filter(l => {
+                    const s = parseInt(l.OverstockScore || 0);
+                    const j = String(l.Justification || "").toLowerCase();
+                    return s > 82 || (l.overstockFit === 'TRUE' && (j.includes('high') || j.includes('strategic')));
+                });
+                document.getElementById('leadCounter').innerText = `Filtered by: Hot Segment (${filteredLeads.length})`;
+            } else if (type === 'potential') {
+                filteredLeads = allLeads.filter(l => l.BuyingCapacity === 'HIGH');
+                document.getElementById('leadCounter').innerText = `Filtered by: High Potential (${filteredLeads.length})`;
+            }
+            renderDashboard(filteredLeads);
+        }
+
+        function updateRankings(leads) {
+            // State Ranking
+            const states = {};
+            leads.forEach(l => {
+                if (l.State && l.State !== 'N/A' && l.State !== 'unknown') {
+                    if (!states[l.State]) {
+                        states[l.State] = { buyers: 0, sellers: 0, products: {} };
+                    }
+                    if (l.IsQualifiedSeller) states[l.State].sellers++;
+                    else states[l.State].buyers++;
+
+                    const prods = String(l.topProducts || "").split(',').map(p => p.trim()).filter(p => p);
+                    prods.forEach(p => {
+                        states[l.State].products[p] = (states[l.State].products[p] || 0) + 1;
+                    });
+                }
+            });
+            const sortedStates = Object.entries(states).sort((a, b) => (b[1].buyers + b[1].sellers) - (a[1].buyers + a[1].sellers)).slice(0, 15);
+
+            document.getElementById('stateRankingList').innerHTML = sortedStates.map(([s, data], i) => {
+                const topProd = Object.entries(data.products).sort((a, b) => b[1] - a[1])[0]?.[0] || 'Mix';
+                return `
+                    <div onclick="filterByState('${s}')" style="display:flex; justify-content:space-between; align-items:center; padding:8px; border-bottom:1px solid rgba(255,255,255,0.05); cursor:pointer;">
+                        <span style="font-size:0.8rem;">
+                            <span style="color:var(--accent); font-weight:700;">#${i + 1}</span> ${REVERSE_STATE_MAP[s] || s}
+                            <span style="font-size:0.65rem; color:var(--text-muted); display:block; margin-left:18px;">Top: ${topProd}</span>
+                        </span>
+                        <div style="text-align:right;">
+                            <div style="font-weight:700; color:#34d399; font-size:0.85rem;">B: ${data.buyers}</div>
+                            <div style="font-weight:700; color:#a78bfa; font-size:0.75rem;">S: ${data.sellers}</div>
+                        </div>
+                    </div>
+                `}).join('');
+
+            // Category Ranking
+            const cats = {};
+            leads.forEach(l => {
+                const c = l.businessCategory || 'Other';
+                cats[c] = (cats[c] || 0) + 1;
+            });
+            const sortedCats = Object.entries(cats).sort((a, b) => b[1] - a[1]).slice(0, 10);
+
+            document.getElementById('categoryRankingList').innerHTML = sortedCats.map(([t, c]) => `
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:8px; border-bottom:1px solid rgba(255,255,255,0.05);">
+                        <span style="font-size:0.8rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${t}</span>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <div style="width:40px; height:4px; background:rgba(255,255,255,0.1); border-radius:2px;">
+                                <div style="width:${(c / leads.length * 100)}%; height:100%; background:var(--accent); border-radius:2px;"></div>
+                            </div>
+                            <span class="badge-cat" style="min-width:30px; text-align:center;">${c}</span>
+                        </div>
+                    </div>
+                `).join('');
+        }
+
+        function filterByState(code) {
+            document.getElementById('fltState').value = code;
+            currentSelectedState = code;
+            filterByAdvanced();
+        }
+
+        function filterByAdvanced() {
+            if (!Array.isArray(allLeads)) return;
+            const searchTerm = (document.getElementById('fltCo')?.value || '').toLowerCase();
+            const bizType = document.getElementById('fltBiz').value;
+            const state = document.getElementById('fltState').value;
+            const prod = document.getElementById('fltProd').value;
+            const cap = document.getElementById('fltCap').value;
+            const date = document.getElementById('fltDate').value;
+
+            filteredLeads = allLeads.filter(l => {
+                const leadName = String(l.Company || '').toLowerCase();
+                const matchesSearch = !searchTerm || leadName.includes(searchTerm);
+
+                const leadBiz = l.businessCategory || l.LeadType || 'Other';
+                const matchesBiz = bizType === 'ALL' || leadBiz === bizType;
+
+                const normalizeState = (s) => (s && s.length > 2) ? (STATE_MAP[s] || s) : s;
+                const leadStateCode = normalizeState(l.State);
+                const targetStateCode = state !== 'ALL' ? state : currentSelectedState;
+                const matchesState = targetStateCode === 'ALL' || leadStateCode === targetStateCode;
+
+                const leadProds = String(l.topProducts || "").toLowerCase();
+                const matchesProd = prod === 'ALL' || leadProds.includes(prod.toLowerCase());
+
+                const matchesCap = cap === 'ALL' || l.BuyingCapacity === cap;
+                const matchesDate = !date || l.CaptureDate === date;
+
+                // Role filter
+                let matchesRole = true;
+                if (currentRole === 'BUYER') {
+                    matchesRole = isLeadBuyer(l);
+                } else if (currentRole === 'SELLER') {
+                    matchesRole = isLeadSeller(l);
+                }
+                // Assignee Filter (Team View)
+                if (typeof ASSIGNMENT_STATE !== 'undefined' && ASSIGNMENT_STATE.currentActiveAssignee && ASSIGNMENT_STATE.currentActiveAssignee !== 'ALL') {
+                    const a = l.assignee || l.asignee || "Unassigned";
+                    if (a !== ASSIGNMENT_STATE.currentActiveAssignee) matchesRole = false;
+                }
+
+
+                return matchesSearch && matchesBiz && matchesState && matchesProd && matchesCap && matchesDate && matchesRole;
+            });
+
+            document.getElementById('leadCounter').innerText = `Showing ${filteredLeads.length} of ${allLeads.length} leads`;
+            renderDashboard(filteredLeads);
+        }
+
+        function filterByProduct(prodName) {
+            document.getElementById('srch').value = 'ALL';
+            document.getElementById('fltState').value = 'ALL';
+            document.getElementById('fltCat').value = 'ALL';
+            currentSelectedState = 'ALL';
+
+            filteredLeads = allLeads.filter(l => {
+                const p = Array.isArray(l.topProducts) ? l.topProducts[0] : l.topProducts;
+                return String(p).includes(prodName);
+            });
+
+            document.getElementById('leadCounter').innerText = `Filtered by: ${prodName} (${filteredLeads.length})`;
+            renderDashboard(filteredLeads);
+        }
+
+        function filterByQualification(type) {
+            if (type === 'hot') {
+                // Filter current view by hot criteria
+                filteredLeads = filteredLeads.filter(l => l.BuyingCapacity === 'HIGH' && l.VelocityScore === 'HIGH');
+                renderDashboard(filteredLeads);
+                return;
+            } else if (type === 't1') {
+                // Filter current view by top score
+                filteredLeads = filteredLeads.filter(l => (parseInt(l.OverstockScore) || 0) > 85);
+                renderDashboard(filteredLeads);
+                return;
+            }
+            filterByAdvanced();
+        }
+
+        function resetFilters() {
+            document.getElementById('fltBiz').value = 'ALL';
+            document.getElementById('fltState').value = 'ALL';
+            document.getElementById('fltProd').value = 'ALL';
+            document.getElementById('fltCap').value = 'ALL';
+            document.getElementById('fltDate').value = '';
+            currentRole = 'ALL';
+            document.getElementById('btnRoleBuyer').classList.remove('active-buyer');
+            document.getElementById('btnRoleSeller').classList.remove('active-seller');
+
+            currentSelectedState = 'ALL';
+            selectedLeads.clear();
+            filteredLeads = [...allLeads];
+            document.getElementById('leadCounter').innerText = `Showing ${filteredLeads.length} of ${allLeads.length} leads`;
+            renderDashboard(allLeads);
+        }
+
+        function updateTable(leads) {
+            document.getElementById('tableBody').innerHTML = leads.map(l => {
+                let cat = Array.isArray(l.mainCategories) ? String(l.mainCategories[0]) : String(l.mainCategories || "Gen");
+                let prod = Array.isArray(l.topProducts) ? String(l.topProducts[0]) : String(l.topProducts || "Mix");
+                const score = parseInt(l.OverstockScore || 0);
+                const isHot = score > 80 || (l.BuyingCapacity === 'HIGH' && l.VelocityScore === 'HIGH');
+                // Prioritize 'assignee' (System) over 'asignee' (Import) to reflect dynamic changes
+                const assigneeDisplay = l.assignee || l.asignee || 'Unset';
+                const isSelected = selectedLeads.has(l.Rank);
+
+                const labels = (l.Labels || "").split(',').map(lbl => lbl.trim() ? `<span class="label-badge">${lbl.trim()}</span>` : "").join('');
+                const fitColor = l.overstockFit === 'TRUE' ? '#10b981' : '#ef4444';
+
+                const isSeller = isLeadSeller(l);
+                const typeLabel = isSeller
+                    ? '<span style="background:rgba(139, 92, 246, 0.2); color:#a78bfa; border:1px solid #7c3aed; padding:1px 5px; border-radius:4px; font-size:0.6rem; margin-right:5px;">SELLER</span>'
+                    : '<span style="background:rgba(16, 185, 129, 0.2); color:#34d399; border:1px solid #059669; padding:1px 5px; border-radius:4px; font-size:0.6rem; margin-right:5px;">BUYER</span>';
+
+                return `
+                        <tr class="${isHot ? 'hot-lead' : ''} ${isSelected ? 'selected' : ''}" onclick="handleRowClick(event, '${l.Rank}')">
+                            <td class="select-cell" onclick="event.stopPropagation()">
+                                <input type="checkbox" ${isSelected ? 'checked' : ''} onchange="toggleLeadSelection('${l.Rank}', this.checked)">
+                            </td>
+                            <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                <div style="display:flex; align-items:center; overflow:hidden;">
+                                    ${typeLabel}
+                                    <div style="font-weight:600; overflow:hidden; text-overflow:ellipsis;">
+                                        ${String(l.Company).substring(0, 25)}
+                                        <span style="display:inline-flex; gap:3px; margin-left:5px;">
+                                            ${l.marketSignals ? '<span title="Market Intelligence Available" style="color:#60a5fa; cursor:help;">🛰️</span>' : ''}
+                                            ${l.techStack ? '<span title="Technical Stack Available" style="color:#a78bfa; cursor:help;">💻</span>' : ''}
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${l.State || 'N/A'}</td>
+                            <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="badge-cat" style="font-size:0.65rem;">${cat.substring(0, 10)}</span></td>
+                            <td style="color:#9ca3af; font-size:0.7rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${prod.substring(0, 10)}</td>
+                            <td style="font-weight:700; color:${fitColor}; font-size:0.75rem;">${l.overstockFit === 'TRUE' ? 'YES' : 'NO'}</td>
+                            <td style="font-size:0.65rem; color:#60a5fa; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${l.Email || '---'}</td>
+                            <td style="font-size:0.65rem; color:#a78bfa; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${l.Phone || '---'}</td>
+                            <td style="font-size:0.7rem; color:var(--text-muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${l.Justification || 'N/A'}</td>
+                            <td style="font-size:0.7rem; white-space:nowrap;">${assigneeDisplay}</td>
+                            <td style="font-weight:700; color:${score > 80 ? '#10b981' : (score > 50 ? '#f59e0b' : '#ef4444')}">${score}</td>
+                        </tr >
+                    `;
+            }).join('');
+        }
+
+        function handleRowClick(e, rank) {
+            if (e.target.tagName === 'INPUT') return;
+            showLeadDetails(rank);
+        }
+
+        function toggleLeadSelection(rank, isChecked) {
+            if (isChecked) selectedLeads.add(rank);
+            else selectedLeads.delete(rank);
+            updateTable(filteredLeads);
+        }
+
+        function toggleSelectAll(master) {
+            filteredLeads.forEach(l => {
+                if (master.checked) selectedLeads.add(l.Rank);
+                else selectedLeads.delete(l.Rank);
+            });
+            updateTable(filteredLeads);
+        }
+
+        function renderSupplyDemandChart(leads) {
+            // Function deprecated - moved to Intelligence Panel
+        }
+
+        function updateTopProducts(leads) {
+            const prods = {};
+            const data = Array.isArray(leads) ? leads : [];
+
+            data.forEach(l => {
+                // Force string conversion to prevent '.split is not a function' errors
+                const rawVal = Array.isArray(l.topProducts) ? l.topProducts.join(', ') : String(l.topProducts || "");
+                const items = rawVal.split(',').map(i => i.trim()).filter(i => i.length > 0 && i.toLowerCase() !== 'unknown');
+
+                // Deduplicate within same lead (so a lead counts once per product)
+                [...new Set(items)].forEach(item => {
+                    const key = item.charAt(0).toUpperCase() + item.slice(1).toLowerCase();
+                    prods[key] = (prods[key] || 0) + 1;
+                });
+            });
+
+            const sorted = Object.entries(prods)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            document.getElementById('topProductsList').innerHTML = sorted.map(([name, count], i) => `
+                    <div onclick="filterByProduct('${name}')" style="display:flex; justify-content:space-between; align-items:center; padding:10px; border-bottom:1px solid #1e293b; cursor:pointer;">
+                        <span style="font-size:0.85rem;"><span style="color:var(--accent); font-weight:700; margin-right:8px;">#${i + 1}</span> ${name}</span>
+                        <span class="badge-cat" style="background:rgba(255,255,255,0.05); color:#60a5fa;">${count} leads</span>
+                    </div>
+                    `).join('');
+        }
+
+        function updateIntelligencePanel(leads) {
+            const data = Array.isArray(leads) ? leads : [];
+            const panel = document.getElementById('intelligencePanel');
+            if (currentSelectedState === 'ALL') {
+                panel.innerHTML = `
+                    < div style = "text-align:center; color:var(--text-muted); margin-top:50px;" >
+                        Click a state on the map to see local market deep - dive.
+                         </div >
+                    `;
+                return;
+            }
+
+            const stateName = REVERSE_STATE_MAP[currentSelectedState] || currentSelectedState;
+            const stateLeads = data.filter(l => {
+                let s = l.State;
+                if (s && s.length > 2) s = STATE_MAP[s] || s;
+                return s === currentSelectedState;
+            });
+
+            const types = {};
+            stateLeads.forEach(l => {
+                const category = l.businessCategory || l.LeadType || 'Other';
+                types[category] = (types[category] || 0) + 1;
+            });
+
+            let typeHtml = Object.entries(types).sort((a, b) => b[1] - a[1]).map(([t, c]) => `
+                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; padding:5px 0; border-bottom:1px dotted #374151;">
+                        <span>${t}</span>
+                        <span style="font-weight:700; color:var(--accent);">${c}</span>
+                    </div>
+                    `).join('');
+
+            panel.innerHTML = `
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        <div style="border-bottom:1px solid var(--grid-border); padding-bottom:8px;">
+                            <div class="dd-label">Exploring State</div>
+                            <div style="font-size:1.2rem; font-weight:700; color:var(--accent);">${stateName}</div>
+                            <div style="font-size:0.8rem; color:var(--text-muted);">${stateLeads.length} Leads in this region</div>
+                        </div>
+                        <div>
+                            <div class="dd-label">Business Diversity</div>
+                            ${typeHtml || '<div style="color:var(--text-muted); font-size:0.8rem;">No breakdown available</div>'}
+                        </div>
+                        <div style="background:rgba(6, 182, 212, 0.05); padding:10px; border-radius:8px; border:1px solid rgba(6, 182, 212, 0.1);">
+                            <div class="dd-label">Top Demand in Region</div>
+                            <div style="font-size:0.9rem; font-weight:600;">${stateLeads[0]?.topProducts || 'N/A'}</div>
+                        </div>
+                `;
+        }
+
+        function exportToCSV() {
+            const toExport = selectedLeads.size > 0
+                ? allLeads.filter(l => selectedLeads.has(l.Rank))
+                : filteredLeads;
+
+            if (toExport.length === 0) return alert("Nothing to export");
+
+            const headers = [
+                "ID", "Company", "Role", "BusinessCategory", "LeadType", "MainCategories", "TopProducts", "TechFocus",
+                "Score", "Fit", "OverstockReason", "SimilarProducts", "MarketSignals", "Phone", "Email", "Website", "Address", "City", "State", "Zip", "Country", "BuyingCapacity", "Omnichannel", "Justification", "TechStack", "Scrapper", "Assignee"
+            ];
+
+            const csvContent = [
+                headers.join(','),
+                ...toExport.map(l => {
+                    const row = [
+                        l.Rank || l.id || "",
+                        l.Company || "",
+                        l.Role || (isLeadBuyer(l) ? 'BUYER' : 'SELLER'),
+                        l.businessCategory || "",
+                        l.LeadType || "",
+                        (l.mainCategories || "").replace(/,/g, ' '),
+                        (l.topProducts || "").replace(/,/g, ' '),
+                        (l.technologyFocus || "").replace(/,/g, ' '),
+                        l.OverstockScore || 0,
+                        l.overstockFit || "FALSE",
+                        (l.overstockReason || "").replace(/,/g, ' '),
+                        (l.similarProductsDetected || "").replace(/,/g, ' '),
+                        (l.marketSignals || "").replace(/,/g, ' '),
+                        l.Phone || "",
+                        l.Email || "",
+                        l.Website || "",
+                        (l.Address || "").replace(/,/g, ' '),
+                        l.City || "",
+                        l.State || "",
+                        l.Zip || "",
+                        l.Country || "USA",
+                        l.BuyingCapacity || "",
+                        l.Omnichannel || "FALSE",
+                        (l.Justification || "").replace(/,/g, ' '),
+                        (l.techStack || "").replace(/,/g, ' '),
+                        l.Scrapper || "",
+                        l.assignee || l.asignee || "Unassigned"
+                    ];
+                    return row.map(v => `"${String(v || "").replace(/"/g, '""')}"`).join(',');
+                })
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            const name = selectedLeads.size > 0 ? 'selected_leads.csv' : 'filtered_leads.csv';
+            a.setAttribute('download', name);
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            console.log(`Exported ${toExport.length} leads via Blob.`);
+        }
+
+        function initMap() {
+            const mapLocs = filteredLeads.map(l => l.State).filter(s => s && s.length === 2);
+            const counts = {};
+            mapLocs.forEach(l => counts[l] = (counts[l] || 0) + 1);
+
+            const locs = Object.keys(counts);
+            const z = locs.map(l => counts[l]);
+
+            const mapDiv = document.getElementById('usMap');
+            Plotly.newPlot(mapDiv, [{
+                type: 'choropleth', locationmode: 'USA-states', locations: locs, z: z,
+                colorscale: [[0, '#1f2937'], [1, '#3b82f6']], showscale: false,
+                marker: { line: { color: '#111827', width: 1 } }
+            }], {
+                geo: { scope: 'usa', bgcolor: 'rgba(0,0,0,0)', projection: { type: 'albers usa' } },
+                paper_bgcolor: 'rgba(0,0,0,0)', margin: { l: 0, r: 0, t: 0, b: 0 }, dragmode: false
+            }, { displayModeBar: false });
+
+            mapDiv.on('plotly_click', function (data) {
+                const state = data.points[0].location;
+                currentSelectedState = state;
+                document.getElementById('fltState').value = state;
+                filterByAdvanced();
+            });
+        }
+
+        function updateMap(leads) {
+            const stats = {};
+            leads.forEach(l => {
+                let s = l.State;
+                if (s && s.length > 2) s = STATE_MAP[s] || s;
+                if (s && s.length === 2) {
+                    if (!stats[s]) stats[s] = { count: 0, capital: 0 };
+                    stats[s].count++;
+                    stats[s].capital += CAPACITY_VALUES[l.BuyingCapacity] || 50000;
+                }
+            });
+
+            const locs = Object.keys(stats);
+            const z = locs.map(l => mapMode === 'density' ? stats[l].count : stats[l].capital);
+            const text = locs.map(l => {
+                const name = REVERSE_STATE_MAP[l] || l;
+                if (mapMode === 'capital') {
+                    const val = stats[l].capital;
+                    const formatted = val >= 1000000 ? (val / 1000000).toFixed(1) + 'M' : (val / 1000).toFixed(0) + 'K';
+                    return `${name}<br>Est. Capital: $${formatted}`;
+                }
+                return `${name}<br>Leads: ${stats[l].count}`;
+            });
+
+            const colorscale = mapMode === 'density'
+                ? [[0, '#1f2937'], [1, '#3b82f6']]
+                : [[0, '#1f2937'], [1, '#10b981']]; // Green for money
+
+            Plotly.react('usMap', [{
+                type: 'choropleth', locationmode: 'USA-states', locations: locs, z: z,
+                text: text, colorscale: colorscale, showscale: false,
+                marker: { line: { color: '#111827', width: 1 } }
+            }], {
+                geo: { scope: 'usa', bgcolor: 'rgba(0,0,0,0)', projection: { type: 'albers usa' } },
+                paper_bgcolor: 'rgba(0,0,0,0)', margin: { l: 0, r: 0, t: 0, b: 0 }, dragmode: false
+            }, { displayModeBar: false });
+        }
+
+        function switchTab(mode) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            let color = '#3b82f6';
+            if (mode === 'demand') color = '#10b981';
+            if (mode === 'source') color = '#8b5cf6';
+            Plotly.restyle('usMap', { colorscale: [[[0, '#1f2937'], [1, color]]] });
+        }
+
+        // --- FORENSIC DATA RECOVERY BRIDGE ---
+        window.inspectRawSource = function (rank) {
+            const lead = allLeads.find(l => l.Rank === rank);
+            if (!lead) return alert("Error: Lead not found in memory.");
+
+            console.warn("📁 FORENSIC DATA FOR: " + lead.Company);
+            console.log(lead);
+
+            alert("📁 DATA SHOWN IN CONSOLE (F12)\n\nI have printed the full RAW JSON for '" + lead.Company + "' in the browser console. Open it (F12) to see exactly what arrived from the source.");
+        };
+
+        function findValueGreedy(obj, patterns, seen = new Set()) {
+            if (!obj || typeof obj !== 'object' || seen.has(obj)) return null;
+            seen.add(obj);
+
+            for (let key in obj) {
+                const lowKey = key.toLowerCase();
+                if (patterns.some(p => lowKey.includes(p))) {
+                    const val = obj[key];
+                    if (val !== undefined && val !== null) {
+                        const sVal = String(val).trim();
+                        if (sVal.length > 3) return sVal;
+                    }
+                }
+            }
+
+            for (let key in obj) {
+                if (typeof obj[key] === 'object') {
+                    const found = findValueGreedy(obj[key], patterns, seen);
+                    if (found) return found;
+                }
+            }
+            return null;
+        }
+
+        function regexRescue(obj, type, seen = new Set()) {
+            if (!obj || typeof obj !== 'object' || seen.has(obj)) return null;
+            seen.add(obj);
+            const emailRe = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
+            const phoneRe = /(\+?\d{1,4}[\s-]?)?\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{4}/;
+            const re = type === 'email' ? emailRe : phoneRe;
+
+            for (let key in obj) {
+                const val = obj[key];
+                if (typeof val === 'string' || typeof val === 'number') {
+                    const match = String(val).match(re);
+                    if (match) return match[0];
+                } else if (typeof val === 'object') {
+                    const found = regexRescue(val, type, seen);
+                    if (found) return found;
+                }
+            }
+            return null;
+        }
+
+        async function fetchLiveData() {
+            console.log(">>> SYNC LIVE CLICKED <<<");
+            alert("🔄 Sync process initiated. Attempting to fetch leads...");
+            const icon = document.getElementById('syncIcon');
+            const stat = document.getElementById('syncStatus');
+            icon.style.animation = "spin 1s linear infinite";
+            stat.innerText = "SYNCING...";
+            stat.style.color = "var(--accent)";
+
+            try {
+                console.log("Fetching from:", WEBHOOK_URL);
+                const res = await fetch(WEBHOOK_URL, {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+                const text = await res.text();
+                console.log("Raw Response Body (first 100 chars):", text.substring(0, 100));
+
+                if (!text || text.trim() === "") {
+                    throw new Error("Empty response from n8n. Check if webhook is active.");
+                }
+
+                const raw = JSON.parse(text);
+                console.log("Raw webhook response:", raw);
+
+                let leads = [];
+                if (Array.isArray(raw)) {
+                    leads = raw.map(item => item.json || item);
+                } else if (raw.leads && Array.isArray(raw.leads)) {
+                    leads = raw.leads.map(item => item.json || item);
+                } else if (raw.data && Array.isArray(raw.data)) {
+                    leads = raw.data.map(item => item.json || item);
+                } else if (typeof raw === 'object') {
+                    leads = [raw.json || raw];
+                }
+
+                if (leads.length > 0) {
+                    // --- MASTER FIELD AUDIT ---
+                    const freqMap = {};
+                    leads.forEach(l => {
+                        Object.keys(l).forEach(k => {
+                            if (l[k] && String(l[k]).trim().length > 0) {
+                                freqMap[k] = (freqMap[k] || 0) + 1;
+                            }
+                        });
+                    });
+
+                    console.warn("📊 MASTER FIELD AUDIT - Properties found in Webhook Response:");
+                    console.table(Object.entries(freqMap).map(([Prop, Count]) => ({
+                        Property: Prop,
+                        Count: Count,
+                        Presence: Math.round((Count / leads.length) * 100) + "%"
+                    })).sort((a, b) => b.Count - a.Count));
+
+                    console.warn("🧪 FIELD LIST (CSV for Antigravity):", Object.keys(freqMap).join(', '));
+
+                    // Normalize all leads
+                    allLeads = leads.map((l, index) => {
+                        let rescued = { ...l };
+
+                        // 1. JSON Rescue from markdown/output
+                        if (l.output && typeof l.output === 'string') {
+                            try {
+                                let cleanJson = l.output;
+                                const mdMatch = l.output.match(/```(?:json)?\s*([\s\S]*?)```/);
+                                if (mdMatch) cleanJson = mdMatch[1];
+                                cleanJson = cleanJson.replace(/^"|"$/g, '').replace(/""/g, '"').trim();
+                                if (cleanJson.startsWith('{')) {
+                                    const parsed = JSON.parse(cleanJson);
+                                    rescued = { ...rescued, ...parsed };
+                                }
+                            } catch (e) {
+                                console.warn("⚠️ JSON Parse Error", e);
+                            }
+                        }
+
+                        // 2. CONTACT MAPPING (Aligning with n8n 'empty' placeholder)
+                        let email = String(rescued.email || rescued.Email || "").trim();
+                        let phone = String(rescued.phone || rescued.Phone || "").trim();
+
+                        // Treat literal placeholders as empty to trigger rescue logic
+                        if (email.toLowerCase() === 'empty' || email === '---') email = "";
+                        if (phone.toLowerCase() === 'empty' || phone === '---') phone = "";
+
+                        // Fallback to greedy/regex if still empty
+                        if (!email) email = findValueGreedy(rescued, ['email', 'contact']) || "";
+                        if (!phone) phone = findValueGreedy(rescued, ['phone', 'tel', 'whatsapp']) || "";
+                        if (!email) email = regexRescue(rescued, 'email');
+                        if (!phone) phone = regexRescue(rescued, 'phone');
+
+                        // 3. STATE & GEOGRAPHY (Rescue from Address fixed)
+                        let s = String(rescued.state || rescued.State || rescued.province || "").trim();
+                        if (!s || s.toLowerCase() === 'empty' || s.toLowerCase() === 'unknown' || s === 'N/A') {
+                            const addr = String(rescued.address || rescued.Address || rescued.full_address || "");
+                            const stMatch = addr.match(/,\s*([A-Z]{2})\s*\d{5}/) || addr.match(/\s([A-Z]{2})\s*$/);
+                            if (stMatch) s = stMatch[1];
+                            else s = "N/A";
+                        }
+                        if (s && s.length > 2) {
+                            const found = Object.keys(STATE_MAP).find(k => k.toLowerCase() === s.toLowerCase());
+                            if (found) s = STATE_MAP[found];
+                        }
+
+                        // 4. SCORING ENGINE (n8n 1-5 Scale Boost)
+                        let score = parseInt(rescued.priorityScore || rescued.OverstockScore || rescued.score || 0);
+                        const fitRaw = String(rescued.match || rescued.overstockFit || "").toUpperCase();
+                        const isFit = fitRaw === 'TRUE' || fitRaw === 'YES' || fitRaw === 'FIT' || fitRaw === '1' || rescued.match === true;
+
+                        const cap = String(rescued.buyingCapacity || rescued.BuyingCapacity || "MEDIUM").toUpperCase();
+                        const vel = String(rescued.VelocityScore || rescued.velocityScore || "MEDIUM").toUpperCase();
+
+                        if (score > 0 && score <= 5) {
+                            let base = isFit ? 70 : 40;
+                            score = base + (score * 5);
+                        } else if (score === 0) {
+                            score = isFit ? 70 : 45;
+                        }
+
+                        return {
+                            ...rescued,
+                            Rank: (index + 1).toString(),
+                            Company: rescued.company || rescued.Company || "Unknown Co",
+                            Email: (email && email !== 'empty') ? email : "---",
+                            Phone: (phone && phone !== 'empty') ? phone : "---",
+                            State: (s && s !== 'empty' && s !== 'unknown') ? s : "N/A",
+                            OverstockScore: Math.min(score, 100),
+                            overstockFit: isFit ? 'TRUE' : 'FALSE',
+                            BuyingCapacity: (cap === 'EMPTY' || cap === 'UNKNOWN') ? 'MEDIUM' : cap,
+                            VelocityScore: vel,
+                            Justification: rescued.justification || rescued.Justification || rescued.marketSignals || "Strategic lead identified",
+                            assignee: rescued.assignee || rescued.asignee || "Unassigned",
+                            techStack: rescued.techStack || "N/A",
+                            marketSignals: rescued.marketSignals || "Scanning..."
+                        };
+                    });
+
+                    console.log("Total Processed Leads:", allLeads.length);
+                    // Re-apply filters and render
+                    filteredLeads = [...allLeads];
+                    renderDashboard(allLeads);
+
+                    // Dynamically update ALL Filters (State, Biz, Prod)
+                    if (Array.isArray(allLeads)) {
+                        const states = [...new Set(allLeads.map(l => l.State))].sort();
+                        const stateSel = document.getElementById('fltState');
+                        if (stateSel) {
+                            const curState = stateSel.value;
+                            stateSel.innerHTML = '<option value="ALL">All States</option>' +
+                                states.map(s => `<option value="${s}">${REVERSE_STATE_MAP[s] || s}</option>`).join('');
+                            stateSel.value = states.includes(curState) ? curState : 'ALL';
+                        }
+
+                        const bizTypes = [...new Set(allLeads.map(l => l.businessCategory || l.LeadType || 'Other'))].sort();
+                        const bizSel = document.getElementById('fltBiz');
+                        if (bizSel) {
+                            const curBiz = bizSel.value;
+                            bizSel.innerHTML = '<option value="ALL">All Business Types</option>' +
+                                bizTypes.map(b => `<option value="${b}">${b}</option>`).join('');
+                            bizSel.value = bizTypes.includes(curBiz) ? curBiz : 'ALL';
+                        }
+
+                        const prods = [...new Set(allLeads.flatMap(l =>
+                            String(l.topProducts || "").split(',').map(p => p.trim()).filter(p => p.length > 0 && p.toLowerCase() !== 'unknown')
+                        ))].sort();
+                        const prodSel = document.getElementById('fltProd');
+                        if (prodSel) {
+                            const curProd = prodSel.value;
+                            prodSel.innerHTML = '<option value="ALL">All Products</option>' +
+                                prods.map(p => `<option value="${p}">${p}</option>`).join('');
+                            prodSel.value = prods.includes(curProd) ? curProd : 'ALL';
+                        }
+                    }
+
+                    // Trigger UI updates
+                    if (typeof reapplyAssignments === 'function') reapplyAssignments();
+                }
+
+                stat.innerText = "SYNCED " + new Date().toLocaleTimeString();
+                stat.style.color = "var(--success)";
+            } catch (e) {
+                console.error("Sync Error:", e);
+                stat.innerText = "SYNC ERROR: " + e.message;
+                stat.style.color = "var(--danger)";
+            } finally {
+                icon.style.animation = "";
+            }
+        }
+
+        const s = document.createElement('style');
+        s.innerHTML = "@keyframes spin { 100% { transform: rotate(360deg); } }";
+        document.head.appendChild(s);
+
+        function showLeadDetails(rank) {
+            const lead = (allLeads || []).find(l => String(l.Rank) === String(rank));
+            if (!lead) return;
+
+            const score = parseInt(lead.OverstockScore || 0);
+            const color = score > 80 ? '#10b981' : (score > 50 ? '#f59e0b' : '#ef4444');
+
+            document.getElementById('modalBody').innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px;">
+                        <div>
+                            <h2 style="margin:0; font-size:1.5rem;">${lead.Company}</h2>
+                            <div style="color:var(--text-muted); font-size:0.9rem;">${lead.City || ''}, ${lead.State}</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-size:2rem; font-weight:700; color:${color};">${score}</div>
+                            <div style="font-size:0.6rem; color:var(--text-muted); text-transform:uppercase;">Score</div>
+                        </div>
+                    </div>
+                    
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px;">
+                        <div>
+                            <div class="dd-label">Industry & Category</div>
+                            <div style="font-size:0.9rem;">${lead.businessCategory || lead.LeadType || 'N/A'}</div>
+                        </div>
+                        <div>
+                            <div class="dd-label">Market Fit</div>
+                            <div>${lead.overstockFit === 'TRUE' ? '<span style="color:#10b981; font-weight:700;">STRATEGIC MATCH</span>' : '<span style="color:#ef4444; font-weight:700;">LOW SYNERGY</span>'}</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom:20px; padding:15px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.05); border-radius:8px;">
+                        <div class="dd-label" style="color:var(--accent); font-weight:700; margin-bottom:10px;">Role Assignment (Sync to Excel)</div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <select id="roleSelect" onchange="updateLeadRole('${lead.Company}', this.value)" style="background:#111; color:white; border:1px solid #333; padding:8px; border-radius:4px; flex-grow:1;">
+                                <option value="UNKNOWN" ${lead.role === 'UNKNOWN' ? 'selected' : ''}>UNKNOWN</option>
+                                <option value="BUYER" ${lead.role === 'BUYER' ? 'selected' : ''}>BUYER</option>
+                                <option value="SELLER" ${lead.role === 'SELLER' ? 'selected' : ''}>SELLER</option>
+                            </select>
+                            <span id="roleSaving" style="display:none; font-size:0.6rem; color:var(--accent);">SAVING...</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom:20px;">
+                        <div class="dd-label">Strategic Justification</div>
+                        <div style="font-size:0.85rem; padding:10px; background:rgba(255,255,255,0.05); border-radius:8px; line-height:1.4;">
+                            ${lead.Justification || 'Analysis pending confirmation'}
+                        </div>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px;">
+                        <div>
+                            <div class="dd-label" style="color:#60a5fa;">🛰️ Market Signals</div>
+                            <div style="font-size:0.75rem; background:rgba(96, 165, 250, 0.05); padding:8px; border-radius:6px; border:1px solid rgba(96, 165, 250, 0.1);">
+                                ${lead.marketSignals || 'No signals detected'}
+                            </div>
+                        </div>
+                        <div>
+                            <div class="dd-label" style="color:#a78bfa;">💻 Tech Stack</div>
+                            <div style="font-size:0.75rem; background:rgba(167, 139, 250, 0.05); padding:8px; border-radius:6px; border:1px solid rgba(167, 139, 250, 0.1);">
+                                ${lead.techStack || 'Stack not identified'}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:20px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px; display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.7rem; color:var(--text-muted);">Lead Verification Bridge v1.3</span>
+                        <button onclick='window.inspectRawSource("${rank}")' 
+                            style="background:rgba(96, 165, 250, 0.1); color:#60a5fa; border:1px solid #60a5fa; padding:8px 16px; border-radius:6px; font-size:0.75rem; cursor:pointer; font-weight:700;">
+                            🔍 INSPECT DATA IN CONSOLE
+                        </button>
+                    </div>
+                `;
+            document.getElementById('leadModal').style.display = 'flex';
+        }
+
+        // --- HUB LOGIC ---
+        let hubBase = { buyers: [], sellers: [] };
+        let hubFiltered = { buyers: [], sellers: [] };
+        let hubBatchCount = 0;
+
+        function switchView(view) {
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('view-intelligence').style.display = 'none';
+            document.getElementById('view-hub').style.display = 'none';
+
+            if (view === 'intelligence') {
+                document.getElementById('view-intelligence').style.display = 'block';
+                document.getElementById('tab-intel').classList.add('active');
+            } else {
+                document.getElementById('view-hub').style.display = 'block';
+                document.getElementById('tab-hub').classList.add('active');
+            }
+        }
+
+        function syncLeadsToHub(leadsInput) {
+            const leads = Array.isArray(leadsInput) ? leadsInput : [leadsInput];
+
+            // Relaxed validation: Allow leads even without emails for staging, but warn
+            const valid = leads.filter(l => l.Company); // Basic existence check
+
+            if (valid.length === 0) {
+                alert("No valid leads selected!");
+                return;
+            }
+
+            // Add to Hub Base
+            let addedCount = 0;
+            valid.forEach(l => {
+                const target = (l.IsQualifiedBuyer || isLeadBuyer(l)) ? hubBase.buyers : hubBase.sellers;
+                // Dedupe by Company
+                if (!target.find(x => x.Company === l.Company)) {
+                    target.push(l);
+                    addedCount++;
+                }
+            });
+
+            if (addedCount === 0 && valid.length > 0) {
+                alert("Leads already staged!");
+            } else {
+                alert(`Moved ${addedCount} leads to Campaign Hub Staging.`);
+            }
+
+            // Switch View and Refresh
+            switchView('hub');
+            refreshHubUI('buyers');
+            refreshHubUI('sellers');
+            updateHubLog(`System synced ${addedCount} leads from Intelligence. Products unified.`);
+        }
+
+        function refreshHubUI(type) {
+            const leads = hubBase[type];
+            const suffix = type === 'buyers' ? 'B' : 'S';
+
+            // Build unique options
+            const prods = [...new Set(leads.map(l => l.topProducts))].sort();
+            const states = [...new Set(leads.map(l => l.State))].sort();
+            const asses = [...new Set(leads.map(l => l.assignee || l.asignee))].sort();
+
+            updateHubSel(`filtProd${suffix}`, prods, 'Product');
+            updateHubSel(`filtState${suffix}`, states, 'State');
+            if (type === 'buyers' && document.getElementById(`filtAssB`)) updateHubSel(`filtAssB`, asses, 'Assignee');
+
+            updateHubClusters(type); // NEW: Generate Smart Clusters
+            applyHubFilters(type);
+            updateHubStats();
+        }
+
+        function updateHubClusters(type) {
+            // "Assignee-Centric" View
+            const source = hubBase[type];
+            if (!source || source.length === 0) return;
+
+            const suffix = type === 'buyers' ? 'B' : 'S';
+            const container = document.getElementById(`clusterContainer${suffix}`);
+            if (!container) return;
+
+            // 1. Group by Assignee
+            const byAssignee = {};
+            source.forEach(l => {
+                const a = l.assignee || l.asignee || "Unassigned";
+                if (!byAssignee[a]) byAssignee[a] = [];
+                byAssignee[a].push(l);
+            });
+
+            // Sort by total leads desc
+            const sortedAssignees = Object.entries(byAssignee).sort((a, b) => b[1].length - a[1].length);
+
+            // --- HTML GENERATION ---
+            let html = '<div style="display:flex; flex-direction:column; gap:16px;">';
+
+            sortedAssignees.forEach(([assigneeName, aLeads]) => {
+                const avgScore = Math.round(aLeads.reduce((s, l) => s + (parseInt(l.OverstockScore) || 0), 0) / aLeads.length) || 0;
+
+                // Assignee Header Card
+                html += `
+                <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:12px; padding:12px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:8px;">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="background:linear-gradient(135deg, var(--accent), #4f46e5); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">👤</div>
+                            <div>
+                                <div style="font-weight:700; font-size:1rem; color:var(--text-main); text-transform: uppercase; letter-spacing:0.5px;">${assigneeName}</div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">${aLeads.length} Leads • Avg ${avgScore}</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:6px;">
+                            <button onclick="applyHubPreset('${type}', 'ALL', '${assigneeName}')" style="padding:5px 10px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:var(--text-main); border-radius:6px; cursor:pointer; font-size:0.75rem;">View</button>
+                            <button onclick="downloadSpecificList('${type}', '${assigneeName}', 'ASSIGNEE:${assigneeName}')" style="padding:5px 10px; background:var(--accent); border:none; color:white; border-radius:6px; cursor:pointer; font-size:0.75rem; font-weight:600;">CSV</button>
+                        </div>
+                    </div>
+                `;
+
+                // Sub-clusters by Product (Groups of leads within this assignee)
+                const byProd = {};
+                aLeads.forEach(l => {
+                    const p = String(l.topProducts || "Other").split(',')[0].trim();
+                    if (!byProd[p]) byProd[p] = [];
+                    byProd[p].push(l);
+                });
+
+                const topProds = Object.entries(byProd).sort((a, b) => b[1].length - a[1].length).slice(0, 5); // Start with top 5
+
+                html += `<div style="display:flex; flex-direction:column; gap:6px; padding-left:10px;">`;
+
+                topProds.forEach(([prod, pLeads]) => {
+                    const pAvg = Math.round(pLeads.reduce((s, l) => s + (parseInt(l.OverstockScore) || 0), 0) / pLeads.length) || 0;
+                    html += `
+                        <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 10px; background:rgba(0,0,0,0.2); border-radius:6px;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span style="font-size:0.8rem; color:#d1d5db;">🔸 ${prod}</span>
+                                <span style="font-size:0.7rem; color:var(--text-muted);">(${pLeads.length} leads • Avg ${pAvg})</span>
+                            </div>
+                            <div style="display:flex; gap:5px;">
+                                <button onclick="applyHubPreset('${type}', '${prod}', '${assigneeName}')" style="padding:2px 8px; background:transparent; border:1px solid #4b5563; color:#9ca3af; border-radius:4px; cursor:pointer; font-size:0.65rem;">View</button>
+                                <button onclick="downloadSpecificList('${type}', '${assigneeName}_${prod}', 'AP:${assigneeName}|${prod}')" style="padding:2px 8px; background:#2563eb; border:none; color:white; border-radius:4px; cursor:pointer; font-size:0.65rem;">CSV</button>
+                            </div>
+                        </div>
+                     `;
+                });
+
+                html += `</div></div>`; // End Sub-clusters & Card
+            });
+
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        // New Helper to download specific cluster directly - ROBUST BLOB METHOD
+        function downloadSpecificList(type, label, filterCode) {
+            let subset = [];
+            const source = hubBase[type];
+
+            if (filterCode.startsWith('PROD:')) {
+                const pName = filterCode.split(':')[1];
+                subset = source.filter(l => (l.topProducts || "").includes(pName));
+            } else if (filterCode.startsWith('SCORE:')) {
+                const min = parseInt(filterCode.split(':')[1]);
+                subset = source.filter(l => (parseInt(l.OverstockScore) || 0) >= min);
+            } else if (filterCode === 'UNASSIGNED') {
+                subset = source.filter(l => !l.assignee || l.assignee === 'Unassigned' || l.assignee === 'Unknown' || l.assignee === '');
+            } else if (filterCode.startsWith('ASSIGNEE:')) {
+                const aName = filterCode.split(':')[1];
+                subset = source.filter(l => (l.assignee || l.asignee || "Unassigned") === aName);
+            } else if (filterCode.startsWith('AP:')) {
+                // Composite: AP:Assignee|Product
+                const parts = filterCode.split(':')[1].split('|');
+                const aName = parts[0];
+                const pName = parts[1];
+                subset = source.filter(l =>
+                    (l.assignee || l.asignee || "Unassigned") === aName &&
+                    (l.topProducts || "").includes(pName)
+                );
+            } else {
+                subset = hubFiltered[type]; // Default to current view
+            }
+
+            if (subset.length === 0) return alert("Empty list - nothing to download.");
+
+            const headers = [
+                "ID", "Company", "Role", "BusinessCategory", "LeadType", "MainCategories", "TopProducts", "TechFocus",
+                "Score", "Fit", "OverstockReason", "SimilarProducts", "MarketSignals", "Phone", "Email", "Website", "Address", "City", "State", "Zip", "Country", "BuyingCapacity", "Omnichannel", "Justification", "TechStack", "Scrapper", "Assignee"
+            ];
+
+            const csvContent = [
+                headers.join(','),
+                ...subset.map(l => {
+                    const row = [
+                        l.id || l.Rank || "",
+                        l.Company || "",
+                        l.Role || (type === 'buyers' ? 'BUYER' : 'SELLER'),
+                        l.businessCategory || "",
+                        l.LeadType || "",
+                        (l.mainCategories || "").replace(/,/g, ' '),
+                        (l.topProducts || "").replace(/,/g, ' '),
+                        (l.technologyFocus || "").replace(/,/g, ' '),
+                        l.OverstockScore || 0,
+                        l.overstockFit || "FALSE",
+                        (l.overstockReason || "").replace(/,/g, ' '),
+                        (l.similarProductsDetected || "").replace(/,/g, ' '),
+                        (l.marketSignals || "").replace(/,/g, ' '),
+                        l.Phone || "",
+                        l.Email || "",
+                        l.Website || "",
+                        (l.Address || "").replace(/,/g, ' '),
+                        l.City || "",
+                        l.State || "",
+                        l.Zip || "",
+                        l.Country || "USA",
+                        l.BuyingCapacity || "",
+                        l.Omnichannel || "FALSE",
+                        (l.Justification || "").replace(/,/g, ' '),
+                        (l.techStack || "").replace(/,/g, ' '),
+                        l.Scrapper || "",
+                        l.assignee || l.asignee || "Unassigned"
+                    ];
+                    return row.map(v => `"${String(v || "").replace(/"/g, '""')}"`).join(',');
+                })
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `List_${label.replace(/\s+/g, '_')}_${type}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            updateHubLog(`📥 Direct download: ${label} (${subset.length} leads).`);
+        }
+
+        // Updated Preset Handler for Composite Filters
+        function applyHubPreset(type, prodName, assigneeName) {
+            const suffix = type === 'buyers' ? 'B' : 'S';
+            const elProd = document.getElementById(`filtProd${suffix}`);
+            const elAss = document.getElementById(`filtAss${suffix}`);
+
+            if (elProd && prodName) {
+                // Ensure option exists
+                if (!Array.from(elProd.options).some(o => o.value === prodName)) {
+                    const opt = document.createElement('option');
+                    opt.value = prodName; opt.innerText = prodName;
+                    elProd.appendChild(opt);
+                }
+                elProd.value = prodName;
+            }
+
+            if (elAss && assigneeName) {
+                if (!Array.from(elAss.options).some(o => o.value === assigneeName)) {
+                    const opt = document.createElement('option');
+                    opt.value = assigneeName; opt.innerText = assigneeName;
+                    elAss.appendChild(opt);
+                }
+                elAss.value = assigneeName;
+            } else if (elAss) {
+                elAss.value = 'ALL';
+            }
+
+            applyHubFilters(type); // Force update
+        }
+
+        function applyHubPreset(type, prodName) {
+            const suffix = type === 'buyers' ? 'B' : 'S';
+            const el = document.getElementById(`filtProd${suffix}`);
+            if (el) {
+                // Ensure the option exists
+                const exists = Array.from(el.options).some(o => o.value === prodName);
+                if (!exists) {
+                    const opt = document.createElement('option');
+                    opt.value = prodName;
+                    opt.innerText = prodName;
+                    el.appendChild(opt);
+                }
+                el.value = prodName;
+                applyHubFilters(type); // Force update
+            }
+        }
+
+        // New Helper Filters
+        function applyHubFilterScore(type, minScore) {
+            const suffix = type === 'buyers' ? 'B' : 'S';
+            // Reset UI filters
+            document.getElementById(`filtProd${suffix}`).value = 'ALL';
+            document.getElementById(`filtState${suffix}`).value = 'ALL';
+
+            // Apply custom filter logic to 'hubBase'
+            hubFiltered[type] = hubBase[type].filter(l => (parseInt(l.OverstockScore) || 0) >= minScore);
+
+            renderHubTable(type);
+            const label = document.getElementById(`labelCount${suffix}`);
+            if (label) label.innerText = `Focused Group: ${hubFiltered[type].length} Leads (High Value)`;
+            updateHubLog(`Cluster applied: High Score > ${minScore}`);
+        }
+
+        function applyHubFilterUnassigned() {
+            // Specific to buyers finding unassigned
+            document.getElementById(`filtProdB`).value = 'ALL';
+            hubFiltered['buyers'] = hubBase['buyers'].filter(l => !l.assignee || l.assignee === 'Unassigned' || l.assignee === 'Unknown');
+            renderHubTable('buyers');
+            const label = document.getElementById(`labelCountB`);
+            if (label) label.innerText = `Focused Group: ${hubFiltered['buyers'].length} Unassigned Leads`;
+            updateHubLog(`Cluster applied: Unassigned Leads`);
+        }
+
+        function loadHubTestData() {
+            const dummyLeads = [
+                { Company: 'TechMega Store', topProducts: 'Laptops', State: 'NY', OverstockScore: 85, assignee: 'Camilo', IsQualifiedBuyer: true, Email: 'contact@techmega.com', Phone: '555-0101' },
+                { Company: 'FixIt Now', topProducts: 'Smartphones, Repairs', State: 'FL', OverstockScore: 60, assignee: 'Unassigned', IsQualifiedBuyer: true, Email: 'help@fixit.com', Phone: '555-0102' },
+                { Company: 'Gadget Guru', topProducts: 'Laptops', State: 'CA', OverstockScore: 75, assignee: 'Juan', IsQualifiedBuyer: true, Email: 'guru@gadget.com', Phone: '555-0103' },
+                { Company: 'Wholesale King', topProducts: 'General', State: 'TX', OverstockScore: 90, IsQualifiedSeller: true, Email: 'sales@wholesale.com', Phone: '555-0104' },
+                { Company: 'Phone Booth', topProducts: 'Phones', State: 'NY', OverstockScore: 55, assignee: 'Unassigned', IsQualifiedBuyer: true, Email: 'booth@phones.com', Phone: '555-0105' },
+                { Company: 'Liquidation Bros', topProducts: 'Tools', State: 'NV', OverstockScore: 40, IsQualifiedSeller: true, Email: 'bros@liq.com', Phone: '555-0106' }
+            ];
+
+            syncLeadsToHub(dummyLeads);
+        }
+
+        // BIG EXPORT - Main Bucket CSV - ROBUST BLOB METHOD
+        function exportHubToCSV(type) {
+            const leads = hubFiltered[type];
+            if (!leads || leads.length === 0) {
+                alert("No leads to export!");
+                return;
+            }
+
+            const headers = [
+                "ID", "Company", "Role", "BusinessCategory", "LeadType", "MainCategories", "TopProducts", "TechFocus",
+                "Score", "Fit", "OverstockReason", "SimilarProducts", "MarketSignals", "Phone", "Email", "Website", "Address", "City", "State", "Zip", "Country", "BuyingCapacity", "Omnichannel", "Justification", "TechStack", "Scrapper", "Assignee"
+            ];
+
+            const csvContent = [
+                headers.join(','),
+                ...leads.map(l => {
+                    const row = [
+                        l.ID || l.Rank || l.id || "",
+                        l.Company || "",
+                        l.Role || (type === 'buyers' ? 'BUYER' : 'SELLER'),
+                        l.businessCategory || "",
+                        l.LeadType || "",
+                        (l.mainCategories || "").replace(/,/g, ' '),
+                        (l.topProducts || "").replace(/,/g, ' '),
+                        (l.technologyFocus || "").replace(/,/g, ' '),
+                        l.OverstockScore || 0,
+                        l.overstockFit || "FALSE",
+                        (l.overstockReason || "").replace(/,/g, ' '),
+                        (l.similarProductsDetected || "").replace(/,/g, ' '),
+                        (l.marketSignals || "").replace(/,/g, ' '),
+                        l.Phone || "",
+                        l.Email || "",
+                        l.Website || "",
+                        (l.Address || "").replace(/,/g, ' '),
+                        l.City || "",
+                        l.State || "",
+                        l.Zip || "",
+                        l.Country || "USA",
+                        l.BuyingCapacity || "",
+                        l.Omnichannel || "FALSE",
+                        (l.Justification || "").replace(/,/g, ' '),
+                        (l.techStack || "").replace(/,/g, ' '),
+                        l.Scrapper || "",
+                        l.assignee || l.asignee || "Unassigned"
+                    ];
+                    return row.map(v => `"${String(v || "").replace(/"/g, '""')}"`).join(',');
+                })
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `Campaign_${type}_${new Date().toISOString().slice(0, 10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            updateHubLog(`📥 Exported ${leads.length} leads to CSV (Full Data).`);
+        }
+
+        function updateHubSel(id, opts, label) {
+            const s = document.getElementById(id);
+            if (!s) return;
+            const curr = s.value;
+            s.innerHTML = `<option value="ALL">All ${label}s</option>` + opts.map(o => `<option value="${o}">${o}</option>`).join('');
+            if (opts.includes(curr)) s.value = curr;
+        }
+
+        function applyHubFilters(type) {
+            const suffix = type === 'buyers' ? 'B' : 'S';
+            const elProd = document.getElementById(`filtProd${suffix}`);
+            const elState = document.getElementById(`filtState${suffix}`);
+
+            const fP = elProd ? elProd.value : 'ALL';
+            const fS = elState ? elState.value : 'ALL';
+
+            let fA = 'ALL';
+            if (type === 'buyers') {
+                const elAss = document.getElementById(`filtAssB`);
+                if (elAss) fA = elAss.value;
+            }
+
+            hubFiltered[type] = hubBase[type].filter(l => {
+                // FIX: Use .includes for partial product matches (Campaign Cards)
+                const pMatch = fP === 'ALL' || String(l.topProducts || "").toLowerCase().includes(fP.toLowerCase());
+                const sMatch = fS === 'ALL' || l.State === fS;
+                const aMatch = fA === 'ALL' || (l.assignee || l.asignee) === fA;
+                return pMatch && sMatch && aMatch;
+            });
+
+            renderHubTable(type);
+            const labelCount = document.getElementById(`labelCount${suffix}`);
+            if (labelCount) labelCount.innerText = `Focused Group: ${hubFiltered[type].length} Leads`;
+        }
+
+        function renderHubTable(type) {
+            const b = document.getElementById(type === 'buyers' ? 'bodyBuyers' : 'bodySellers');
+            if (!b) return;
+
+            b.innerHTML = hubFiltered[type].map(l => {
+                const score = parseInt(l.OverstockScore || 0);
+                const scoreColor = score > 80 ? '#10b981' : (score > 50 ? '#f59e0b' : '#ef4444');
+                const assignee = l.assignee || l.asignee || 'Unassigned';
+
+                return `
+                <tr style="font-size:0.75rem;" onclick="showLeadDetails('${l.Rank}')">
+                    <td style="font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${l.Company}">${l.Company}</td>
+                    <td style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${l.topProducts}">${String(l.topProducts || '').substring(0, 30)}</td>
+                    <td>${l.State || "N/A"}</td>
+                    <td style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${l.Email}">${l.Email ? '📧 ' + l.Email : '---'}</td>
+                    <td style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${l.Phone || ''}">${l.Phone || '---'}</td>
+                    <td style="font-size:0.7rem; color:var(--text-muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${l.Justification || ''}">${l.Justification || 'N/A'}</td>
+                    <td style="font-weight:700; color:${scoreColor};">${score}</td>
+                    ${type === 'buyers' ? `<td style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${assignee}">${assignee}</td>` : ''}
+                </tr>
+                `;
+            }).reverse().join('') || `<tr><td colspan="${type === 'buyers' ? '8' : '7'}" style="text-align:center; color:#4b5563; padding: 20px;">No matches found in this cluster.</td></tr>`;
+        }
+
+        function updateHubStats() {
+            document.getElementById('hubCountBuyers').innerText = hubBase.buyers.length;
+            document.getElementById('hubCountSellers').innerText = hubBase.sellers.length;
+            const uniqueNiches = new Set([...hubBase.buyers, ...hubBase.sellers].map(l => l.topProducts));
+            document.getElementById('hubCountNiches').innerText = uniqueNiches.size;
+            document.getElementById('hubCountSent').innerText = hubBatchCount;
+        }
+
+        function clearBucket(type) {
+            if (confirm(`Clear all staged ${type}?`)) {
+                hubBase[type] = [];
+                refreshHubUI(type);
+                updateHubLog(`Cleared ${type} staging.`);
+            }
+        }
+
+        async function dispatchHub(type) {
+            const leads = hubFiltered[type];
+            if (!leads.length) { alert("No leads to send!"); return; }
+            const camp = document.getElementById(type === 'buyers' ? 'campB' : 'campS').value;
+
+            updateHubLog(`🚀 Sending batch of ${leads.length} leads to ${camp}...`, '#10b981');
+
+            // Use the INSTANTLY_WEBHOOK from config
+            const webhook = MASTERSTOCK_CONFIG.INSTANTLY_WEBHOOK || "https://masterstockcolombia2.app.n8n.cloud/webhook/instantly-create-leads";
+
+            try {
+                await fetch(webhook, {
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: "DISPATCH_UNIFIED", type, leads, camp })
+                });
+                hubBatchCount++;
+                updateHubStats();
+                updateHubLog(`✅ Batch successful.Tracking in Instantly.`, '#10b981');
+                alert(`🚀 Sent ${leads.length} leads to Instantly Campaign!`);
+            } catch (e) {
+                updateHubLog(`❌ Error: ${e.message} `, '#ef4444');
+                alert("Error sending to bridge.");
+            }
+        }
+
+        function updateHubLog(msg, color = '') {
+            const t = document.getElementById('termLog');
+            const d = document.createElement('div');
+            d.style.color = color || '#9ca3af';
+            d.innerText = `[${new Date().toLocaleTimeString()}] ${msg} `;
+            t.appendChild(d);
+            t.scrollTop = t.scrollHeight;
+        }
+        async function bulkSyncRoles() {
+            // Forward to the robust assignment system logic (which handles Config/Storage)
+            if (typeof syncAssignmentsToCloud === 'function') {
+                syncAssignmentsToCloud();
+            } else {
+                alert("Assignment System not loaded. Please refresh.");
+            }
+        }
+
+        function getCalculatedCategory(l) {
+            // 1. EXTRACT ALL DATA POINTS (Support all casing variations)
+            const name = String(l.Company || l.company || l.title || "").toLowerCase();
+            const biz = String(l.businessCategory || l.business_category || l.leadType || l.LeadType || "").toLowerCase();
+            const cat = String(l.categoryName || l.category || "").toLowerCase();
+            const mainCats = String(l.mainCategories || l.main_categories || "").toLowerCase();
+            const prods = String(l.topProducts || l.top_products || "").toLowerCase();
+            const signals = String(l.marketSignals || l.market_signals || "").toLowerCase();
+            const reason = String(l.overstockReason || l.overstock_reason || "").toLowerCase();
+            const tech = String(l.technologyFocus || l.technology_focus || "").toLowerCase();
+            const just = String(l.Justification || l.justification || "").toLowerCase();
+            const website = String(l.Website || l.website || "").toLowerCase();
+            const capacity = String(l.BuyingCapacity || l.buyingCapacity || l.buying_capacity || "").toUpperCase();
+
+            // Comprehensive context string
+            const allText = `${name} ${biz} ${cat} ${mainCats} ${prods} ${signals} ${reason} ${tech} ${just} ${website} `.toLowerCase();
+
+            let primary = "Other";
+            let secondary = "Various";
+            const fit = l.overstockFit === 'TRUE';
+
+            // --- 2. BRAND GUARDIAN ---
+            if (name.includes('walmart') || name.includes('target') || name.includes('best buy')) {
+                primary = "Retail"; secondary = (name.includes('best buy')) ? "Consumer Tech" : "Big Box";
+                return { primary, secondary };
+            }
+            if (name.includes('costco') || name.includes('home depot') || name.includes('lowe\'s')) {
+                primary = "Wholesale"; secondary = "Commercial Supply";
+                return { primary, secondary };
+            }
+
+            // --- 3. DEEP CONTEXT CATEGORIZATION ---
+
+            // A. LIQUIDATORS (Looking for specific business behavior in signals/reason)
+            const isLiquidatorModel = signals.match(/pallet|truckload|auction|bin store|liquidation center|closeout specialist/i) ||
+                reason.match(/returned goods|shelf pulls|salvage|bankruptcy/i) ||
+                just.match(/liquidation|pallet|truckload/i);
+
+            if (isLiquidatorModel) {
+                primary = "B2B Liquidator";
+                secondary = "Bulk Inventory";
+            }
+
+            // B. WHOLESALERS (Generic wholesale/distributor terms)
+            else if (allText.match(/distributor|wholesale|distribuidora|importador|supplier|logistic/i)) {
+                // If it's a high capacity wholesaler, keep it pure
+                primary = "Wholesale / Distributor";
+                secondary = "Commercial Supply";
+            }
+
+            // C. REPAIR & SERVICES (Very important distinction)
+            else if (allText.match(/repair|service|center|soporte|taller|fix|mantenimiento/i)) {
+                primary = "Repair / Service Provider";
+                secondary = "Tech Services";
+            }
+
+            // D. ONLINE RETAILERS
+            else if (allText.match(/online|e-commerce|digital|web shop|tienda virtual|shopify|ebay seller|amazon seller/i)) {
+                primary = "Online Retailer";
+                secondary = "E-Commerce";
+            }
+
+            // E. PHYSICAL RETAILERS (Stores, outlets, showrooms)
+            else if (allText.match(/retail|physical|store|showroom|outlet|boutique|mall/i) || (l.Address && l.Address.length > 5)) {
+                primary = "Physical Retailer";
+                secondary = "Local Market";
+            }
+
+            // F. INSTITUTIONAL
+            else if (allText.match(/university|college|school|hospital|government|non-profit/i)) {
+                primary = "Education / Non-Profit";
+                secondary = "Services";
+            }
+
+            // --- 4. FALLBACK LOGIC (Golden Rule) ---
+            if (primary === "Other" && (fit || allText.match(/overstock|discount/i))) {
+                if (capacity === 'HIGH' || capacity === 'ENTERPRISE') primary = "Wholesaler / Distributor";
+                else primary = "B2B Liquidator";
+            }
+
+            // --- 5. SMART SECONDARY TAGGING ---
+            if (allText.match(/phone|mobile|cell|accessory|iphone|samsung|pixel|verizon|at&t/i)) secondary = "Consumer Tech";
+            else if (allText.match(/computer|laptop|it|server|workstation|network/i)) secondary = "IT Services";
+            else if (allText.match(/electronics|gadget|device/i)) secondary = "Electronics";
+            else if (allText.match(/appliance|home|kitchen/i)) secondary = "Home Goods";
+            else if (allText.match(/tool|hardware|construction/i)) secondary = "Hardware";
+
+            return { primary, secondary };
+        }
+
+        async function bulkRecategorize() {
+            const btn = document.getElementById('btnRecategorize');
+            const originalText = btn.innerHTML;
+
+            if (!allLeads || allLeads.length === 0) {
+                alert("No leads found to recategorize.");
+                return;
+            }
+
+            if (!confirm(`This will re - calculate categories for ALL ${allLeads.length} leads using the new AI Logic.Are you sure ? `)) return;
+
+            btn.disabled = true;
+            btn.innerHTML = "⏳ Starting Processing...";
+
+            // 1. UPDATE LOCALLY FIRST
+            console.log("Recalculating categories locally...");
+            try {
+                allLeads.forEach(l => {
+                    if (!l) return;
+                    const res = getCalculatedCategory(l);
+                    l.businessCategory = res.primary;
+                    l.SecondaryTag = res.secondary;
+                });
+                renderDashboard(allLeads);
+                btn.innerHTML = "📤 Ready to Sync...";
+            } catch (err) {
+                console.error("Local calculation crash:", err);
+            }
+
+            // 2. CHUNKED SYNC
+            const CHUNK_SIZE = 200;
+            const total = allLeads.length;
+            let successCount = 0;
+
+            for (let i = 0; i < total; i += CHUNK_SIZE) {
+                const chunk = allLeads.slice(i, i + CHUNK_SIZE);
+                btn.innerHTML = `📤 Syncing ${i} / ${total}...`;
+
+                const updatePayload = chunk.map(l => ({
+                    company: l.Company || l.company || l.title || "Unknown",
+                    Company: l.Company || l.company || l.title || "Unknown",
+                    businessCategory: l.businessCategory,
+                    SecondaryTag: l.SecondaryTag
+                }));
+
+                try {
+                    const response = await fetch(WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ items: updatePayload, action: 'UPDATE_CATEGORIES' })
+                    });
+                    if (response.ok) {
+                        successCount += chunk.length;
+                    } else {
+                        console.warn("Chunk failed with status:", response.status);
+                    }
+                } catch (e) {
+                    console.error("Network error during chunk sync:", i, e);
+                }
+            }
+
+            // FINAL STATUS
+            if (successCount > 0) {
+                btn.innerHTML = `✅ ${successCount} Leads Synced!`;
+                btn.style.background = "#059669";
+            } else {
+                btn.innerHTML = "⚠️ Cloud Sync Failed";
+                btn.style.background = "#f59e0b";
+            }
+
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.style.background = ""; // Reset background to CSS gradient
+            }, 5000);
+        }
+
+        async function updateLeadRole(company, newRole) {
+            const statusLabel = document.getElementById('roleSaving');
+            if (statusLabel) statusLabel.style.display = 'inline';
+            try {
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ Company: company, role: newRole })
+                });
+                const lead = allLeads.find(l => l.Company === company);
+                if (lead) lead.role = newRole;
+                if (statusLabel) statusLabel.innerText = '✅ SAVED';
+                setTimeout(() => { if (statusLabel) statusLabel.style.display = 'none'; }, 2000);
+                renderDashboard(filteredLeads);
+            } catch (e) {
+                if (statusLabel) statusLabel.innerText = '❌ ERROR';
+                console.error(e);
+            }
+        }
+
+        function closeModal(e) {
+            document.getElementById('leadModal').style.display = 'none';
+        }
+
+        function openComparison(preS1, preS2) {
+            const states = [...new Set(allLeads.map(l => l.State))].filter(s => s && s.length === 2).sort();
+            document.getElementById('modalBody').innerHTML = `
+                    <h2 style="margin-top:0;">⚖️ Regional Comparison Tool</h2>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:20px;">
+                        <div>
+                            <div class="dd-label">First State</div>
+                            <select id="compS1" onchange="updateComparison()" style="width:100%;">
+                                ${states.map(s => `<option value="${s}" ${s === preS1 ? 'selected' : ''}>${REVERSE_STATE_MAP[s] || s}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div>
+                            <div class="dd-label">Second State</div>
+                            <select id="compS2" onchange="updateComparison()" style="width:100%; font-size: 0.9rem;">
+                                ${states.map((s, i) => `<option value="${s}" ${preS2 ? (s === preS2 ? 'selected' : '') : (i === 1 ? 'selected' : '')}>${REVERSE_STATE_MAP[s] || s}</option>`).join('')}
+                            </select>
+                        </div>
+                    </div>
+                    <div id="compResults" class="comp-grid"></div>
+                `;
+            document.getElementById('leadModal').style.display = 'flex';
+            if (preS1 || preS2) {
+                updateComparison();
+            } else {
+                updateComparison();
+            }
+        }
+
+        function updateComparison() {
+            const s1 = document.getElementById('compS1').value;
+            const s2 = document.getElementById('compS2').value;
+
+            const stats = (code) => {
+                const leads = allLeads.filter(l => l.State === code);
+                const buyers = leads.filter(l => l.overstockFit === 'TRUE' || l.IsQualifiedBuyer);
+                const sellers = leads.filter(l => l.IsQualifiedSeller);
+
+                const prods = {};
+                leads.forEach(l => {
+                    String(l.topProducts || "").split(',').map(p => p.trim()).filter(p => p && p !== 'unknown').forEach(p => {
+                        prods[p] = (prods[p] || 0) + 1;
+                    });
+                });
+                const sortedProds = Object.entries(prods).sort((a, b) => b[1] - a[1]).slice(0, 3).map(p => p[0]);
+
+                const highCap = leads.filter(l => l.BuyingCapacity === 'HIGH').length;
+
+                return {
+                    code,
+                    full: REVERSE_STATE_MAP[code] || code,
+                    total: leads.length,
+                    buyers: buyers.length,
+                    sellers: sellers.length,
+                    avgScore: Math.round(leads.reduce((a, b) => a + (parseInt(b.OverstockScore) || 0), 0) / (leads.length || 1)),
+                    topProds: sortedProds.join(', ') || 'General Electronics',
+                    highCap: highCap
+                };
+            };
+
+            const d1 = stats(s1);
+            const d2 = stats(s2);
+
+            const renderCard = (d) => `
+                    <div class="comp-card" style="padding: 15px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;">
+                        <div style="font-size: 1.2rem; font-weight: 800; color: var(--accent); margin-bottom: 15px; border-bottom: 2px solid var(--accent); display: inline-block;">${d.full}</div>
+                        
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                            <div style="background: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 0.65rem; color: #10b981; text-transform: uppercase;">Demand (Buyers)</div>
+                                <div style="font-size: 1.3rem; font-weight: 700; color: #10b981;">${d.buyers}</div>
+                            </div>
+                            <div style="background: rgba(139, 92, 246, 0.1); padding: 10px; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 0.65rem; color: #8b5cf6; text-transform: uppercase;">Supply (Sellers)</div>
+                                <div style="font-size: 1.3rem; font-weight: 700; color: #8b5cf6;">${d.sellers}</div>
+                            </div>
+                        </div>
+
+                        <div style="font-size: 0.85rem; space-y: 8px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span style="color: var(--text-muted);">Top Products:</span>
+                                <span style="color: white; font-weight: 600;">${d.topProds}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span style="color: var(--text-muted);">High Capacity:</span>
+                                <span style="color: #f59e0b; font-weight: 600;">${d.highCap} Leads</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: var(--text-muted);">Lead Quality:</span>
+                                <span style="color: white; font-weight: 600;">${d.avgScore} pts avg</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            // Logic for the Rationale Box
+            let rationale = "";
+            if (d1.sellers > 0 && d2.buyers > 2) {
+                rationale = `🔥 <b>Arbitrage Alert:</b> High concentration of supply in <b>${d1.full}</b> meets strong demand in <b>${d2.full}</b>. Focused on <i>${d1.topProds}</i>. Moving inventory between these nodes would maximize margin.`;
+            } else if (d1.buyers > 5 && d1.sellers === 0) {
+                rationale = `🚨 <b>Market Gap in ${d1.full}:</b> Extremely underserved demand. There are ${d1.buyers} buyers and ZERO local sellers. Priority 1 for sourcing.`;
+            } else {
+                rationale = `💡 <b>Strategic Overview:</b> ${d1.full} is a primary ${d1.buyers > d1.sellers ? 'buyer' : 'seller'} market. Total volume of ${d1.total + d2.total} active leads analyzed.`;
+            }
+
+            document.getElementById('compResults').innerHTML = `
+                    ${renderCard(d1)}
+                    ${renderCard(d2)}
+                    <div style="grid-column: span 2; background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); padding: 15px; border-radius: 10px; margin-top: 15px; font-size: 0.9rem; line-height: 1.5; color: #cffafe;">
+                        ${rationale}
+                    </div>
+                `;
+        }
+
+        function updateICPPriority(leads) {
+            const buyers = leads
+                .filter(l => isLeadBuyer(l))
+                .sort((a, b) => b.OverstockScore - a.OverstockScore);
+
+            const sellers = leads
+                .filter(l => isLeadSeller(l))
+                .sort((a, b) => b.OverstockScore - a.OverstockScore);
+
+            const renderLead = (l) => `
+                    <div style="background:rgba(255,255,255,0.03); border-radius:6px; padding:6px; margin-bottom:4px; border-left:2px solid ${isLeadSeller(l) ? '#8b5cf6' : '#10b981'}; cursor:pointer;" onclick="showLeadDetails('${l.Rank}')">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-weight:700; font-size: 0.7rem; color: white; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${l.Company.substring(0, 18)}</span>
+                            <span style="color: var(--accent); font-weight:700; font-size: 0.7rem;">${l.OverstockScore}</span>
+                        </div>
+                    </div>
+                `;
+
+            let html = '';
+            if (currentRole === 'ALL' || currentRole === 'BUYER') {
+                html += buyers.slice(0, 4).map(renderLead).join('');
+            }
+            if (currentRole === 'ALL') {
+                html += '<hr style="opacity:0.05; margin:3px 0;">';
+            }
+            if (currentRole === 'ALL' || currentRole === 'SELLER') {
+                html += sellers.slice(0, 4).map(renderLead).join('');
+            }
+
+            document.getElementById('icpBuyersList').innerHTML = html || '<div style="color:var(--text-muted); font-size:0.7rem; padding:10px;">No matches</div>';
+        }
+
+        function updateAIInsights(leads) {
+            const list = document.getElementById('aiInsightsList');
+            if (!list) return;
+            list.innerHTML = '';
+            const insights = [];
+
+            const data = Array.isArray(leads) ? leads : [];
+            if (data.length === 0) {
+                list.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:20px;">No specific insights for this segment.</div>';
+                return;
+            }
+
+            // 1. Group by Product and State
+            const stats = {};
+            data.forEach(l => {
+                if (!l.State || l.State === 'unknown' || l.State === 'N/A') return;
+
+                const prodsRaw = String(l.topProducts || "").split(',')
+                    .map(p => p.trim())
+                    .filter(p => p && p.toLowerCase() !== 'unknown' && p.toLowerCase() !== 'null');
+
+                const isBuyer = l.overstockFit === 'TRUE' || l.IsQualifiedBuyer;
+                const isSeller = l.IsQualifiedSeller;
+
+                prodsRaw.forEach(p => {
+                    let pNorm = p.charAt(0).toUpperCase() + p.slice(1).toLowerCase();
+                    if (pNorm.includes('Laptop') || pNorm.includes('Computadora')) pNorm = 'Computing';
+                    if (pNorm.includes('Smartphone') || pNorm.includes('Celular')) pNorm = 'Mobile Devices';
+
+                    if (!stats[pNorm]) stats[pNorm] = {};
+                    if (!stats[pNorm][l.State]) stats[pNorm][l.State] = { buyers: 0, sellers: 0 };
+                    if (isBuyer) stats[pNorm][l.State].buyers++;
+                    if (isSeller) stats[pNorm][l.State].sellers++;
+                });
+            });
+
+            // 2. Select Top Opportunities (CAPPED to prevent UI hang)
+            let oppCount = 0;
+            const maxOpp = 15;
+
+            // Sort products by total interest to prioritize insights
+            const sortedProds = Object.entries(stats).sort((a, b) => {
+                const countA = Object.values(a[1]).reduce((sum, s) => sum + s.buyers + s.sellers, 0);
+                const countB = Object.values(b[1]).reduce((sum, s) => sum + s.buyers + s.sellers, 0);
+                return countB - countA;
+            });
+
+            for (const [prod, geo] of sortedProds) {
+                if (oppCount >= maxOpp) break;
+
+                const supplyStates = Object.entries(geo).filter(([s, counts]) => counts.sellers > 0);
+                const demandStates = Object.entries(geo).filter(([s, counts]) => counts.buyers > 2);
+
+                if (supplyStates.length > 0 && demandStates.length > 0) {
+                    // Pick the best match for this product
+                    const bestSupply = supplyStates.sort((a, b) => b[1].sellers - a[1].sellers)[0];
+                    const bestDemand = demandStates.filter(s => s[0] !== bestSupply[0]).sort((a, b) => b[1].buyers - a[1].buyers)[0];
+
+                    if (bestSupply && bestDemand) {
+                        insights.push({
+                            type: 'arbitrage',
+                            title: `Arbitrage: ${prod}`,
+                            desc: `Source in <b>${bestSupply[0]}</b> and distribute in <b>${bestDemand[0]}</b>.`,
+                            why: `<b>Strategy:</b> Connect local sellers with ${bestDemand[1].buyers} qualified buyers.`,
+                            s1: bestSupply[0],
+                            s2: bestDemand[0]
+                        });
+                        oppCount++;
+                    }
+                }
+
+                // Market Gaps
+                const gaps = Object.entries(geo).filter(([s, counts]) => counts.buyers > 5 && counts.sellers === 0);
+                for (const [state, counts] of gaps) {
+                    if (oppCount >= maxOpp) break;
+                    insights.push({
+                        type: 'gap',
+                        title: `Market Gap: ${prod} in ${state}`,
+                        desc: `Underserved demand area.`,
+                        why: `<b>Opportunity:</b> ${counts.buyers} buyers with zero local supply registered.`,
+                        s1: state
+                    });
+                    oppCount++;
+                }
+            }
+
+            // 3. Efficiency Tip (Excluding 'Other')
+            const catScores = {};
+            data.forEach(l => {
+                const c = l.businessCategory || 'Other';
+                if (c === 'Other' || c === 'unknown' || c === 'N/A') return;
+                if (!catScores[c]) catScores[c] = { sum: 0, count: 0 };
+                catScores[c].sum += (parseInt(l.OverstockScore) || 0);
+                catScores[c].count++;
+            });
+            const topEfficiency = Object.entries(catScores)
+                .filter(e => e[1].count > 5)
+                .map(([cat, s]) => ([cat, s.sum / s.count]))
+                .sort((a, b) => b[1] - a[1])[0];
+
+            if (topEfficiency && oppCount < maxOpp) {
+                insights.push({
+                    type: 'tip',
+                    title: `Priority Segment: ${topEfficiency[0]}`,
+                    desc: `Highest ROI probability based on current data.`,
+                    why: `<b>Focus:</b> Average fit score of ${Math.round(topEfficiency[1])} pts for this group.`
+                });
+            }
+
+            list.innerHTML = insights.map(ins => {
+                let color = ins.type === 'arbitrage' ? '#10b981' : (ins.type === 'gap' ? '#f59e0b' : '#3b82f6');
+                let icon = ins.type === 'arbitrage' ? '⚖️' : (ins.type === 'gap' ? '🚨' : '💡');
+                let clickHandler = ins.s1 ? `onclick="openComparison('${ins.s1}', '${ins.s2 || ''}')"` : '';
+                return `
+                        <div ${clickHandler} style="background: rgba(255,255,255,0.03); border-left: 3px solid ${color}; padding: 10px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+                            <div style="font-weight:700; color:${color}; margin-bottom:3px;">${icon} ${ins.title}</div>
+                            <div style="color:white; margin-bottom:5px;">${ins.desc}</div>
+                            <div style="font-size:0.7rem; color:var(--text-muted); line-height:1.3;">${ins.why}</div>
+                        </div>
+                    `;
+            }).join('') || '<div style="text-align:center; padding:20px; color:var(--text-muted);">Scanning for opportunities...</div>';
+        }
+
+        function toggleSectorView() {
+            const panel = document.getElementById('sectorizationPanel');
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = '1000px';
+            }
+        }
+
+        // Normalize initial leads
+        allLeads = allLeads.map(l => {
+            let s = l.State || l.state || "N/A";
+            if (s && s.length > 2) s = STATE_MAP[s] || s;
+            return { ...l, State: s };
+        });
+
+        window.onload = () => {
+            if (typeof initAssignmentSystem === 'function') initAssignmentSystem();
+            renderDashboard(allLeads);
+        };
+
+        function syncTeamDataToExcel() {
+            if (typeof syncAssignmentsToCloud === 'function') {
+                syncAssignmentsToCloud();
+            } else {
+                alert("Sync function not loaded properly. Please refresh.");
+            }
+        }
+
+        // Duplicate wrapper removed to prevent conflicts
+
+        function handleRedistributeClick() {
+            try {
+                if (typeof redistributeLeads === 'function') redistributeLeads();
+                if (typeof closeAssignmentModal === 'function') closeAssignmentModal();
+
+                // Force UI Refresh
+                if (typeof allLeads !== 'undefined') {
+                    // Update filteredLeads reference to ensure we aren't stuck with old data
+                    filteredLeads = [...allLeads];
+                }
+
+                if (typeof filterByAdvanced === 'function') {
+                    filterByAdvanced();
+                }
+
+                // Explicitly force table update to be sure
+                if (typeof updateTable === 'function' && typeof filteredLeads !== 'undefined') {
+                    updateTable(filteredLeads);
+                }
+
+                // Temporary Alert to confirm it ran
+                // alert("✅ Leads redistributed and table updated.");
+            } catch (e) {
+                alert('Error processing redistribution: ' + e.message);
+            }
+        }
+    </script>
+
+    <!-- Assignment Modal (Restored) -->
+    <div id="assignmentModal" class="modal-overlay" style="z-index:1100;">
+        <div class="modal-content" style="width:400px;" onclick="event.stopPropagation()">
+            <span class="modal-close" style="float:right; cursor:pointer; font-size:1.5rem;"
+                onclick="closeAssignmentModal()">&times;</span>
+            <div style="text-align:center;">
+                <h2 style="color:var(--accent); margin-bottom:5px;">👥 Manage Team</h2>
+                <div style="color:var(--text-muted); font-size:0.8rem; margin-bottom:20px;">Redistribute leads among
+                    sales agents</div>
+
+                <div id="teamCountSection">
+                    <div style="margin-bottom:15px;">How many people are in the team?</div>
+                    <input type="number" id="teamCountInput"
+                        style="padding:10px; width:80%; background:#111; color:white; border:1px solid #333; border-radius:8px; text-align:center; font-size:1.2rem;"
+                        min="1" max="20">
+                    <button onclick="setTeamMemberCount()"
+                        style="margin-top:15px; width:100%; padding:12px; background:var(--accent); color:white; border:none; border-radius:8px; font-weight:700; cursor:pointer;">NEXT</button>
+
+                    <div style="margin-top:30px; padding-top:20px; border-top:1px dashed #333;">
+
+                        <button onclick="handleRedistributeClick()"
+                            style="width:100%; padding:12px; background:rgba(16, 185, 129, 0.1); border:1px solid #10b981; color:#10b981; border-radius:8px; font-weight:700; cursor:pointer; position:relative; z-index:2000;">
+                            ♻️ Redistribute Now (Fixed v2)
+                        </button>
+
+                    </div>
+
+                    <div id="currentTeamList"
+                        style="margin-top:20px; text-align:left; max-height:150px; overflow-y:auto; border-top:1px solid #333; padding-top:10px;">
+                        <!-- List of current members -->
+                    </div>
+                </div>
+
+                <div id="teamNamesSection" style="display:none;">
+                    <div style="margin-bottom:15px;">Enter Member Names:</div>
+                    <div id="teamNamesContainer"
+                        style="display:flex; flex-direction:column; gap:8px; max-height:300px; overflow-y:auto;">
+                        <!-- Inputs go here -->
+                    </div>
+                    <button onclick="saveTeamMembers()"
+                        style="margin-top:15px; width:100%; padding:12px; background:#10b981; color:white; border:none; border-radius:8px; font-weight:700; cursor:pointer;">SAVE
+                        & DISTRIBUTE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

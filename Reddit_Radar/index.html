@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MasterStock USA | Reddit Radar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@500;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #070708;
+            --card-bg: rgba(15, 15, 20, 0.8);
+            --accent-lead: #ef4444;
+            /* High Intent */
+            --accent-story: #a855f7;
+            /* Nightmare */
+            --accent-info: #3b82f6;
+            /* Question */
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glass-effect: blur(16px) saturate(180%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 30px;
+            background-image:
+                radial-gradient(circle at 50% -20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(168, 85, 247, 0.05) 0%, transparent 40%);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .header-title h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #fff, #9ca3af);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-title p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .radar-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat-item {
+            background: var(--card-bg);
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stat-item i {
+            font-size: 1.2rem;
+        }
+
+        .stat-val {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .radar-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .btn-scan {
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-scan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-scan:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .feed-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .intelligence-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            backdrop-filter: var(--glass-effect);
+        }
+
+        .intelligence-card:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .badge-lead {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent-lead);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .badge-story {
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--accent-story);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .badge-info {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-info);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .card-source {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: #fff;
+            margin-top: 5px;
+        }
+
+        .card-summary {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .relevancy-section {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .score-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .score-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            border-radius: 10px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.03);
+            color: white;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: var(--accent-info);
+        }
+
+        .btn-primary:hover {
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        /* Loader */
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .radar-animation {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .radar-animation::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(from 0deg, rgba(59, 130, 246, 0.4), transparent 90deg);
+            border-radius: 50%;
+            transform-origin: top left;
+            animation: rotate 2s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .scan-text {
+            font-family: 'Outfit';
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader-overlay" id="loaderOverlay">
+        <div class="radar-animation"></div>
+        <div class="scan-text">SCANNING CONTENT GOLDMINE...</div>
+    </div>
+
+    <header>
+        <div class="header-title">
+            <h1>Reddit Intelligence Radar USA</h1>
+            <p>B2B Intelligence: High-intent leads in the United States.</p>
+        </div>
+        <div class="radar-stats">
+            <div class="stat-item">
+                <i class="fa-solid fa-fire" style="color: var(--accent-lead)"></i>
+                <div class="stat-info">
+                    <span class="stat-val" id="leadsCount">0</span>
+                    <div style="font-size: 9px; text-transform: uppercase;">Hot leads</div>
+                </div>
+            </div>
+            <div class="stat-item">
+                <i class="fa-solid fa-camera-retro" style="color: var(--accent-story)"></i>
+                <div class="stat-info">
+                    <span class="stat-val" id="storiesCount">0</span>
+                    <div style="font-size: 9px; text-transform: uppercase;">Content Hooks</div>
+                </div>
+            </div>
+            <div class="stat-item">
+                <i class="fa-solid fa-brain" style="color: var(--accent-info)"></i>
+                <div class="stat-info">
+                    <span class="stat-val" id="intelCount">0</span>
+                    <div style="font-size: 9px; text-transform: uppercase;">B2B Market Intel</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="radar-controls">
+        <div style="flex: 1; position: relative;">
+            <i class="fa-solid fa-layer-group"
+                style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+            <input type="text" id="intelCategory" placeholder="Target Category (e.g. Technology, Apparel, Machinery...)"
+                style="width: 100%; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px 12px 12px 45px; color: white; outline: none; transition: border-color 0.3s ease;">
+        </div>
+        <button class="btn-scan" id="scanBtn">
+            <i class="fa-solid fa-satellite-dish"></i>
+            LAUNCH RADAR SCAN
+        </button>
+    </div>
+
+    <div class="feed-container" id="intelligenceFeed">
+        <!-- Empty State -->
+        <div style="grid-column: 1/-1; text-align: center; padding: 100px; color: var(--text-muted);">
+            <i class="fa-solid fa-magnifying-glass-chart"
+                style="font-size: 4rem; opacity: 0.2; margin-bottom: 20px;"></i>
+            <h3>No intelligence data detected</h3>
+            <p>Initiate a radar scan to mine Reddit for B2B inventory opportunities.</p>
+        </div>
+    </div>
+
+    <script>
+        const intelCategoryInput = document.getElementById('intelCategory');
+        const webhookUrl = 'https://masterstockcolombia2.app.n8n.cloud/webhook/reddit-radar';
+
+        scanBtn.addEventListener('click', async () => {
+            const category = intelCategoryInput.value.trim();
+            if (!category) {
+                alert('Please enter a category for B2B Market Intelligence.');
+                return;
+            }
+
+            loaderOverlay.style.display = 'flex';
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ category })
+                });
+
+                const data = await response.json();
+                renderCards(data);
+            } catch (error) {
+                console.error('Scan failed:', error);
+                alert('Radar scanning failed. Ensure n8n webhook is active.');
+            } finally {
+                loaderOverlay.style.display = 'none';
+            }
+        });
+
+        function renderCards(data) {
+            feedContainer.innerHTML = '';
+            let leads = 0;
+            let stories = 0;
+            let tactical = 0;
+
+            data.forEach(item => {
+                // If data is wrapped in an output or text field by individual agent runs
+                const intel = typeof item.output === 'string' ? JSON.parse(item.output) : item;
+
+                if (intel.category.includes('Lead')) leads++;
+                if (intel.category.includes('Nightmare')) stories++;
+                if (intel.category.includes('Tactical')) tactical++;
+
+                const badgeClass = getBadgeClass(intel.category);
+
+                const card = document.createElement('div');
+                card.className = 'intelligence-card';
+                card.innerHTML = `
+                    <span class="card-badge ${badgeClass}">${intel.category}</span>
+                    <div class="card-source">DETECTED ON REDDIT</div>
+                    <h3 class="card-title">${intel.title}</h3>
+                    <p class="card-summary">${intel.summary}</p>
+                    
+                    <div class="relevancy-section">
+                        <div class="score-header">
+                            <span>RELEVANCY SCORE</span>
+                            <span>${intel.relevancy_score}/10</span>
+                        </div>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: ${intel.relevancy_score * 10}%"></div>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px; font-size: 0.8rem; border: 1px dashed var(--border-color);">
+                        <i class="fa-solid fa-lightbulb" style="color: #f59e0b; margin-right: 5px;"></i>
+                        <span style="color: var(--text-muted)">HOOK:</span> ${intel.strategic_hook}
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="${intel.original_url}" target="_blank" class="action-btn">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Thread
+                        </a>
+                        <button class="action-btn btn-primary" onclick="generateFromHook('${intel.strategic_hook}')">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Build Content
+                        </button>
+                    </div>
+                `;
+                feedContainer.appendChild(card);
+            });
+
+            document.getElementById('leadsCount').textContent = leads;
+            document.getElementById('storiesCount').textContent = stories;
+            document.getElementById('intelCount').textContent = tactical;
+        }
+
+        function getBadgeClass(category) {
+            if (category.includes('Lead')) return 'badge-lead';
+            if (category.includes('Nightmare')) return 'badge-story';
+            return 'badge-info';
+        }
+
+        function generateFromHook(hook) {
+            // Signal the parent dashboard to switch to Content Studio and load the hook
+            window.parent.postMessage({
+                type: 'NAVIGATE_AND_LOAD',
+                page: 'content',
+                hook: hook
+            }, '*');
+        }
+    </script>
+</body>
+
+</html>

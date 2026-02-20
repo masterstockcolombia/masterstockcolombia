@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Hunter AI | MasterStock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-dark: #1f2937;
+            --accent: #3b82f6;
+            --success: #10b981;
+            --error: #ef4444;
+            --text-muted: #9ca3af;
+            --border: #374151;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: white;
+            margin: 0;
+            padding: 25px;
+        }
+
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .icp-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+
+            .control-group {
+                border-left: none !important;
+                padding-left: 0 !important;
+                border-bottom: 1px solid var(--border);
+                padding-bottom: 15px;
+            }
+        }
+
+        .header {
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        .title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .icp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .icp-card {
+            background: var(--card-dark);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .icp-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .icp-card.active {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .icp-card.active::after {
+            content: 'SELECTED';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: var(--success);
+            border: 1px solid var(--success);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .icp-icon {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .controls {
+            background: var(--card-dark);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        input {
+            background: #111827;
+            border: 1px solid var(--border);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .fire-btn {
+            padding: 15px 30px;
+            border-radius: 12px;
+            border: none;
+            background: var(--accent);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .fire-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .fire-btn.loop-active {
+            background: #9333ea;
+            box-shadow: 0 0 20px rgba(147, 51, 234, 0.4);
+            animation: pulse-purple 2s infinite;
+        }
+
+        @keyframes pulse-purple {
+            0% {
+                box-shadow: 0 0 0 0 rgba(147, 51, 234, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(147, 51, 234, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(147, 51, 234, 0);
+            }
+        }
+
+        .fire-btn:disabled {
+            background: #4b5563;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .mission-monitor {
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .monitor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .monitor-title {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #4b5563;
+        }
+
+        .monitor-log {
+            height: 180px;
+            overflow-y: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .log-entry {
+            margin-bottom: 5px;
+        }
+
+        .log-time {
+            color: #4b5563;
+            margin-right: 10px;
+        }
+
+        .log-success {
+            color: var(--success);
+        }
+
+        .log-error {
+            color: var(--error);
+        }
+
+        .log-warning {
+            color: #f59e0b;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #111;
+            margin-top: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #progress-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--accent);
+            transition: 0.5s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="title">Lead Hunter AI Agent</div>
+        <div class="subtitle">AI Agent: Automated Lead Sourcing USA</div>
+    </div>
+
+    <div class="icp-grid">
+        <div class="icp-card"
+            onclick="selectICP(0, 'Busca 20 empresas especializadas en ITAD y reacondicionamiento técnico en Estados Unidos. Enfócate en mayoristas de hardware usado y centros de reciclaje electrónico.')">
+            <div class="icp-icon">🛠️ ITAD & Refurbished</div>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Especialistas en ITAD y reacondicionamiento técnico.
+            </p>
+        </div>
+        <div class="icp-card"
+            onclick="selectICP(1, 'Encuentra 20 mayoristas enfocados en lotes de overstock de tecnología en Estados Unidos. Busca liquidadores de electrónica y stocks masivos.')">
+            <div class="icp-icon">📦 Tech Liquidators</div>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Mayoristas enfocados en lotes de overstock.</p>
+        </div>
+        <div class="icp-card"
+            onclick="selectICP(2, 'Identifica 20 mayoristas de móviles y mercados secundarios en Estados Unidos. Especialistas en distribución B2B de smartphones y accesorios.')">
+            <div class="icp-icon">🏢 Mobile B2B Resellers</div>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Mayoristas de móviles y mercados secundarios.
+            </p>
+        </div>
+        <div class="icp-card"
+            onclick="selectICP(3, 'Busca 20 Game centers y tiendas Buy-Sell-Trade de Gaming y PC en Estados Unidos. Negocios enfocados en hardware de alto rendimiento y consolas.')">
+            <div class="icp-icon">🎮 Gaming & PC Specialists</div>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Game centers y tiendas Buy-Sell-Trade.
+            </p>
+        </div>
+        <div class="icp-card"
+            onclick="selectICP(4, 'Localiza 20 vendedores estrella en Amazon y eBay que operen bajo el modelo FBA en Estados Unidos. Enfócate en vendedores de electrónica de consumo.')">
+            <div class="icp-icon">🛒 Amazon FBA Resellers</div>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Vendedores estrella en Amazon y eBay.</p>
+        </div>
+        <div class="icp-card"
+            onclick="selectICP(5, 'Busca 20 nichos de computación de grado clínico en Estados Unidos. Empresas que proveen hardware especializado para hospitales y laboratorios.')">
+            <div class="icp-icon">🏥 Medical & Lab Tech</div>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Nichos de computación de grado clínico.</p>
+        </div>
+        <div class="icp-card"
+            onclick="selectICP(6, 'Identifica 20 consolidadores y traders en puertos clave de Estados Unidos para exportación internacional de hardware y electrónica.')">
+            <div class="icp-icon">🚢 International Export</div>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Consolidadores y traders en puertos clave.</p>
+        </div>
+        <div class="icp-card"
+            onclick="selectICP(7, 'Busca 20 proveedores de hardware para colegios y programas EdTech en Estados Unidos. Empresas enfocadas en el suministro educativo de tecnología.')">
+            <div class="icp-icon">🎓 Educational Tech Supply</div>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Hardware para colegios y programas EdTech.
+            </p>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="control-group">
+            <div class="label">Leads required</div>
+            <input type="number" id="lead-count" value="20" min="1" max="100">
+        </div>
+
+        <div class="control-group" style="border-left: 1px solid var(--border); padding-left: 20px;">
+            <div class="label">Campaign Mode</div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <label class="icp-card"
+                    style="padding: 8px 15px; margin: 0; display: flex; align-items: center; gap: 10px; border-radius: 8px;">
+                    <input type="checkbox" id="loop-mode-toggle" onchange="toggleLoopMode()"
+                        style="width: 16px; height: 16px; margin: 0;">
+                    <span style="font-size: 0.75rem; font-weight: 700;">LOOP MODE</span>
+                </label>
+            </div>
+        </div>
+
+        <div id="loop-settings" class="control-group"
+            style="display: none; border-left: 1px solid var(--border); padding-left: 20px; opacity: 0; transition: 0.3s;">
+            <div style="display: flex; gap: 15px;">
+                <div class="control-group">
+                    <div class="label">Interval (mins)</div>
+                    <input type="number" id="loop-timer" value="100" min="1" style="width: 80px;">
+                </div>
+                <div class="control-group">
+                    <div class="label">Cycles</div>
+                    <input type="number" id="loop-cycles" value="1" min="1" style="width: 80px;">
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group" style="flex:1">
+            <div class="label">Target Mission (Dynamic Prompt)</div>
+            <div id="selected-msg-display" style="font-size: 0.85rem; color: var(--accent);">Please select an ICP
+                profile above...</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+            <button class="fire-btn" id="fire-btn" onclick="handleFire()" disabled>🚀 ACTIVAR HUNTER IA</button>
+            <button class="fire-btn" id="check-btn" onclick="manualCheck()"
+                style="background:rgba(16, 185, 129, 0.1); color:var(--success); border:1px solid var(--success); display:none; padding:8px 15px; font-size:0.75rem;">🔄
+                Check Mission Status</button>
+        </div>
+    </div>
+
+    <div id="status-msg" style="margin-top:15px; font-weight:600; display:none;"></div>
+
+    <div class="mission-monitor" id="monitor">
+        <div class="monitor-header">
+            <div class="monitor-title">LIVE MISSION TRACKER - LOCAL AGENT CORE</div>
+            <div id="mission-id-display" style="font-size: 0.7rem; color: var(--accent); font-weight:700;">MISSION-ID:
+                PENDING...</div>
+            <span id="current-mission-id" style="display:none;"></span>
+        </div>
+        <div class="monitor-log" id="log-content"></div>
+        <div class="progress-bar">
+            <div id="progress-fill"></div>
+        </div>
+    </div>
+
+    <script src="Assets/config.js"></script>
+    <script>
+        let WEBHOOK_URL = MASTERSTOCK_CONFIG.HUNTER_TRIGGER_WEBHOOK;
+        let DATA_WEBHOOK_URL = MASTERSTOCK_CONFIG.DASHBOARD_WEBHOOK;
+        let MISSION_STATUS_WEBHOOK = MASTERSTOCK_CONFIG.MISSION_STATUS_WEBHOOK;
+
+        // USA-focused keywords for lead hunter
+        const USA_KEYWORDS = "Enfócate exclusivamente en el mercado de Estados Unidos (USA).";
+
+
+        // --- CONFIG LISTENER ---
+        window.addEventListener('message', (event) => {
+            const msg = event.data;
+            if (msg.type === 'UPDATE_CONFIG' && msg.config) {
+                console.log("Hunter: Config Updated", msg.config);
+
+                // MAPPING DISTINCT WEBHOOKS PER USER REQUEST
+                if (msg.config.webhookHunter) WEBHOOK_URL = msg.config.webhookHunter;
+                if (msg.config.webhookMission) MISSION_STATUS_WEBHOOK = msg.config.webhookMission;
+                if (msg.config.webhookSync) DATA_WEBHOOK_URL = msg.config.webhookSync;
+            }
+        });
+
+        // Request Config
+        setTimeout(() => window.parent.postMessage({ type: 'REQUEST_CONFIG' }, '*'), 1000);
+
+        // --- HUB INTEGRATION ---
+        window.addEventListener('message', (event) => {
+            const msg = event.data;
+            if (msg.type === 'POPULATE_MISSION') {
+                const details = msg.query || msg.details || "";
+                const count = msg.count || 20;
+
+                selectedMessage = details;
+                document.getElementById('selected-msg-display').innerText = '"' + selectedMessage + '"';
+                document.getElementById('lead-count').value = count;
+                document.getElementById('fire-btn').disabled = false;
+
+                const btn = document.getElementById('fire-btn');
+                btn.classList.add('loop-active');
+                setTimeout(() => btn.classList.remove('loop-active'), 1500);
+
+                addLog(`HUB: Mission details received automatically.`, 'success');
+            }
+        });
+
+        function reportStatus(status, isActive) {
+            window.parent.postMessage({
+                type: 'HUB_STATUS_UPDATE',
+                component: 'HUNTER',
+                status: status,
+                isActive: isActive
+            }, '*');
+        }
+
+        const ICP_LIST = [
+            { id: 0, name: "ITAD & Refurbished", msg: "Busca 20 empresas especializadas en ITAD y reacondicionamiento técnico en Estados Unidos. Enfócate en mayoristas de hardware usado y centros de reciclaje electrónico." },
+            { id: 1, name: "Tech Liquidators", msg: "Encuentra 20 mayoristas enfocados en lotes de overstock de tecnología en Estados Unidos. Busca liquidadores de electrónica y stocks masivos." },
+            { id: 2, name: "Mobile B2B Resellers", msg: "Identifica 20 mayoristas de móviles y mercados secundarios en Estados Unidos. Especialistas en distribución B2B de smartphones y accesorios." },
+            { id: 3, name: "Gaming & PC Specialists", msg: "Busca 20 Game centers y tiendas Buy-Sell-Trade de Gaming y PC en Estados Unidos. Negocios enfocados en hardware de alto rendimiento y consolas." },
+            { id: 4, name: "Amazon FBA Resellers", msg: "Localiza 20 vendedores estrella en Amazon y eBay que operen bajo el modelo FBA en Estados Unidos. Enfócate en vendedores de electrónica de consumo." },
+            { id: 5, name: "Medical & Lab Tech", msg: "Busca 20 nichos de computación de grado clínico en Estados Unidos. Empresas que proveen hardware especializado para hospitales y laboratorios." },
+            { id: 6, name: "International Export", msg: "Identifica 20 consolidadores y traders en puertos clave de Estados Unidos para exportación internacional de hardware y electrónica." },
+            { id: 7, name: "Educational Tech Supply", msg: "Busca 20 proveedores de hardware para colegios y programas EdTech en Estados Unidos. Empresas enfocadas en el suministro educativo de tecnología." }
+        ];
+
+        let selectedMessage = "";
+        let isLooping = false;
+        let loopTimeout = null;
+        let currentLoopIndex = 0;
+        let currentCycle = 1;
+
+        function toggleLoopMode() {
+            const isLoop = document.getElementById('loop-mode-toggle').checked;
+            const settings = document.getElementById('loop-settings');
+            const btn = document.getElementById('fire-btn');
+
+            if (isLoop) {
+                settings.style.display = 'flex';
+                setTimeout(() => settings.style.opacity = '1', 10);
+                btn.innerHTML = "♾️ START LOOP MISSION";
+                btn.disabled = false;
+                document.getElementById('selected-msg-display').innerText = "Sequence will start from 'ITAD & Refurbished'";
+            } else {
+                settings.style.opacity = '0';
+                setTimeout(() => settings.style.display = 'none', 300);
+                btn.innerHTML = "🚀 ACTIVAR HUNTER IA";
+                btn.classList.remove('loop-active');
+                if (!selectedMessage) btn.disabled = true;
+                isLooping = false;
+                clearTimeout(loopTimeout);
+            }
+        }
+
+        function selectICP(index, msg) {
+            if (isLooping) return;
+            document.querySelectorAll('.icp-card').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.icp-card')[index].classList.add('active');
+            selectedMessage = msg;
+            document.getElementById('selected-msg-display').innerText = '"' + msg + '"';
+            document.getElementById('fire-btn').disabled = false;
+        }
+
+        function handleFire() {
+            if (isLooping) {
+                stopLoop();
+            } else if (document.getElementById('loop-mode-toggle').checked) {
+                startLoopSourcing();
+            } else {
+                fireHunter();
+            }
+        }
+
+        async function startLoopSourcing() {
+            isLooping = true;
+            currentLoopIndex = 0;
+            currentCycle = 1;
+            const btn = document.getElementById('fire-btn');
+            btn.innerHTML = "🛑 STOP LOOP";
+            btn.classList.add('loop-active');
+            addLog(`🚀 STARTING SEQUENTIAL LOOP MODE`, "success");
+            runNextLoopStep();
+        }
+
+        function stopLoop() {
+            isLooping = false;
+            clearTimeout(loopTimeout);
+            const btn = document.getElementById('fire-btn');
+            btn.innerHTML = document.getElementById('loop-mode-toggle').checked ? "♾️ START LOOP MISSION" : "🚀 ACTIVAR HUNTER IA";
+            btn.classList.remove('loop-active');
+            addLog("🛑 LOOP TERMINATED", "error");
+            reportStatus("IDLE", false);
+        }
+
+        async function runNextLoopStep() {
+            if (!isLooping) return;
+            const totalCycles = parseInt(document.getElementById('loop-cycles').value);
+            const intervalMs = parseInt(document.getElementById('loop-timer').value) * 60 * 1000;
+            const target = ICP_LIST[currentLoopIndex];
+
+            addLog(`📍 LOOP: [${target.name}] (Cycle ${currentCycle}/${totalCycles})`, "warning");
+            await fireHunter(target.msg);
+
+            currentLoopIndex++;
+            if (currentLoopIndex >= ICP_LIST.length) {
+                currentLoopIndex = 0;
+                currentCycle++;
+            }
+
+            if (currentCycle > totalCycles) {
+                addLog("🏁 LOOP COMPLETE", "success");
+                stopLoop();
+                return;
+            }
+
+            loopTimeout = setTimeout(runNextLoopStep, intervalMs);
+        }
+
+        function addLog(msg, type = 'info') {
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            const logClass = type === 'success' ? 'log-success' : (type === 'error' ? 'log-error' : (type === 'warning' ? 'log-warning' : ''));
+            entry.innerHTML = `<span class="log-time">[${new Date().toLocaleTimeString()}]</span> <span class="${logClass}">${msg}</span>`;
+            const logContent = document.getElementById('log-content');
+            logContent.appendChild(entry);
+            logContent.scrollTop = logContent.scrollHeight;
+        }
+
+        async function fireHunter(overrideMsg = null) {
+            const btn = document.getElementById('fire-btn');
+            const monitor = document.getElementById('monitor');
+            const progress = document.getElementById('progress-fill');
+            const status = document.getElementById('status-msg');
+            const count = document.getElementById('lead-count').value;
+            const msgToUse = overrideMsg || selectedMessage;
+
+            try {
+                monitor.style.display = "block";
+                if (!isLooping) {
+                    document.getElementById('log-content').innerHTML = "";
+                    reportStatus("DEPLOYING...", true);
+                    btn.disabled = true;
+                    btn.innerHTML = "⏳ DEPLOYING...";
+                }
+
+                status.style.display = "none";
+                progress.style.width = "5%";
+
+                addLog(`Preparing mission [${msgToUse.substring(0, 30)}...]`);
+                const missionID = "MS-" + Math.random().toString(36).substr(2, 9).toUpperCase();
+                document.getElementById('mission-id-display').innerText = "MISSION-ID: " + missionID;
+                document.getElementById('current-mission-id').innerText = missionID;
+
+                addLog(`Handshake sent to n8n Webhook [${WEBHOOK_URL.substring(0, 30)}...]`);
+
+                const payload = {
+                    mission_id: missionID,
+                    message: msgToUse,
+                    leads_count: parseInt(count),
+                    timestamp: new Date().toISOString()
+                };
+
+                console.log("Hunter: Dispatching payload", payload);
+
+                // --- ATTEMPT 1: STANDARD JSON POST (Trigger OPTIONS preflight) ---
+                let response;
+                try {
+                    response = await fetch(WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                } catch (err) {
+                    console.warn("Hunter: Primary fetch failed (likely CORS). Retrying with bypass...", err);
+                    addLog("Primary link rejected. Retrying with CORS-Bypass...", "warning");
+
+                    // --- ATTEMPT 2: TEXT/PLAIN POST (Bypasses OPTIONS preflight) ---
+                    // n8n is often smart enough to parse text/plain as JSON if the content looks like it.
+                    try {
+                        response = await fetch(WEBHOOK_URL, {
+                            method: 'POST',
+                            mode: 'no-cors', // Last resort: will trigger but we won't see response.ok
+                            headers: { 'Content-Type': 'text/plain' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        // with no-cors, response.ok is always false and opaque.
+                        // But the request DOES reach n8n.
+                        addLog("Bypass Mission Dispatched. Check n8n for 'Execution'.", "success");
+                        progress.style.width = "40%";
+                        btn.innerHTML = "🏹 DEPLOY ANOTHER";
+                        btn.disabled = false;
+                        reportStatus("MISSION ACTIVE (Bypassed)", true);
+                        return;
+                    } catch (retryErr) {
+                        console.error("Hunter: Bypass failed too.", retryErr);
+                        throw new Error(`Connection blocked. Please check if n8n is 'Active' and if the URL is correct.`);
+                    }
+                }
+
+                if (response.ok) {
+                    addLog("n8n Core: Mission Accepted.", "success");
+                    progress.style.width = "40%";
+                    if (!isLooping) {
+                        btn.innerHTML = "🏹 DEPLOY ANOTHER";
+                        btn.disabled = false;
+                        reportStatus("MISSION ACTIVE", true);
+                    }
+                    document.getElementById('check-btn').style.display = "block";
+                } else {
+                    throw new Error(`n8n Error: ${response.status}`);
+                }
+            } catch (error) {
+                addLog(`CRITICAL ERROR: ${error.message}`, "error");
+                reportStatus("ERROR", false);
+                if (!isLooping) {
+                    btn.disabled = false;
+                    btn.innerHTML = "❌ RETRY DEPLOY";
+                }
+            }
+        }
+
+        async function manualCheck() {
+            const missionID = document.getElementById('current-mission-id').innerText;
+            const progress = document.getElementById('progress-fill');
+            addLog(`Checking status for mission ${missionID}...`);
+
+            try {
+                // Check status from n8n
+                const response = await fetch(MISSION_STATUS_WEBHOOK + "?mission_id=" + missionID);
+                if (response.ok) {
+                    const data = await response.json();
+                    addLog("Status synced with core layer.");
+                    progress.style.width = "75%";
+                }
+            } catch (e) {
+                addLog("Local sync active...");
+            }
+        }
+    </script>
+</body>
+
+</html>

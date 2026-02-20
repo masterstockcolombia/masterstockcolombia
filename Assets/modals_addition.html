@@ -1,0 +1,88 @@
+<!-- AGREGAR ESTOS MODALES ANTES DEL CIERRE DE </body> EN Dashboard_Leads.html -->
+
+<!-- Assignment Modal -->
+<div id="assignmentModal" class="modal-overlay" style="display:none;"
+    onclick="if(event.target === this) closeAssignmentModal()">
+    <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 600px;">
+        <h2 style="margin-top: 0; color: var(--accent); display: flex; align-items: center; gap: 10px;">
+            <span>👥</span> Lead Assignment System
+        </h2>
+
+        <div id="currentTeamList" style="margin-bottom: 20px; max-height: 200px; overflow-y: auto;">
+            <!-- Team members list will be rendered here -->
+        </div>
+
+        <div id="teamCountSection">
+            <label style="display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.9rem;">
+                How many people in your organization?
+            </label>
+            <input type="number" id="teamCountInput" min="1" max="20" placeholder="e.g., 2"
+                style="width: 100%; padding: 12px; background: #111827; border: 1px solid #374151; color: white; border-radius: 6px; margin-bottom: 12px; font-size: 1rem;">
+            <button onclick="setTeamMemberCount()"
+                style="background: var(--accent); color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%; font-size: 0.9rem;">
+                Continue →
+            </button>
+        </div>
+
+        <div id="teamNamesSection" style="display: none;">
+            <label style="display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.9rem;">
+                Enter team member names:
+            </label>
+            <div id="teamNamesContainer"
+                style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; max-height: 300px; overflow-y: auto;">
+                <!-- Name inputs will be generated here -->
+            </div>
+            <button onclick="saveTeamMembers()"
+                style="background: var(--success); color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%; font-size: 0.9rem;">
+                ✅ Save & Distribute Leads
+            </button>
+            <button onclick="cancelTeamSetup()"
+                style="background: transparent; color: var(--text-muted); border: 1px solid #374151; padding: 10px 16px; border-radius: 6px; cursor: pointer; margin-top: 8px; width: 100%; font-size: 0.85rem;">
+                ← Back
+            </button>
+        </div>
+
+        <button onclick="closeAssignmentModal()"
+            style="background: transparent; color: var(--text-muted); border: 1px solid #374151; padding: 10px 16px; border-radius: 6px; cursor: pointer; margin-top: 12px; width: 100%; font-size: 0.85rem;">
+            Close
+        </button>
+    </div>
+</div>
+
+<!-- Scrapper Source Modal -->
+<div id="scrapperModal" class="modal-overlay" style="display:none;"
+    onclick="if(event.target === this) closeScrapperModal()">
+    <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 500px;">
+        <h2 style="margin-top: 0; color: #10b981; display: flex; align-items: center; gap: 10px;">
+            <span>🔍</span> Scrapper Source Analysis
+        </h2>
+        <div id="scrapperStats" style="max-height: 400px; overflow-y: auto;">
+            <!-- Stats will be rendered here -->
+        </div>
+        <button onclick="closeScrapperModal()"
+            style="background: transparent; color: var(--text-muted); border: 1px solid #374151; padding: 10px 16px; border-radius: 6px; cursor: pointer; margin-top: 12px; width: 100%; font-size: 0.85rem;">
+            Close
+        </button>
+    </div>
+</div>
+
+<style>
+    .team-name-input {
+        width: 100%;
+        padding: 10px;
+        background: #111827;
+        border: 1px solid #374151;
+        color: white;
+        border-radius: 6px;
+        font-size: 0.9rem;
+    }
+
+    .team-name-input:focus {
+        outline: none;
+        border-color: var(--accent);
+    }
+
+    .team-name-input::placeholder {
+        color: #6b7280;
+    }
+</style>
