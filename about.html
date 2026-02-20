@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | MasterStock USA</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        /* Specific Styles for About Page */
+        .map-bg-section {
+            background: linear-gradient(rgba(13, 27, 42, 0.9), rgba(13, 27, 42, 0.9)), url('hero-bg-us.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .hub-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .stat-badge-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .stat-badge-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .stat-badge-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+        }
+
+        .stat-icon-circle {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 181, 198, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-cyan);
+            font-size: 1.5rem;
+        }
+
+        .testimonial-card-lg {
+            background: #0D1623;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .ship-img-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, #1e293b, #0f172a);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ship-img-placeholder::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80') no-repeat center center;
+            background-size: cover;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html">
+            <img src="./logo_usa.jpeg" alt="MasterStock Logo" class="nav-logo white-logo">
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="sales.html" class="nav-link">Sell Inventory</a>
+            <a href="purchase.html" class="nav-link">Buy Inventory</a>
+            <a href="about.html" class="nav-link active">About Us</a>
+        </div>
+        <a href="#contact" class="nav-cta">Contact Us</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" style="min-height: 70vh;">
+        <canvas id="network-canvas"></canvas>
+        <div class="hero-content">
+            <h1 class="hero-title">We Help Enterprise Sellers Turn Inventory Into <span class="text-cyan">Capital <br>
+                    Worldwide</span></h1>
+            <h2 style="font-size: 2.5rem; color: #3B82F6; margin: 1rem 0;">$120M+ <span
+                    style="font-size: 1.2rem; color: white; font-weight: 400; opacity: 0.8;">Capital Returned</span>
+            </h2>
+            <p class="hero-desc" style="max-width: 700px; margin: 0 auto 2rem;">MasterStock serves top-tier
+                manufacturers, full-service retailers, and private equity firms across North America, LATAM, and EMEA.
+            </p>
+
+            <div class="btn-group">
+                <a href="#contact" class="btn btn-primary">Partner With Us</a>
+                <a href="index.html" class="btn btn-dark"><ion-icon name="play-circle-outline"
+                        style="vertical-align: middle; margin-right: 5px;"></ion-icon> Watch Showreel</a>
+            </div>
+
+            <div
+                style="margin-top: 3rem; display: flex; justify-content: center; gap: 1rem; align-items: center; font-size: 0.9rem; color: #10B981;">
+                <ion-icon name="ellipse" style="font-size: 0.5rem;"></ion-icon> Live Global Operations: Miami • Shenzhen
+            </div>
+        </div>
+    </section>
+
+    <!-- Transforming Surplus (Ship Section) -->
+    <section class="section-pad">
+        <div class="container">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 4rem;">
+                <div style="flex: 1; min-width: 300px;">
+                    <h5 style="color: #3B82F6; text-transform: uppercase;">Our Passion</h5>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Transforming Surplus into Opportunity</h2>
+                    <p style="color: var(--text-grey); margin-bottom: 1rem;">Inefficiency is the enemy of profitability.
+                        We build pipes that connect supply with demand instantaneously.</p>
+                    <ul class="comp-list good">
+                        <li><ion-icon name="checkmark"></ion-icon> Image-led grading for accurate valuation</li>
+                        <li><ion-icon name="checkmark"></ion-icon> End-to-end logistics & customs clearance</li>
+                        <li><ion-icon name="checkmark"></ion-icon> Proprietary market intelligence algorithms</li>
+                    </ul>
+
+                    <div style="display: flex; gap: 3rem; margin-top: 2rem;">
+                        <div>
+                            <div style="font-size: 2.5rem; font-weight: 800; color: white;">15<span
+                                    style="color: #3B82F6;">+</span></div>
+                            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-grey);">Years of
+                                Experience</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2.5rem; font-weight: 800; color: white;">50M<span
+                                    style="color: #3B82F6;">+</span></div>
+                            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-grey);">Units
+                                Processed</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="flex: 1; min-width: 300px;">
+                    <div class="ship-img-placeholder">
+                        <div
+                            style="z-index: 2; background: rgba(0,0,0,0.6); padding: 1rem; border-radius: 10px; display: flex; align-items: center; gap: 10px;">
+                            <ion-icon name="cube" style="font-size: 2rem; color: var(--accent-cyan);"></ion-icon>
+                            <div>
+                                <div style="font-weight: 700;">Transaction Volume</div>
+                                <div style="font-size: 0.8rem; color: #ccc;">200k+ Successful Deals</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Operations Hub -->
+    <section class="section-pad map-bg-section">
+        <div class="container" style="text-align: center;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Global Operations Hub</h2>
+            <p style="color: var(--text-grey); margin-bottom: 4rem;">Primary logistics centers powering the Americas.
+            </p>
+
+            <div
+                style="height: 300px; position: relative; margin-bottom: 3rem; background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Americas_%28orthographic_projection%29.svg/1200px-Americas_%28orthographic_projection%29.svg.png') no-repeat center; background-size: contain; opacity: 0.8;">
+                <!-- Pin -->
+                <div
+                    style="position: absolute; top: 35%; left: 55%; transform: translate(-50%, -50%); text-align: center;">
+                    <ion-icon name="location"
+                        style="color: var(--accent-cyan); font-size: 2.5rem; filter: drop-shadow(0 0 10px #00B5C6);"></ion-icon>
+                    <div style="font-size: 1rem; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">Miami</div>
+                </div>
+            </div>
+
+            <div class="stat-badge-grid">
+                <div class="stat-badge-card">
+                    <div class="stat-icon-circle"><ion-icon name="cash-outline"></ion-icon></div>
+                    <div style="text-align: left;">
+                        <h4 style="font-size: 1.5rem; margin: 0;">$120M+</h4>
+                        <p style="margin: 0; font-size: 0.8rem; color: var(--text-grey);">Capital Returned</p>
+                    </div>
+                </div>
+                <div class="stat-badge-card">
+                    <div class="stat-icon-circle"><ion-icon name="layers-outline"></ion-icon></div>
+                    <div style="text-align: left;">
+                        <h4 style="font-size: 1.5rem; margin: 0;">20M+</h4>
+                        <p style="margin: 0; font-size: 0.8rem; color: var(--text-grey);">Units Processed</p>
+                    </div>
+                </div>
+                <div class="stat-badge-card">
+                    <div class="stat-icon-circle"><ion-icon name="people-outline"></ion-icon></div>
+                    <div style="text-align: left;">
+                        <h4 style="font-size: 1.5rem; margin: 0;">500+</h4>
+                        <p style="margin: 0; font-size: 0.8rem; color: var(--text-grey);">Partner Network</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How We Work -->
+    <section class="section-pad">
+        <div class="container text-center">
+            <h2 style="font-size: 2.5rem; margin-bottom: 4rem;">How We Work</h2>
+
+            <div class="process-steps-row">
+                <div class="process-line"></div>
+
+                <div class="process-step-item">
+                    <div class="step-icon-large"><ion-icon name="search-outline"></ion-icon></div>
+                    <h4>1. Audit & Evaluate</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-grey); margin-top: 0.5rem;">Analyze inventory
+                        manifest and legal requirements.</p>
+                </div>
+                <div class="process-step-item">
+                    <div class="step-icon-large"><ion-icon name="document-text-outline"></ion-icon></div>
+                    <h4>2. Valuation Offer</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-grey); margin-top: 0.5rem;">Immediate offer based on
+                        real-time global demand.</p>
+                </div>
+                <div class="process-step-item">
+                    <div class="step-icon-large"><ion-icon name="boat-outline"></ion-icon></div>
+                    <h4>3. Logistics & Erasure</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-grey); margin-top: 0.5rem;">We handle freight and
+                        certified data wiping.</p>
+                </div>
+                <div class="process-step-item">
+                    <div class="step-icon-large"><ion-icon name="wallet-outline"></ion-icon></div>
+                    <h4>4. Rapid Payment</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-grey); margin-top: 0.5rem;">Funds released instantly
+                        upon verification.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features / Security -->
+    <section class="section-pad bg-alt">
+        <div class="container">
+            <div class="workflow-grid" style="grid-template-columns: repeat(4, 1fr);">
+                <div class="feature-card">
+                    <div class="feature-icon-box"><ion-icon name="lock-closed-outline"></ion-icon></div>
+                    <h4>Zero Risk Settlement</h4>
+                    <p style="color: var(--text-grey); font-size: 0.9rem;">Funds escrowed before goods move.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
+                    <h4>Brand Integrity</h4>
+                    <p style="color: var(--text-grey); font-size: 0.9rem;">Strict channel restrictions applied.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box"><ion-icon name="flash-outline"></ion-icon></div>
+                    <h4>Services Certified</h4>
+                    <p style="color: var(--text-grey); font-size: 0.9rem;">ISO-certified data destruction.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-box"><ion-icon name="earth-outline"></ion-icon></div>
+                    <h4>Beyond Borders</h4>
+                    <p style="color: var(--text-grey); font-size: 0.9rem;">We sell where you don't.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted By -->
+    <section class="section-pad">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 3rem;">Trusted by Enterprise Leaders</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card-lg">
+                    <div style="color: #FBBF24; margin-bottom: 1rem; font-size: 1.2rem;">
+                        <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon
+                            name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon>
+                    </div>
+                    <p style="font-style: italic; font-size: 1.1rem; margin-bottom: 1.5rem;">"MasterStock has
+                        transformed our reverse logistics. They move volume we didn't think was movable, without
+                        disturbing our primary channels."</p>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div
+                            style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            R</div>
+                        <div>
+                            <div style="font-weight: 700;">Supply Chain Director</div>
+                            <div style="font-size: 0.8rem; color: var(--text-grey);">Fortune 500 Retailer</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card-lg">
+                    <div style="color: #FBBF24; margin-bottom: 1rem; font-size: 1.2rem;">
+                        <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon
+                            name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon>
+                    </div>
+                    <p style="font-style: italic; font-size: 1.1rem; margin-bottom: 1.5rem;">"The speed of payment and
+                        logistics execution is unmatched. We cleared our Q4 overstock in under 10 days."</p>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div
+                            style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            M</div>
+                        <div>
+                            <div style="font-weight: 700;">Head of Operations</div>
+                            <div style="font-size: 0.8rem; color: var(--text-grey);">Global OEM Manufacturer</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card-lg">
+                    <div style="color: #FBBF24; margin-bottom: 1rem; font-size: 1.2rem;">
+                        <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon
+                            name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon>
+                    </div>
+                    <p style="font-style: italic; font-size: 1.1rem; margin-bottom: 1.5rem;">"A partner that actually
+                        understands brand safety. We have complete audit trails for every unit sold."</p>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div
+                            style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            J</div>
+                        <div>
+                            <div style="font-weight: 700;">VP of Sales</div>
+                            <div style="font-size: 0.8rem; color: var(--text-grey);">Consumer Electronics Brand</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 4 -->
+                <div class="testimonial-card-lg">
+                    <div style="color: #FBBF24; margin-bottom: 1rem; font-size: 1.2rem;">
+                        <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon
+                            name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon
+                            name="star-half"></ion-icon>
+                    </div>
+                    <p style="font-style: italic; font-size: 1.1rem; margin-bottom: 1.5rem;">"Efficient, transparent,
+                        and discreet. MasterStock is our go-to for liquidation in the LATAM market."</p>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div
+                            style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            A</div>
+                        <div>
+                            <div style="font-weight: 700;">Logistics Manager</div>
+                            <div style="font-size: 0.8rem; color: var(--text-grey);">Regional Distributor</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="section-pad bg-alt" id="contact">
+        <div class="container">
+            <div class="split-form-container" style="max-width: 800px; padding: 0;">
+                <div style="padding: 3rem; width: 100%;">
+                    <h2 style="text-align: center; margin-bottom: 0.5rem;">Contact Our Enterprise Team</h2>
+                    <p style="text-align: center; color: var(--text-grey); margin-bottom: 3rem;">Ready to optimize your
+                        inventory? We respond within 2 hours.</p>
+
+                    <form>
+                        <div class="form-input-grid">
+                            <div>
+                                <label class="modern-label">Full Name</label>
+                                <input type="text" class="modern-input" placeholder="Enter your name">
+                            </div>
+                            <div>
+                                <label class="modern-label">Enterprise / Entity</label>
+                                <input type="text" class="modern-input" placeholder="Company name">
+                            </div>
+                        </div>
+                        <div class="form-input-grid">
+                            <div>
+                                <label class="modern-label">Work Email</label>
+                                <input type="email" class="modern-input" placeholder="name@company.com">
+                            </div>
+                            <div>
+                                <label class="modern-label">Phone (Optional)</label>
+                                <input type="text" class="modern-input" placeholder="+1 (555) 000-0000">
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <label class="modern-label">Message / Inventory Details</label>
+                            <textarea class="modern-input" style="height: 120px; resize: none;"
+                                placeholder="Tell us about the inventory you are looking to liquidate..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">Send
+                            Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Legal Links Section -->
+    <!-- Legal Text Details Section -->
+    <section id="legal-details"
+        style="background: #050b11; padding: 3rem 0; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;">
+
+            <!-- Privacy Policy -->
+            <div>
+                <h6
+                    style="color: #64748b; text-transform: uppercase; font-size: 0.7rem; margin-bottom: 0.5rem; letter-spacing: 1px;">
+                    Privacy Policy</h6>
+                <p style="color: #475569; font-size: 0.65rem; line-height: 1.5; text-align: justify;">
+                    MasterStock collects and processes enterprise data strictly for transaction facilitation. We employ
+                    end-to-end encryption for all inventory manifests and buyer identities. Data is never shared with
+                    third parties without explicit consent, except as required by international trade law. User data
+                    retention is limited to the statutory period required for tax and audit compliance. By using this
+                    service, you consent to the cross-border transfer of data necessary for logistics execution.
+                </p>
+            </div>
+
+            <!-- Terms of Service -->
+            <div>
+                <h6
+                    style="color: #64748b; text-transform: uppercase; font-size: 0.7rem; margin-bottom: 0.5rem; letter-spacing: 1px;">
+                    Terms of Service</h6>
+                <p style="color: #475569; font-size: 0.65rem; line-height: 1.5; text-align: justify;">
+                    Access to the MasterStock platform is restricted to qualified B2B entities. All listings constitute
+                    binding offers. MasterStock reserves the right to suspend accounts for non-compliance with our
+                    grading standards or payment terms. Disputes are resolved via binding arbitration in the
+                    jurisdiction of the transaction origin. Users acknowledge that all liquidated assets are sold
+                    'as-is' unless otherwise certified by a MasterStock-approved inspection facility. Unauthorized
+                    scraping of pricing data is strictly prohibited.
+                </p>
+            </div>
+
+            <!-- Escrow Agreement -->
+            <div>
+                <h6
+                    style="color: #64748b; text-transform: uppercase; font-size: 0.7rem; margin-bottom: 0.5rem; letter-spacing: 1px;">
+                    Escrow Agreement</h6>
+                <p style="color: #475569; font-size: 0.65rem; line-height: 1.5; text-align: justify;">
+                    Funds deposited for transactions are held in a segregated, non-interest-bearing escrow account with
+                    a Tier-1 financial institution until buyer verification of receipt. Release of funds is triggered
+                    upon 'Proof of Verification' (PoV). In the event of a dispute, funds remain frozen pending
+                    arbitration outcome. MasterStock acts solely as the escrow agent and bears no liability for the
+                    underlying asset condition beyond the certified grading report. Settlement currency is USD unless
+                    otherwise stipulated.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-cols">
+            <div class="footer-brand-col">
+                <img src="./logo_usa.jpeg" alt="MasterStock" class="footer-logo white-logo" style="height: 30px;">
+                <p>The premier B2B marketplace for excess technology inventory. Secure, private, and efficient
+                    liquidation.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Platform</h4>
+                <a href="sales.html">Sell Inventory</a>
+                <a href="purchase.html">Buy Inventory</a>
+                <a href="index.html">Marketplace</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="about.html">About Us</a>
+                <a href="#">Careers</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Escrow Agreement</a>
+            </div>
+        </div>
+        <div class="container text-center"
+            style="margin-top: 3rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+            <p>&copy; 2026 MasterStock USA. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Canvas Animation (Standard Network)
+        const canvas = document.getElementById('network-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let mouse = { x: null, y: null, radius: 150 };
+            window.addEventListener('mousemove', (event) => { mouse.x = event.x; mouse.y = event.y; });
+            function resize() { width = canvas.width = canvas.offsetWidth; height = canvas.height = canvas.offsetHeight; }
+            window.addEventListener('resize', resize);
+            resize();
+
+            const hubs = [
+                { x: 0.15, y: 0.3 }, { x: 0.18, y: 0.4 },
+                { x: 0.45, y: 0.35 }, { x: 0.55, y: 0.55 },
+                { x: 0.65, y: 0.35 }, { x: 0.85, y: 0.25 },
+                { x: 0.88, y: 0.45 }, { x: 0.85, y: 0.75 }
+            ];
+            class Particle {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * width; this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.5; this.vy = (Math.random() - 0.5) * 0.5;
+                    this.size = Math.random() * 2 + 1;
+                }
+                update() {
+                    this.x += this.vx; this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                    let dx = mouse.x - this.x; let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius) {
+                        const angle = Math.atan2(dy, dx);
+                        const force = (mouse.radius - distance) / mouse.radius;
+                        this.x -= Math.cos(angle) * force; this.y -= Math.sin(angle) * force;
+                    }
+                }
+                draw() {
+                    ctx.fillStyle = 'rgba(0, 255, 230, 0.4)'; ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+                }
+            }
+            const particles = []; for (let i = 0; i < 60; i++) particles.push(new Particle());
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                hubs.forEach(hub => {
+                    const hx = hub.x * width; const hy = hub.y * height;
+                    const time = Date.now() * 0.002; const pulse = Math.sin(time + hx) * 5;
+                    ctx.beginPath(); ctx.arc(hx, hy, 4 + pulse / 2, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(0, 255, 230, 0.6)'; ctx.fill();
+                    ctx.beginPath(); ctx.arc(hx, hy, 10 + pulse, 0, Math.PI * 2);
+                    ctx.strokeStyle = 'rgba(0, 255, 230, 0.1)'; ctx.stroke();
+                });
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update(); particles[i].draw();
+                    let closestHub = null; let minDist = 200;
+                    hubs.forEach(hub => {
+                        const hx = hub.x * width; const hy = hub.y * height;
+                        const dx = particles[i].x - hx; const dy = particles[i].y - hy;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < minDist) closestHub = { x: hx, y: hy, dist: dist };
+                    });
+                    if (closestHub) {
+                        ctx.beginPath(); ctx.strokeStyle = `rgba(0, 255, 230, ${0.15 * (1 - closestHub.dist / 200)})`;
+                        ctx.lineWidth = 1; ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(closestHub.x, closestHub.y); ctx.stroke();
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+    </script>
+
+</body>
+
+</html>

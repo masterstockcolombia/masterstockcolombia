@@ -314,10 +314,10 @@ function renderNegotiationStrategy(margin, sDisc, bDisc, totalCosts, minM, pVent
     els.idealMaxPrice.innerText = fmt(idealMaxBuy);
 
     if (margin < minM) {
-        els.insightTitle.innerText = "🚨 ALERTA DE PÉRDIDA";
+        els.insightTitle.innerText = "🚨 LOSS ALERT";
         els.decisionInsight.classList.remove('optimal');
     } else {
-        els.insightTitle.innerText = "✅ TRATO RENTABLE";
+        els.insightTitle.innerText = "✅ PROFITABLE DEAL";
         els.decisionInsight.classList.add('optimal');
     }
 }

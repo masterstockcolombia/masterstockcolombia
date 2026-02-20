@@ -4,475 +4,427 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MasterStock USA Elite Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --sidebar-bg: #111827;
-            --accent: #3b82f6;
-            --text-muted: #9ca3af;
-            --grid-border: #374151;
-            --modal-bg: #1f2937;
-        }
-
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: 'Outfit', sans-serif;
-            background: #000;
-            color: white;
-            overflow: hidden;
-        }
-
-        .platform-container {
-            display: flex;
-            height: 100vh;
-            width: 100vw;
-        }
-
-        /* Sidebar Stylizada */
-        .sidebar {
-            width: 60px;
-            background: var(--sidebar-bg);
-            border-right: 1px solid var(--grid-border);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 24px 0;
-            gap: 16px;
-            z-index: 10;
-        }
-
-        .nav-item {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            position: relative;
-            background: transparent;
-        }
-
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .nav-item.active {
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--accent);
-            box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.3);
-        }
-
-        .nav-item.active span {
-            filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
-        }
-
-        .nav-label {
-            position: absolute;
-            left: 70px;
-            background: #1f2937;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.2s ease;
-            border: 1px solid var(--grid-border);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-            z-index: 100;
-        }
-
-        .nav-item:hover .nav-label {
-            opacity: 1;
-            left: 68px;
-        }
-
-        /* Área de Contenido con Iframes */
-        .content-area {
-            flex-grow: 1;
-            position: relative;
-            background: #000;
-        }
-
-        iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: none;
-        }
-
-        iframe.active {
-            display: block;
-        }
-
-        .logo {
-            font-size: 1.4rem;
-            margin-bottom: 24px;
-            cursor: pointer;
-            filter: grayscale(1);
-            transition: 0.3s;
-        }
-
-        .logo:hover {
-            filter: grayscale(0);
-        }
-
-        /* SETTINGS MODAL STYLES */
-        .settings-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .settings-modal {
-            background: var(--modal-bg);
-            border: 1px solid var(--grid-border);
-            border-radius: 12px;
-            width: 450px;
-            padding: 24px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--grid-border);
-            padding-bottom: 12px;
-        }
-
-        .modal-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .close-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .close-btn:hover {
-            color: white;
-        }
-
-        .input-group {
-            margin-bottom: 16px;
-        }
-
-        .input-label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .settings-input {
-            width: 100%;
-            background: #111827;
-            border: 1px solid var(--grid-border);
-            border-radius: 6px;
-            padding: 10px;
-            color: white;
-            font-family: inherit;
-            box-sizing: border-box;
-        }
-
-        .settings-input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .save-btn {
-            width: 100%;
-            padding: 12px;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.2s;
-        }
-
-        .save-btn:hover {
-            background: #2563eb;
-        }
-
-        /* MOBILE RESPONSIVENESS */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: 60px;
-                flex-direction: row;
-                padding: 0 20px;
-                border-right: none;
-                border-bottom: 1px solid var(--grid-border);
-                position: fixed;
-                top: 0;
-                justify-content: space-around;
-            }
-
-            .sidebar .logo {
-                margin-bottom: 0;
-            }
-
-            .nav-item {
-                margin-top: 0 !important;
-            }
-
-            .nav-label {
-                display: none;
-            }
-
-            .platform-container {
-                flex-direction: column;
-            }
-
-            .content-area {
-                margin-top: 60px;
-                height: calc(100vh - 60px);
-            }
-        }
-    </style>
+    <title>MasterStock USA | Global Inventory Solutions</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Ionicons for workflow icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
-    <div class="platform-container">
-        <div class="logo">
-            <img src="Assets/logo_2.0.jpeg" alt="MasterStock USA"
-                style="width: 40px; height: auto; border-radius: 4px;">
-        </div>
 
-        <div class="nav-item active" onclick="showPage('dashboard', this)">
-            <span>📊</span>
-            <div class="nav-label">Intelligence Dashboard</div>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html">
+            <img src="./logo_usa.jpeg" alt="MasterStock Logo" class="nav-logo">
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="sales.html" class="nav-link">Sell Inventory</a>
+            <a href="purchase.html" class="nav-link">Buy Inventory</a>
+            <a href="about.html" class="nav-link">About Us</a>
         </div>
+        <a href="sales.html" class="nav-cta">Get Started</a>
+    </nav>
 
-        <div class="nav-item" onclick="showPage('calculator', this)">
-            <span>🧮</span>
-            <div class="nav-label">Overstock Calculator</div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <canvas id="network-canvas"></canvas>
+        <div class="hero-content">
+            <h1 class="hero-title">Unlock Cash From <span class="text-cyan">Excess Inventory</span></h1>
+            <p class="hero-desc">Discretion by Design. MasterStock USA isn't just a marketplace; it's a strategic
+                shield for your brand equity. We operate with military precision to move dormant capital without
+                alerting your core channels.</p>
+
+            <div class="btn-group">
+                <a href="sales.html" class="btn btn-primary"><ion-icon name="pricetag"
+                        style="vertical-align: middle; margin-right: 5px;"></ion-icon> Sell Inventory</a>
+                <a href="purchase.html" class="btn btn-dark"><ion-icon name="globe"
+                        style="vertical-align: middle; margin-right: 5px;"></ion-icon> Buy Inventory</a>
+            </div>
         </div>
+    </section>
 
-        <div class="nav-item" onclick="showPage('hunter', this)">
-            <span>🎯</span>
-            <div class="nav-label">Lead Hunter AI</div>
-        </div>
-
-        <div class="nav-item" onclick="showPage('research', this)">
-            <span>🧠</span>
-            <div class="nav-label">Research Hub</div>
-        </div>
-
-        <!-- ACTIVATED SETTINGS BUTTON -->
-        <div style="margin-top: auto;" class="nav-item" onclick="showSettings()">
-            <span>⚙️</span>
-            <div class="nav-label">Settings</div>
-        </div>
-
-        <!-- CONTACT BUTTON -->
-        <div class="nav-item" onclick="window.open('mailto:masterstockcolombia@gmail.com')">
-            <span>✉️</span>
-            <div class="nav-label">Contact Support</div>
+    <!-- Stats Bar (Distinct Floating Block) -->
+    <div class="container">
+        <div class="stats-container">
+            <div class="stats-bar">
+                <div class="stat-block">
+                    <span class="stat-number">$50M+</span>
+                    <span class="stat-label">Liquidated YTD</span>
+                </div>
+                <div class="stat-block">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Verified Enterprises</span>
+                </div>
+                <div class="stat-block">
+                    <span class="stat-number">48h</span>
+                    <span class="stat-label">Avg. Reporting</span>
+                </div>
+                <div class="stat-block">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Confidential</span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="content-area">
-        <iframe id="frame-dashboard" src="Dashboard_Leads.html" class="active"></iframe>
-        <iframe id="frame-calculator" src="Broker_Intelligence.html"></iframe>
-        <iframe id="frame-hunter" src="Hunter_Search.html"></iframe>
-        <iframe id="frame-research" src="Research_Hub.html"></iframe>
-    </div>
-    </div>
+    <!-- Ecosystem Section (Base Background) -->
+    <section class="section-pad" style="text-align: center;">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">The MasterStock Ecosystem</h2>
+            <p style="color: var(--text-grey);">Seamless integration from warehouse to liquidity.</p>
 
-    <!-- SETTINGS MODAL -->
-    <div class="settings-overlay" id="settingsOverlay">
-        <div class="settings-modal">
-            <div class="modal-header">
-                <div class="modal-title"><span>⚙️</span> System Configuration</div>
-                <button class="close-btn" onclick="hideSettings()">×</button>
+            <div class="ecosystem-diagram">
+                <div class="eco-card" id="eco-step-1">
+                    <div class="icon-box">🏭</div>
+                    <h4>Excess Inventory</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-grey);">Dormant Assets & Promos</p>
+                </div>
+                <div class="eco-connector">
+                    <div class="flow-dot"></div>
+                </div>
+                <div class="eco-card" id="eco-step-2">
+                    <div class="icon-box" style="color: white;">❄️</div>
+                    <h4>MasterStock Network</h4>
+                    <p style="font-size: 0.8rem; color: rgba(255,255,255,0.8);">Processing Hub</p>
+                </div>
+                <div class="eco-connector">
+                    <div class="flow-dot"></div>
+                </div>
+                <div class="eco-card" id="eco-step-3">
+                    <div class="icon-box">🛡️</div>
+                    <h4>Verified Buyers</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-grey);">Retailers & Wholesalers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Operational Workflow (Alt Background) -->
+    <section class="section-pad bg-alt">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem;">Operational Workflow</h2>
+                <p style="color: var(--text-grey);">Four steps to liquidity.</p>
             </div>
 
-            <div class="input-group">
-                <label class="input-label">Broker Intelligence Webhook (Scraping)</label>
-                <input type="text" id="webhookBroker" class="settings-input"
-                    placeholder="https://.../webhook/broker-intel">
+            <div class="workflow-grid">
+                <div class="work-card">
+                    <div class="work-icon"><ion-icon name="document-text"></ion-icon></div>
+                    <h4>1. Submit Inventory</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">Upload manifests
+                        securely. Our AI classifies and values your stock instantly.</p>
+                </div>
+                <div class="work-card">
+                    <div class="work-icon"><ion-icon name="analytics"></ion-icon></div>
+                    <h4>2. Intelligent Match</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">AI-powered demand
+                        identification across 500+ buyers.</p>
+                </div>
+                <div class="work-card">
+                    <div class="work-icon"><ion-icon name="shield-checkmark"></ion-icon></div>
+                    <h4>3. Secure Escrow</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">Funds are secured in
+                        escrow before any inventory leaves your facility.</p>
+                </div>
+                <div class="work-card">
+                    <div class="work-icon"><ion-icon name="boat"></ion-icon></div>
+                    <h4>4. Rapid Logistics</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 0.5rem;">End-to-end freight
+                        coordination moves stock out in as little as 48 hours.</p>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <div class="input-group">
-                <label class="input-label">Lead Sync</label>
-                <input type="text" id="webhookSync" class="settings-input" placeholder="https://.../webhook/sync-data">
+    <!-- Industry Categories (Tech Grid Background) -->
+    <section class="section-pad" id="categories-section">
+        <div class="container">
+            <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem; text-align: center;">Commercial Tech coverage</h2>
+            <p style="color: var(--text-grey); margin-bottom: 3rem; text-align: center;">Categories idealized for
+                Overstock Liquidation.</p>
+
+            <div class="category-grid">
+                <!-- Computing -->
+                <div class="cat-item">
+                    <ion-icon name="desktop-outline" class="cat-icon"></ion-icon>
+                    <span>Computing</span>
+                    <ul class="cat-list">
+                        <li>Mid-range & Enterprise Laptops<br><small>(Previous gen, i5/i7, Ryzen)</small></li>
+                        <li>Pre-configured Desktops<br><small>(All-in-one, SFF Home & Office)</small></li>
+                        <li>LED / IPS Monitors (24”-32”)<br><small>(FHD/QHD, High volume)</small></li>
+                    </ul>
+                </div>
+
+                <!-- Mobile -->
+                <div class="cat-item">
+                    <ion-icon name="phone-portrait-outline" class="cat-icon"></ion-icon>
+                    <span>Mobile & Tablets</span>
+                    <ul class="cat-list">
+                        <li>Android Smartphones<br><small>(Mid-range / Previous Flagships)</small></li>
+                        <li>Tablets & iPads<br><small>(Education, Enterprise, Mass market)</small></li>
+                        <li>E-readers & Ed-Tech<br><small>(Kindle, Kobo, Kids tablets)</small></li>
+                    </ul>
+                </div>
+
+                <!-- Gaming -->
+                <div class="cat-item">
+                    <ion-icon name="game-controller-outline" class="cat-icon"></ion-icon>
+                    <span>Gaming & Performance</span>
+                    <ul class="cat-list">
+                        <li>Consoles & Bundles<br><small>(PS, Xbox, Nintendo packs)</small></li>
+                        <li>Previous Gen GPUs<br><small>(RTX / RX non-launch models)</small></li>
+                        <li>Gaming Accessories<br><small>(Controllers, Mechanical KB, Headsets)</small></li>
+                    </ul>
+                </div>
+
+                <!-- Wearables -->
+                <div class="cat-item">
+                    <ion-icon name="watch-outline" class="cat-icon"></ion-icon>
+                    <span>Wearables</span>
+                    <ul class="cat-list">
+                        <li>Smartwatches<br><small>(Apple Watch, Galaxy, Previous gen)</small></li>
+                        <li>Fitness Trackers<br><small>(High volume, Low unit cost)</small></li>
+                    </ul>
+                </div>
+
+                <!-- Audio -->
+                <div class="cat-item">
+                    <ion-icon name="headset-outline" class="cat-icon"></ion-icon>
+                    <span>Audio & Gadgets</span>
+                    <ul class="cat-list">
+                        <li>Headphones & Earbuds<br><small>(ANC, Wireless, Major brands)</small></li>
+                        <li>Bluetooth Speakers<br><small>(Portable, Outdoor, Party)</small></li>
+                    </ul>
+                </div>
+
+                <!-- Smart Home / IoT -->
+                <div class="cat-item">
+                    <ion-icon name="wifi-outline" class="cat-icon"></ion-icon>
+                    <span>Smart Home / IoT</span>
+                    <ul class="cat-list">
+                        <li>Gadgets Smart / IoT<br><small>(Wi-Fi Cams, Smart Plugs)</small></li>
+                        <li>Mesh Routers & Networking<br><small>(Consumer networking gear)</small></li>
+                    </ul>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <div class="input-group">
-                <label class="input-label">Lead Assignments Webhook</label>
-                <input type="text" id="webhookAssignments" class="settings-input"
-                    placeholder="https://.../webhook/assignments">
+    <!-- Bottom CTA -->
+    <div class="bottom-cta">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Optimize?</h2>
+            <p style="color: var(--text-grey); margin-bottom: 3rem;">Join the confidential network powering modern B2B
+                liquidation.</p>
+
+            <div class="btn-group">
+                <a href="sales.html" class="btn btn-primary"><ion-icon name="flash"
+                        style="vertical-align: middle; margin-right: 5px;"></ion-icon> Start Selling</a>
+                <a href="purchase.html" class="btn btn-dark"><ion-icon name="search"
+                        style="vertical-align: middle; margin-right: 5px;"></ion-icon> Request Buyer Access</a>
             </div>
-
-            <div class="input-group">
-                <label class="input-label">Hunter Trigger Webhook (Agent)</label>
-                <input type="text" id="webhookHunter" class="settings-input"
-                    placeholder="https://.../webhook/hunter-trigger">
-            </div>
-
-            <div class="input-group">
-                <label class="input-label">Mission Status Webhook (Monitor)</label>
-                <input type="text" id="webhookMission" class="settings-input"
-                    placeholder="https://.../webhook/mission-status">
-            </div>
-
-            <button class="save-btn" onclick="saveSettings()">💾 Save Configuration</button>
         </div>
     </div>
 
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+
+            <div class="discretion-block">
+                <div class="shield-icon"><ion-icon name="shield"></ion-icon></div>
+                <h3 style="margin-bottom: 1rem;">Discretion by Design</h3>
+                <p style="color: var(--text-grey);">MasterStock USA isn't just a marketplace; it's a strategic
+                    shield for your brand equity. We operate with military precision to move dormant capital without
+                    alerting your core channels.</p>
+            </div>
+
+            <div class="footer-cols">
+                <div class="footer-col">
+                    <img src="./logo_usa.jpeg" alt="MasterStock" class="white-logo"
+                        style="height: 40px; margin-bottom: 1.5rem;">
+                    <p style="font-size: 0.9rem; color: var(--text-grey);">The enterprise standard for surplus inventory
+                        management.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="sales.html">Sell Inventory</a></li>
+                        <li><a href="purchase.html">Buy Inventory</a></li>
+                        <li><a href="about.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="about.html#legal-details">Privacy Policy</a></li>
+                        <li><a href="about.html#legal-details">Terms of Service</a></li>
+                        <li><a href="about.html#legal-details">Escrow Agreement</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Solutions</h4>
+                    <ul>
+                        <li><a href="#">Tech Refurb</a></li>
+                        <li><a href="#">Brand Safe</a></li>
+                        <li><a href="#">Logistics</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-grey);">
+                <p>&copy; 2026 MasterStock USA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ecosystem Animation Script -->
     <script>
-        // CONFIG KEY for LocalStorage
-        const CONFIG_KEY = 'MASTERSTOCK_CONFIG_V1';
+        document.addEventListener('DOMContentLoaded', () => {
+            const steps = [
+                document.getElementById('eco-step-2'), // Start with MasterStock (Center)
+                document.getElementById('eco-step-3'), // Then Verified Buyers
+                document.getElementById('eco-step-1')  // Then Excess Inventory
+            ];
 
-        // Default Config
-        const DEFAULT_CONFIG = {
-            webhookBroker: 'https://masterstockusa.app.n8n.cloud/webhook/broker-intel',
-            webhookSync: 'https://masterstockusa-mail.app.n8n.cloud/webhook/leadsusa',
-            webhookAssignments: 'https://masterstockusa.app.n8n.cloud/webhook/update-assignments',
-            webhookHunter: 'https://masterstockusa.app.n8n.cloud/webhook/hunter-trigger',
-            webhookMission: 'https://masterstockusa.app.n8n.cloud/webhook/mission-status'
-        };
+            let currentStep = 0;
 
-        function showPage(pageId, element) {
-            // Actualizar Sidebar
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            element.classList.add('active');
+            // Initialize first state
+            steps.forEach(el => el.classList.remove('active-step'));
+            steps[0].classList.add('active-step');
 
-            // Actualizar Iframes
-            document.querySelectorAll('iframe').forEach(frame => frame.classList.remove('active'));
-            const frame = document.getElementById('frame-' + pageId);
-            if (frame) {
-                frame.classList.add('active');
-                // Broadcast Settings again when page becomes active, just in case
-                broadcastSettings();
+            // Cycle every 3 seconds
+            setInterval(() => {
+                steps[currentStep].classList.remove('active-step');
+                currentStep = (currentStep + 1) % steps.length;
+                steps[currentStep].classList.add('active-step');
+            }, 3000);
+        });
+    </script>
+
+    <!-- Network Animation Script -->
+    <script>
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        function resize() {
+            width = canvas.width = canvas.offsetWidth;
+            height = canvas.height = canvas.offsetHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Defined US Tech Hubs (Approximate % coordinates on screen)
+        // Correlating with the US map background
+        const regions = [
+            { x: 0.25, y: 0.45 }, // West Coast (NorCal)
+            { x: 0.28, y: 0.75 }, // SoCal
+            { x: 0.25, y: 0.25 }, // Washington
+            { x: 0.85, y: 0.35 }, // NYC / Northeast
+            { x: 0.80, y: 0.75 }, // Florida
+            { x: 0.50, y: 0.65 }, // Texas
+            { x: 0.65, y: 0.35 }, // Chicago / Midwest
+            { x: 0.45, y: 0.35 }, // Denver area
+            { x: 0.75, y: 0.55 }  // Atlanta
+        ];
+
+        const hubs = [];
+        // Create 2-3 nodes per region to create density
+        regions.forEach(r => {
+            const count = Math.floor(Math.random() * 2) + 1;
+            for (let i = 0; i < count; i++) {
+                hubs.push({
+                    x: r.x + (Math.random() - 0.5) * 0.1, // Jitter
+                    y: r.y + (Math.random() - 0.5) * 0.1
+                });
             }
-        }
+        });
 
-        // --- SETTINGS LOGIC ---
+        const particles = [];
 
-        function showSettings() {
-            loadSettingsToUI();
-            document.getElementById('settingsOverlay').style.display = 'flex';
-        }
+        class Particle {
+            constructor() {
+                this.reset();
+            }
 
-        function hideSettings() {
-            document.getElementById('settingsOverlay').style.display = 'none';
-        }
+            reset() {
+                // Pick random start and end hubs
+                const startHub = hubs[Math.floor(Math.random() * hubs.length)];
+                let endHub = hubs[Math.floor(Math.random() * hubs.length)];
+                while (endHub === startHub) endHub = hubs[Math.floor(Math.random() * hubs.length)];
 
-        function loadSettingsToUI() {
-            const stored = localStorage.getItem(CONFIG_KEY);
-            const config = stored ? JSON.parse(stored) : DEFAULT_CONFIG;
+                this.x = startHub.x * width;
+                this.y = startHub.y * height;
+                this.targetX = endHub.x * width;
+                this.targetY = endHub.y * height;
 
-            document.getElementById('webhookBroker').value = config.webhookBroker || '';
-            document.getElementById('webhookSync').value = config.webhookSync || '';
-            document.getElementById('webhookAssignments').value = config.webhookAssignments || '';
-            document.getElementById('webhookHunter').value = config.webhookHunter || '';
-            document.getElementById('webhookMission').value = config.webhookMission || '';
-        }
+                this.progress = 0;
+                this.speed = Math.random() * 0.01 + 0.005;
+                this.life = 1;
+                this.color = Math.random() > 0.5 ? '#00B5C6' : '#FFFFFF'; // Cyan or White
+            }
 
-        function saveSettings() {
-            const config = {
-                webhookBroker: document.getElementById('webhookBroker').value.trim(),
-                webhookSync: document.getElementById('webhookSync').value.trim(),
-                webhookAssignments: document.getElementById('webhookAssignments').value.trim(),
-                webhookHunter: document.getElementById('webhookHunter').value.trim(),
-                webhookMission: document.getElementById('webhookMission').value.trim()
-            };
-
-            localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
-            alert("✅ Configuration Saved!");
-
-            hideSettings();
-            broadcastSettings(); // Update running modules immediately
-        }
-
-        function broadcastSettings() {
-            const stored = localStorage.getItem(CONFIG_KEY);
-            const config = stored ? JSON.parse(stored) : DEFAULT_CONFIG;
-
-            console.log("📡 Broadcasting Config to Modules:", config);
-
-            const frames = ['frame-dashboard', 'frame-calculator', 'frame-hunter', 'frame-research'];
-            frames.forEach(id => {
-                const el = document.getElementById(id);
-                if (el && el.contentWindow) {
-                    el.contentWindow.postMessage({
-                        type: 'UPDATE_CONFIG',
-                        config: config
-                    }, '*');
+            update() {
+                this.progress += this.speed;
+                if (this.progress >= 1) {
+                    this.reset();
                 }
-            });
+            }
+
+            draw() {
+                const currentX = this.x + (this.targetX - this.x) * this.progress;
+                const currentY = this.y + (this.targetY - this.y) * this.progress;
+
+                // Draw trail
+                const tailLength = 0.1;
+                if (this.progress > tailLength) {
+                    ctx.beginPath();
+                    const prevX = this.x + (this.targetX - this.x) * (this.progress - tailLength);
+                    const prevY = this.y + (this.targetY - this.y) * (this.progress - tailLength);
+                    ctx.moveTo(prevX, prevY);
+                    ctx.lineTo(currentX, currentY);
+                    ctx.strokeStyle = this.color;
+                    // Fade out based on distance to center or life
+                    ctx.globalAlpha = 1 - this.progress;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+
+                // Draw head
+                ctx.beginPath();
+                ctx.arc(currentX, currentY, 2, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = 1;
+                ctx.fill();
+            }
         }
 
-        // Initialize
-        window.addEventListener('DOMContentLoaded', () => {
-            // Check if we have config, if not, save defaults
-            if (!localStorage.getItem(CONFIG_KEY)) {
-                localStorage.setItem(CONFIG_KEY, JSON.stringify(DEFAULT_CONFIG));
-            }
+        // Create particles
+        for (let i = 0; i < 8; i++) particles.push(new Particle());
 
-            // Broadcast initial settings after a short delay to allow iframes to load
-            setTimeout(broadcastSettings, 2000);
-            setTimeout(broadcastSettings, 5000); // Retry for slower connections
-        });
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
 
-        window.addEventListener('message', (event) => {
-            const msg = event.data;
-            if (!msg.type) return;
+            // Draw static hubs (faint)
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            hubs.forEach(hub => {
+                ctx.beginPath();
+                ctx.arc(hub.x * width, hub.y * height, 3, 0, Math.PI * 2);
+                ctx.fill();
+            });
 
-            console.log("Elite Hub Received:", msg);
-
-            switch (msg.type) {
-                case 'HUB_STATUS_UPDATE':
-                    // Relay status updates if needed
-                    break;
-                case 'POPULATE_MISSION':
-                    // Relay to Hunter
-                    const hunterFrame = document.getElementById('frame-hunter');
-                    if (hunterFrame) hunterFrame.contentWindow.postMessage(msg, '*');
-                    break;
-                case 'REQUEST_CONFIG':
-                    // Child module requesting fresh config
-                    broadcastSettings();
-                    break;
-            }
-        });
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
     </script>
 </body>
 
