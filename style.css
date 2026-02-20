@@ -1158,11 +1158,21 @@ section {
 @media (max-width: 900px) {
     .ecosystem-diagram {
         flex-direction: column;
+        gap: 1.5rem;
     }
 
     .eco-connector {
-        height: 50px;
+        height: 40px;
         width: 2px;
+        margin: 0 auto;
+    }
+
+    .flow-dot {
+        width: 2px;
+        height: 20px;
+        top: -20px;
+        left: 0;
+        animation: flowVertical 2s infinite linear;
     }
 
     .category-grid {
@@ -1172,6 +1182,35 @@ section {
     .footer-cols {
         grid-template-columns: 1fr;
         gap: 2rem;
+    }
+
+    .stats-bar {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1rem 0;
+    }
+
+    .stats-container {
+        margin-top: -1rem;
+        padding: 1.5rem;
+    }
+
+    .stat-block {
+        padding: 1rem 0;
+    }
+
+    .stat-block:not(:last-child)::after {
+        display: none;
+    }
+}
+
+@keyframes flowVertical {
+    0% {
+        top: -20px;
+    }
+
+    100% {
+        top: 100%;
     }
 }
 
@@ -1297,17 +1336,35 @@ footer {
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+    :root {
+        --nav-height: 70px;
+    }
+
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+    }
+
+    .hero-desc {
+        font-size: 1rem;
+        padding: 0 0.5rem;
     }
 
     .navbar {
+        height: var(--nav-height);
         padding: 0 1rem;
+    }
+
+    .nav-logo {
+        height: 35px;
+    }
+
+    .nav-cta {
+        padding: 0.4rem 1rem;
+        font-size: 0.85rem;
     }
 
     .nav-links {
         display: none;
-        /* simple mobile hide for now, could add hamburger later if needed */
     }
 
     .timeline {
@@ -1316,7 +1373,32 @@ footer {
 
     .process-line {
         display: none;
-        /* Hide horizontal line on mobile stack */
+    }
+
+    .workflow-grid,
+    .tech-grid,
+    .stats-grid,
+    .process-steps {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 3rem 0;
+    }
+
+    .btn-group {
+        flex-direction: column;
+        width: 100%;
+        gap: 1rem;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .container {
+        width: 95%;
     }
 
     div[style*="align-items: center; gap: 4rem"] {
