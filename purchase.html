@@ -91,7 +91,6 @@
             </div>
         </div>
     </section>
-
     <!-- Why Corporate Buyers Choose MasterStock -->
     <section class="section-pad">
         <div class="container">
@@ -176,7 +175,6 @@
             </div>
         </div>
     </section>
-
     <!-- FAQ Section -->
     <section class="section-pad">
         <div class="container">
@@ -230,26 +228,29 @@
                     <p style="color: var(--text-grey); font-size: 0.9rem; margin-bottom: 2rem;">Join our vetted buyer
                         network for exclusive access.</p>
 
-                    <form>
+                    <form id="buyer-form-el" action="https://formspree.io/f/masterstockcolombia@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="New Buyer Access Request — MasterStock">
+                        <input type="hidden" name="_next" value="https://masterstockcolombia.com/purchase.html?submitted=true">
+                        <input type="hidden" name="_source" value="Purchase Page">
                         <div class="form-input-grid">
                             <div>
                                 <label class="modern-label">Company Name</label>
-                                <input type="text" class="modern-input" placeholder="e.g. Retail Corp">
+                                <input type="text" name="company_name" class="modern-input" placeholder="e.g. Retail Corp" required>
                             </div>
                             <div>
                                 <label class="modern-label">Contact Person</label>
-                                <input type="text" class="modern-input" placeholder="Full name">
+                                <input type="text" name="contact_person" class="modern-input" placeholder="Full name" required>
                             </div>
                         </div>
 
                         <div class="form-input-grid">
                             <div>
                                 <label class="modern-label">Email Address</label>
-                                <input type="email" class="modern-input" placeholder="corporate@email.com">
+                                <input type="email" name="email" class="modern-input" placeholder="corporate@email.com" required>
                             </div>
                             <div>
                                 <label class="modern-label">Primary Interest</label>
-                                <input type="text" class="modern-input" placeholder="e.g. Apple, Dell, Gaming...">
+                                <input type="text" name="primary_interest" class="modern-input" placeholder="e.g. Apple, Dell, Gaming...">
                             </div>
                         </div>
 
@@ -264,21 +265,34 @@
                         <button type="submit" class="btn btn-primary"
                             style="width: 100%; border:none; padding: 1rem;">Submit for Buyer Verification</button>
 
+                        <div id="form-status" style="display:none; text-align:center; margin-top:1rem; padding:1rem; border-radius:10px;"></div>
+
                         <p
                             style="color: green; font-size: 0.8rem; text-align: center; margin-top: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 5px;">
                             <ion-icon name="shield-checkmark"></ion-icon> Vetted network to ensure fair trading.
                         </p>
                     </form>
                 </div>
-
                 <!-- Right Side: Info -->
                 <div class="form-right">
                     <div>
                         <h3 style="margin-bottom: 2rem; font-size: 1.2rem;">Contact Sales Directly</h3>
 
                         <div class="contact-info-item">
-                            <ion-icon name="mail"></ion-icon> <span>sales@masterstock.com</span>
+                            <ion-icon name="mail"></ion-icon> <span>masterstockcolombia@gmail.com</span>
                         </div>
+                    </div>
+
+                    <!-- Google Calendar Booking -->
+                    <div style="margin: 1.5rem 0;">
+                        <a href="https://calendar.app.google/wbd1TbdpoiWJnUoH7" target="_blank" rel="noopener noreferrer"
+                            style="display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, rgba(66,133,244,0.2), rgba(52,168,83,0.15)); border: 1px solid rgba(66,133,244,0.4); padding: 1rem 1.5rem; border-radius: 12px; text-decoration: none; color: white; transition: all 0.3s ease;">
+                            <ion-icon name="calendar-outline" style="font-size: 1.8rem; color: #4285F4;"></ion-icon>
+                            <div>
+                                <div style="font-weight: 700; font-size: 1rem;">📅 Schedule a Meeting</div>
+                                <div style="font-size: 0.8rem; color: var(--text-grey);">Book a call with our team</div>
+                            </div>
+                        </a>
                     </div>
 
                     <div class="testimonial-card-small">
@@ -329,7 +343,6 @@
             <p>&copy; 2026 MasterStock USA. All rights reserved.</p>
         </div>
     </footer>
-
     <!-- Scripts -->
     <script>
         // Accordion
@@ -479,6 +492,23 @@
         observer.observe(document.getElementById('stat-retention'));
         observer.observe(document.getElementById('stat-transacted'));
         observer.observe(document.getElementById('stat-countries'));
+
+        // Form submission success check
+        if (window.location.search.includes('submitted=true')) {
+            const formSection = document.getElementById('buyer-form');
+            if (formSection) {
+                formSection.scrollIntoView({ behavior: 'smooth' });
+                const status = document.getElementById('form-status');
+                if (status) {
+                    status.style.display = 'block';
+                    status.style.background = 'rgba(16, 185, 129, 0.2)';
+                    status.style.border = '1px solid #10B981';
+                    status.style.color = '#10B981';
+                    status.innerHTML = '<ion-icon name="checkmark-circle" style="font-size:1.5rem;vertical-align:middle;margin-right:8px;"></ion-icon> Your buyer access request has been submitted successfully! We will contact you shortly.';
+                }
+            }
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
     </script>
 </body>
 
