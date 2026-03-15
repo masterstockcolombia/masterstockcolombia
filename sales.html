@@ -167,6 +167,8 @@
                     <div class="step-num-circle">1</div>
                     <div class="step-icon-large"><ion-icon name="cloud-upload-outline"></ion-icon></div>
                     <h4>Submit Inventory</h4>
+                    <div class="step-icon-large"><ion-icon name="cloud-upload-outline"></ion-icon></div>
+                    <h4>Submit Inventory</h4>
                     <p style="font-size: 0.9rem; color: var(--text-grey); margin-top: 1rem;">Upload your manifest via
                         our secure portal or email.</p>
                 </div>
@@ -248,26 +250,32 @@
                     <p style="color: var(--text-grey); font-size: 0.9rem; margin-bottom: 2rem;">Receive your inventory
                         quote promptly. Secure process.</p>
 
-                    <form>
+                    <form id="sales-form" action="https://formspree.io/f/masterstockcolombia@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="New Seller Valuation Request — MasterStock">
+                        <input type="hidden" name="_next" value="https://masterstockcolombia.com/sales.html?submitted=true">
+                        <input type="hidden" name="_source" value="Sales Page">
                         <div class="form-input-grid">
                             <div>
                                 <label class="modern-label">Company Name</label>
-                                <input type="text" class="modern-input" placeholder="Enter company name">
+                                <input type="text" name="company_name" class="modern-input" placeholder="Enter company name" required>
+                            </div>
+                                <label class="modern-label">Company Name</label>
+                                <input type="text" name="company_name" class="modern-input" placeholder="Enter company name" required>
                             </div>
                             <div>
                                 <label class="modern-label">Contact Person</label>
-                                <input type="text" class="modern-input" placeholder="Full name">
+                                <input type="text" name="contact_person" class="modern-input" placeholder="Full name" required>
                             </div>
                         </div>
 
                         <div class="form-input-grid">
                             <div>
                                 <label class="modern-label">Email Address</label>
-                                <input type="email" class="modern-input" placeholder="name@company.com">
+                                <input type="email" name="email" class="modern-input" placeholder="name@company.com" required>
                             </div>
                             <div>
                                 <label class="modern-label">Inventory Category</label>
-                                <input type="text" class="modern-input" placeholder="e.g. Laptops, Mobile...">
+                                <input type="text" name="inventory_category" class="modern-input" placeholder="e.g. Laptops, Mobile...">
                             </div>
                         </div>
 
@@ -282,6 +290,8 @@
                         <button type="submit" class="btn btn-primary"
                             style="width: 100%; border:none; padding: 1rem;">Submit for Valuation</button>
 
+                        <div id="form-status" style="display:none; text-align:center; margin-top:1rem; padding:1rem; border-radius:10px;"></div>
+
                         <p
                             style="color: green; font-size: 0.8rem; text-align: center; margin-top: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 5px;">
                             <ion-icon name="lock-closed"></ion-icon> Your data is secure and never shared.
@@ -295,245 +305,282 @@
                         <h3 style="margin-bottom: 2rem; font-size: 1.2rem;">Contact Sales Directly</h3>
 
                         <div class="contact-info-item">
-                            <ion-icon name="mail"></ion-icon> <span>contact@masterstock.com</span>
+                            <ion-icon name="mail"></ion-icon> <span>masterstockcolombia@gmail.com</span>
                         </div>
-                        <!-- Removed Phone and Location as requested -->
                     </div>
 
-                    <div class="testimonial-card-small">
-                        "MasterStock helped us liquidate 5,000 units of last season's inventory in under a week. Highly
-                        professional."
-                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 1rem;">
-                            <div
-                                style="width: 30px; height: 30px; background: rgba(255,255,255,0.3); border-radius: 50%;">
+                    <!-- Google Calendar Booking -->
+                    <div style="margin: 1.5rem 0;">
+                        <a href="https://calendar.app.google/wbd1TbdpoiWJnUoH7" target="_blank" rel="noopener noreferrer"
+                            style="display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, rgba(66,133,244,0.2), rgba(52,168,83,0.15)); border: 1px solid rgba(66,133,244,0.4); padding: 1rem 1.5rem; border-radius: 12px; text-decoration: none; color: white; transition: all 0.3s ease;">
+                            <ion-icon name="calendar-outline" style="font-size: 1.8rem; color: #4285F4;"></ion-icon>
+                            <div>
+                                <div style="font-weight: 700; font-size: 1rem;">📅 Schedule a Meeting</div>
+                                <div style="font-size: 0.8rem; color: var(--text-grey);">Book a call with our team</div>
                             </div>
-                            <span style="font-size: 0.8rem; font-weight: 600;">VP of Logistics, Major Retailer</span>
+                        </a>
+                    </div>
+                        <ion-icon name="calendar-outline" style="font-size: 1.8rem; color: #4285F4;"></ion-icon>
+                        <div>
+                            <div style="font-weight: 700; font-size: 1rem;">📅 Schedule a Meeting</div>
+                            <div style="font-size: 0.8rem; color: var(--text-grey);">Book a call with our team</div>
                         </div>
+                    </a>
+                </div>
+
+                <div class="testimonial-card-small">
+                    "MasterStock helped us liquidate 5,000 units of last season's inventory in under a week. Highly
+                    professional."
+                    <div style="display: flex; align-items: center; gap: 10px; margin-top: 1rem;">
+                        <div
+                            style="width: 30px; height: 30px; background: rgba(255,255,255,0.3); border-radius: 50%;">
+                        </div>
+                        <span style="font-size: 0.8rem; font-weight: 600;">VP of Logistics, Major Retailer</span>
                     </div>
                 </div>
+            </div>
 
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-cols">
+            <div class="footer-col" style="text-align: left;">
+                <img src="./logo_usa.png" alt="MasterStock Logo" class="logo"
+                    style="height: 40px; margin-bottom: 1rem;">
+                <p style="color: var(--text-grey); font-size: 0.9rem;">The premier B2B marketplace for excess
+                    technology inventory.</p>
+            </div>
+            <div class="footer-col" style="text-align: left;">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="sales.html">Sell Inventory</a></li>
+                    <li><a href="purchase.html">Buy Inventory</a></li>
+                    <li><a href="about.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col" style="text-align: left;">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="about.html#legal-details">Privacy Policy</a></li>
+                    <li><a href="about.html#legal-details">Terms of Service</a></li>
+                    <li><a href="about.html#legal-details">Escrow Agreement</a></li>
+                </ul>
             </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-cols">
-                <div class="footer-col" style="text-align: left;">
-                    <img src="./logo_usa.png" alt="MasterStock Logo" class="logo"
-                        style="height: 40px; margin-bottom: 1rem;">
-                    <p style="color: var(--text-grey); font-size: 0.9rem;">The premier B2B marketplace for excess
-                        technology inventory.</p>
-                </div>
-                <div class="footer-col" style="text-align: left;">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="sales.html">Sell Inventory</a></li>
-                        <li><a href="purchase.html">Buy Inventory</a></li>
-                        <li><a href="about.html#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col" style="text-align: left;">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="about.html#legal-details">Privacy Policy</a></li>
-                        <li><a href="about.html#legal-details">Terms of Service</a></li>
-                        <li><a href="about.html#legal-details">Escrow Agreement</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright" style="margin-top: 3rem; text-align: center;">
-                &copy; 2024 MasterStock USA. All rights reserved.
-            </div>
+        <div class="copyright" style="margin-top: 3rem; text-align: center;">
+            &copy; 2024 MasterStock USA. All rights reserved.
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <!-- Scripts -->
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<!-- Scripts -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-    <!-- FAQ Accordion Script & Canvas Reuse -->
-    <script>
-        // Simple Accordion
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const item = button.parentElement;
-                item.classList.toggle('active');
-            });
+<!-- FAQ Accordion Script & Canvas Reuse -->
+<script>
+    // Simple Accordion
+    document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', () => {
+            const item = button.parentElement;
+            item.classList.toggle('active');
+        });
+    });
+
+    // Network Canvas Logic (Full Animation from Home)
+    const canvas = document.getElementById('network-canvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        // Mouse interaction
+        let mouse = { x: null, y: null, radius: 150 };
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
         });
 
-        // Network Canvas Logic (Full Animation from Home)
-        const canvas = document.getElementById('network-canvas');
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
-            let width, height;
+        function resize() {
+            width = canvas.width = canvas.offsetWidth;
+            height = canvas.height = canvas.offsetHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
 
-            // Mouse interaction
-            let mouse = { x: null, y: null, radius: 150 };
-            window.addEventListener('mousemove', (event) => {
-                mouse.x = event.x;
-                mouse.y = event.y;
+        // Hubs Definition (US Tech Hubs Approx)
+        const hubs = [
+            { x: 0.15, y: 0.3, name: 'San Francisco' }, // CA
+            { x: 0.18, y: 0.4, name: 'Los Angeles' },   // CA
+            { x: 0.45, y: 0.35, name: 'Denver' },       // CO
+            { x: 0.55, y: 0.55, name: 'Dallas' },       // TX
+            { x: 0.65, y: 0.35, name: 'Chicago' },      // IL
+            { x: 0.85, y: 0.25, name: 'New York' },     // NY
+            { x: 0.88, y: 0.45, name: 'Atlanta' },      // GA
+            { x: 0.85, y: 0.75, name: 'Miami' }         // FL
+        ];
+        ];
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                // Mouse interaction
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < mouse.radius) {
+                    const angle = Math.atan2(dy, dx);
+                    const force = (mouse.radius - distance) / mouse.radius;
+                    const pushX = Math.cos(angle) * force * 1.0;
+                    const pushY = Math.sin(angle) * force * 1.0;
+                    this.x -= pushX;
+                    this.y -= pushY;
+                }
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(0, 255, 230, 0.4)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        const particles = [];
+        for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw Hubs
+            hubs.forEach(hub => {
+                const hx = hub.x * width;
+                const hy = hub.y * height;
+
+                // Pulse
+                const time = Date.now() * 0.002;
+                const pulse = Math.sin(time + hx) * 5;
+
+                ctx.beginPath();
+                ctx.arc(hx, hy, 4 + pulse / 2, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 255, 230, 0.6)';
+                ctx.fill();
+
+                // Rings
+                ctx.beginPath();
+                ctx.arc(hx, hy, 10 + pulse, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(0, 255, 230, 0.1)';
+                ctx.stroke();
             });
 
-            function resize() {
-                width = canvas.width = canvas.offsetWidth;
-                height = canvas.height = canvas.offsetHeight;
-            }
-            window.addEventListener('resize', resize);
-            resize();
+            // Particles & Connections
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
 
-            // Hubs Definition (US Tech Hubs Approx)
-            const hubs = [
-                { x: 0.15, y: 0.3, name: 'San Francisco' }, // CA
-                { x: 0.18, y: 0.4, name: 'Los Angeles' },   // CA
-                { x: 0.45, y: 0.35, name: 'Denver' },       // CO
-                { x: 0.55, y: 0.55, name: 'Dallas' },       // TX
-                { x: 0.65, y: 0.35, name: 'Chicago' },      // IL
-                { x: 0.85, y: 0.25, name: 'New York' },     // NY
-                { x: 0.88, y: 0.45, name: 'Atlanta' },      // GA
-                { x: 0.85, y: 0.75, name: 'Miami' }         // FL
-            ];
+                // Connect to nearest hub
+                let closestHub = null;
+                let minDist = 200; // Connection range
 
-            class Particle {
-                constructor() {
-                    this.reset();
-                }
-                reset() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.vx = (Math.random() - 0.5) * 0.5;
-                    this.vy = (Math.random() - 0.5) * 0.5;
-                    this.size = Math.random() * 2 + 1;
-                }
-                update() {
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    if (this.x < 0 || this.x > width) this.vx *= -1;
-                    if (this.y < 0 || this.y > height) this.vy *= -1;
-
-                    // Mouse interaction
-                    let dx = mouse.x - this.x;
-                    let dy = mouse.y - this.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < mouse.radius) {
-                        const angle = Math.atan2(dy, dx);
-                        const force = (mouse.radius - distance) / mouse.radius;
-                        const pushX = Math.cos(angle) * force * 1.0;
-                        const pushY = Math.sin(angle) * force * 1.0;
-                        this.x -= pushX;
-                        this.y -= pushY;
-                    }
-                }
-                draw() {
-                    ctx.fillStyle = 'rgba(0, 255, 230, 0.4)';
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-
-            const particles = [];
-            for (let i = 0; i < 60; i++) particles.push(new Particle());
-
-            function animate() {
-                ctx.clearRect(0, 0, width, height);
-
-                // Draw Hubs
                 hubs.forEach(hub => {
                     const hx = hub.x * width;
                     const hy = hub.y * height;
+                    const dx = particles[i].x - hx;
+                    const dy = particles[i].y - hy;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < minDist) {
+                        closestHub = { x: hx, y: hy, dist: dist };
+                    }
+                });
 
-                    // Pulse
-                    const time = Date.now() * 0.002;
-                    const pulse = Math.sin(time + hx) * 5;
-
+                if (closestHub) {
                     ctx.beginPath();
-                    ctx.arc(hx, hy, 4 + pulse / 2, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(0, 255, 230, 0.6)';
-                    ctx.fill();
-
-                    // Rings
-                    ctx.beginPath();
-                    ctx.arc(hx, hy, 10 + pulse, 0, Math.PI * 2);
-                    ctx.strokeStyle = 'rgba(0, 255, 230, 0.1)';
+                    ctx.strokeStyle = `rgba(0, 255, 230, ${${0.15 * (1 - closestHub.dist / 200)}})`;
+                    ctx.lineWidth = 1;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(closestHub.x, closestHub.y);
                     ctx.stroke();
-                });
-
-                // Particles & Connections
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
-
-                    // Connect to nearest hub
-                    let closestHub = null;
-                    let minDist = 200; // Connection range
-
-                    hubs.forEach(hub => {
-                        const hx = hub.x * width;
-                        const hy = hub.y * height;
-                        const dx = particles[i].x - hx;
-                        const dy = particles[i].y - hy;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < minDist) {
-                            closestHub = { x: hx, y: hy, dist: dist };
-                        }
-                    });
-
-                    if (closestHub) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(0, 255, 230, ${0.15 * (1 - closestHub.dist / 200)})`;
-                        ctx.lineWidth = 1;
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(closestHub.x, closestHub.y);
-                        ctx.stroke();
-                    }
                 }
-
-                requestAnimationFrame(animate);
             }
-            animate();
+
+            requestAnimationFrame(animate);
         }
+        animate();
+    }
 
-        // Counter Animation for Depreciation
-        const depValue = document.getElementById('depreciation-value');
-        if (depValue) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Reset and Restart Animation
-                        let start = 0;
-                        const end = -15;
-                        const duration = 1500;
-                        const startTime = performance.now();
+    // Counter Animation for Depreciation
+    const depValue = document.getElementById('depreciation-value');
+    if (depValue) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Reset and Restart Animation
+                    let start = 0;
+                    const end = -15;
+                    const duration = 1500;
+                    const startTime = performance.now();
 
-                        function update(currentTime) {
-                            const elapsed = currentTime - startTime;
-                            const progress = Math.min(elapsed / duration, 1);
+                    function update(currentTime) {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
 
-                            // Ease out cubic
-                            const ease = 1 - Math.pow(1 - progress, 3);
+                        // Ease out cubic
+                        const ease = 1 - Math.pow(1 - progress, 3);
 
-                            const current = Math.floor(start + (end - start) * ease);
-                            depValue.textContent = current + "%";
+                        const current = Math.floor(start + (end - start) * ease);
+                        depValue.textContent = current + "%";
 
-                            if (progress < 1) {
-                                requestAnimationFrame(update);
-                            } else {
-                                depValue.textContent = "-15%";
-                            }
+                        if (progress < 1) {
+                            requestAnimationFrame(update);
+                        } else {
+                            depValue.textContent = "-15%";
                         }
-                        requestAnimationFrame(update);
-                    } else {
-                        // Optional: Reset to 0 when out of view so it animates from 0 again
-                        depValue.textContent = "0%";
                     }
-                });
-            }, { threshold: 0.5 });
-            observer.observe(depValue);
+                    requestAnimationFrame(update);
+                } else {
+                    // Optional: Reset to 0 when out of view so it animates from 0 again
+                    depValue.textContent = "0%";
+                }
+            });
+        }, { threshold: 0.5 });
+        observer.observe(depValue);
+    }
+
+    // Form submission success check
+    if (window.location.search.includes('submitted=true')) {
+        const formSection = document.getElementById('valuation-form');
+        if (formSection) {
+            formSection.scrollIntoView({ behavior: 'smooth' });
+            const status = document.getElementById('form-status');
+            if (status) {
+                status.style.display = 'block';
+                status.style.background = 'rgba(16, 185, 129, 0.2)';
+                status.style.border = '1px solid #10B981';
+                status.style.color = '#10B981';
+                status.innerHTML = '<ion-icon name="checkmark-circle" style="font-size:1.5rem;vertical-align:middle;margin-right:8px;"></ion-icon> Your valuation request has been submitted successfully! We will contact you shortly.';
+            }
         }
-    </script>
+        // Clean URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>
 </body>
 
-</html>
+    </html>
