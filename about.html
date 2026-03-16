@@ -1,2 +1,131 @@
 <!DOCTYPE html>
-<html><body><h1>About Us</h1><iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1K8X-w75BA5OvYyEu9I61u9NSdhQdluF17OPs8iW05B5_fnwz-WrqMZWHduR-LMH8TuP6vckkR?gv=true" width="100%" height="600"></iframe></body></html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | MasterStock USA</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html">
+            <img src="./logo_usa.png" alt="MasterStock Logo" class="nav-logo white-logo">
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="sales.html" class="nav-link">Sell Inventory</a>
+            <a href="purchase.html" class="nav-link">Buy Inventory</a>
+            <a href="about.html" class="nav-link active">About Us</a>
+        </div>
+        <a href="#contact" class="nav-cta">Contact Us</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" style="min-height: 70vh;">
+        <canvas id="network-canvas"></canvas>
+        <div class="hero-content">
+            <h1 class="hero-title">We Help Enterprise Sellers Turn Inventory Into <span class="text-cyan">Capital <br>
+                    Worldwide</span></h1>
+            <h2 style="font-size: 2.5rem; color: #3B82F6; margin: 1rem 0;">$120M+ <span
+                    style="font-size: 1.2rem; color: white; font-weight: 400; opacity: 0.8;">Capital Returned</span>
+            </h2>
+            <p class="hero-desc" style="max-width: 700px; margin: 0 auto 2rem;">MasterStock serves top-tier
+                manufacturers, full-service retailers, and private equity firms across North America, LATAM, and EMEA.
+            </p>
+
+            <div class="btn-group">
+                <a href="#contact" class="btn btn-primary">Partner With Us</a>
+                <a href="index.html" class="btn btn-dark"><ion-icon name="play-circle-outline"
+                        style="vertical-align: middle; margin-right: 5px;"></ion-icon> Watch Showreel</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transforming Surplus -->
+    <section class="section-pad">
+        <div class="container">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 4rem;">
+                <div style="flex: 1; min-width: 300px;">
+                    <h5 style="color: #3B82F6; text-transform: uppercase;">Our Passion</h5>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Transforming Surplus into Opportunity</h2>
+                    <p style="color: var(--text-grey); margin-bottom: 1rem;">Inefficiency is the enemy of profitability.
+                        We build pipes that connect supply with demand instantaneously.</p>
+                    <ul class="comp-list good">
+                        <li><ion-icon name="checkmark"></ion-icon> Image-led grading for accurate valuation</li>
+                        <li><ion-icon name="checkmark"></ion-icon> End-to-end logistics & customs clearance</li>
+                        <li><ion-icon name="checkmark"></ion-icon> Proprietary market intelligence algorithms</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section with Embedded Calendar -->
+    <section class="section-pad bg-alt" id="contact">
+        <div class="container">
+            <div class="split-form-container">
+                <div class="form-header">
+                    <h2 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Get in Touch</h2>
+                    <p style="color: var(--accent-cyan); font-size: 1.1rem; font-weight: 500;">Speak directly with our team</p>
+                </div>
+
+                <div class="form-main-content">
+                    <div class="form-left">
+                        <p style="color: var(--text-grey); font-size: 0.95rem; margin-bottom: 2rem;">Have a question about our marketplace or tailored inventory solutions?</p>
+
+                        <form id="contact-form" action="https://formspree.io/f/masterstockcolombia@gmail.com" method="POST">
+                            <input type="hidden" name="_subject" value="New Contact Inquiry — MasterStock">
+                            <input type="hidden" name="_next" value="https://masterstockcolombia.com/about.html?submitted=true">
+                            
+                            <div class="form-input-grid">
+                                <div>
+                                    <label class="modern-label">Full Name</label>
+                                    <input type="text" name="full_name" class="modern-input" placeholder="Enter your name" required>
+                                </div>
+                                <div>
+                                    <label class="modern-label">Email Address</label>
+                                    <input type="email" name="email" class="modern-input" placeholder="name@company.com" required>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 2rem;">
+                                <label class="modern-label">Your Message</label>
+                                <textarea name="message" class="modern-input" rows="4" placeholder="How can we help you?" required style="resize: none;"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="width: 100%; border:none; padding: 1.2rem; font-size: 1.1rem; border-radius: 12px;">Send Message</button>
+                        </form>
+                    </div>
+
+                    <div class="form-right">
+                        <h3 style="margin-bottom: 1rem; font-size: 1.3rem; color: white;">Schedule a Consultation</h3>
+                        <div class="calendar-embed-container">
+                            <iframe 
+                                src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1K8X-w75BA5OvYyEu9I61u9NSdhQdluF17OPs8iW05B5_fnwz-WrqMZWHduR-LMH8TuP6vckkR?gv=true" 
+                                style="border: 0" 
+                                width="100%" 
+                                height="500" 
+                                frameborder="0">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2026 MasterStock USA. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
