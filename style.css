@@ -1,1 +1,3 @@
-...
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Aparicion&display=swap');
+:root { --accent-cyan: #00B5C6; }
+body { background: #0D1B2A; color: white; font-family: sans-serif; }
