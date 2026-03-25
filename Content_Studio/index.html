@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MasterStock USA | Content Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@500;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar: Controls -->
+        <aside class="sidebar">
+            <div class="logo">MASTERSTOCK USA STUDIO</div>
+
+            <div class="input-group">
+                <span class="input-label">Reddit Intel Filter</span>
+                <div class="intel-chips" id="intelChips">
+                    <div class="chip active" data-query="overstock inventory">Overstock Nightmares</div>
+                    <div class="chip" data-query="logistics failure">Logistics Failure</div>
+                    <div class="chip" data-query="dead stock">Dead Inventory</div>
+                    <div class="chip" data-query="cash flow crisis">Cash Flow Crisis</div>
+                    <div class="chip" data-query="warehouse management">Warehouse Chaos</div>
+                    <div class="chip" data-query="supply chain issues">Supply Chain</div>
+                    <div class="chip" data-query="Amazon FBA stranded inventory">Amazon FBA Horror</div>
+                    <div class="chip" data-query="business bankruptcy inventory">Bankruptcy Liquidation</div>
+                    <div class="chip" data-query="retail apocalypse closing">Retail Shutdowns</div>
+                    <div class="chip" data-query="pallet flipping bin store">Resale Market</div>
+                    <div class="chip" data-query="wholesale negotiation tactics">B2B Negotiation</div>
+                    <div class="chip" data-query="manufacturing delays shortage">Production Lags</div>
+                    <div class="chip" data-query="inventory obsolescence tech">Tech Obsolescence</div>
+                    <div class="chip" data-query="import customs delays">Customs & Import</div>
+                    <div class="chip" data-query="seasonal overstock failure">Seasonal Disasters</div>
+                    <div class="chip" data-query="e-commerce return logistics">Return Nightmares</div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <span class="input-label">Content Idea (Optional)</span>
+                <textarea id="contentIdea"
+                    placeholder="Enter your core topic or idea here (e.g., 'Impact of AI on B2B logistics')..."
+                    style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; color: white; width: 100%; min-height: 100px; resize: none; font-family: inherit; font-size: 13px; outline: none; transition: border-color 0.3s ease;"></textarea>
+                <span style="font-size: 9px; color: var(--accent-primary); margin-top: 4px; display: block;">
+                    <i class="fa-solid fa-earth-americas"></i> AI will research in English for the USA market.
+                </span>
+            </div>
+
+            <div class="mode-selector">
+                <span class="input-label">Content Intelligence Mode</span>
+
+                <div class="mode-option active" data-mode="youtube">
+                    <i class="fa-brands fa-youtube"></i>
+                    <div class="mode-info">
+                        <h4>YouTube Masterclass</h4>
+                        <p>5-min high authority script</p>
+                    </div>
+                </div>
+
+                <div class="mode-option" data-mode="linkedin">
+                    <i class="fa-brands fa-linkedin"></i>
+                    <div class="mode-info">
+                        <h4>LinkedIn Disruptor</h4>
+                        <p>High-engagement authority post</p>
+                    </div>
+                </div>
+
+                <div class="mode-option" data-mode="short">
+                    <i class="fa-solid fa-bolt"></i>
+                    <div class="mode-info">
+                        <h4>Viral Hook (Reels/TikTok)</h4>
+                        <p>30-60 second disruptive video</p>
+                    </div>
+                </div>
+
+                <div class="mode-option" data-mode="thread">
+                    <i class="fa-brands fa-x-twitter"></i>
+                    <div class="mode-info">
+                        <h4>The Strategist</h4>
+                        <p>High-value X/Twitter thread</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-generate" id="generateBtn">
+                <div class="loader" id="loader"></div>
+                <span id="btnText">GENERATE MASTERPIECE</span>
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </button>
+
+            <div class="input-group" style="margin-top: 20px;">
+                <span class="input-label">Webhook URL</span>
+                <input type="text" id="webhookUrl"
+                    value="https://masterstockcolombia2.app.n8n.cloud/webhook/generate-content"
+                    style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; color: white; width: 100%;">
+            </div>
+        </aside>
+
+        <!-- Main Workspace: Result -->
+        <main class="main-content">
+            <header class="output-header">
+                <h3><i class="fa-solid fa-wand-magic-sparkles"
+                        style="color: var(--accent-primary); margin-right: 10px;"></i>Creative Output</h3>
+                <div class="status-badge" id="statusBadge">
+                    <span class="dot"></span>
+                    <span id="statusText">System Ready</span>
+                </div>
+            </header>
+
+            <div class="result-canvas" id="resultCanvas">
+                <div class="markdown-content" id="outputContent">
+                    <h2>Welcome to the Studio</h2>
+                    <p style="color: var(--text-muted)">Welcome to the elite content floor. Input an idea or select
+                        Reddit intelligence to begin. Our engine will curate research across languages and architect
+                        high-authority content for your brand.</p>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button id="copyBtn"
+                    style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: white; padding: 10px 20px; border-radius: 10px; cursor: pointer;">
+                    <i class="fa-regular fa-copy"></i> Copy to Clipboard
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

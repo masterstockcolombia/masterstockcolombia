@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MS-Broker Intelligence | Financial Terminal</title>
+    <link rel="stylesheet" href="Assets/broker_style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="brand-title">MS_BROKER_INTEL_V38</div>
+            <div class="system-status">
+                <div class="status-dot"></div>
+                SYSTEM_ACTIVE // LIVE_MARKET_FEED
+            </div>
+        </header>
+
+        <!-- LEFT PANEL: INTELLIGENCE ENGINE -->
+        <div class="panel">
+            <div class="panel-title">Asset_Intelligence_Engine</div>
+
+            <!-- ASSET CLASS CATEGORY SELECTOR -->
+            <div style="margin-bottom: 15px;">
+                <label for="categorySelect" class="mini-label" style="display:block; margin-bottom:6px;">Target Asset
+                    Class</label>
+                <select id="categorySelect"
+                    style="width: 100%; background: #0f172a; color: white; border: 1px solid #334155; padding: 8px; border-radius: 6px; font-family: 'Outfit', sans-serif;">
+                    <option value="smartphones">📱 Smartphones (iPhone, Samsung, Pixel...)</option>
+                    <option value="laptops">💻 Laptops (MacBook, ASUS, HP...)</option>
+                    <option value="consoles">🎮 Consoles (PS5, Xbox, Switch...)</option>
+                    <option value="cameras">📷 Cameras & Drones</option>
+                    <option value="tablets">tl Tablets (iPad, Galaxy Tab...)</option>
+                </select>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="productSearch" placeholder="Model Search (e.g. iPhone 16 Pro Max)"
+                    value="iPhone 16 Pro Max">
+                <button id="searchBtn">Analyze</button>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <p class="mini-label" style="margin-bottom: 8px;">Intelligence_Source</p>
+                <div class="chip-container" id="sourceOptions">
+                    <div class="capacity-chip active" data-mode="scrape">LIVE_MARKET_SCAN</div>
+                    <div class="capacity-chip" data-mode="history">INTERNAL_HISTORY</div>
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 12px;">
+                    <button id="updateAllBtn" class="action-btn"
+                        style="flex: 1; background: var(--accent); font-size: 0.8rem;">⚡ UPDATE DISCOVERY</button>
+                    <button id="deepVerifyBtn" class="action-btn"
+                        style="flex: 1; background: #8b5cf6; font-size: 0.8rem;">🛡️ DEEP VERIFY LINKS</button>
+                    <button id="globalScanBtn" class="action-btn"
+                        style="flex: 1; background: #059669; font-size: 0.8rem;">🌍 GLOBAL INDEX</button>
+                </div>
+            </div>
+
+            <div id="conditionContainer" style="display:none;">
+                <p class="mini-label" style="margin-bottom: 8px;">Physical_Grade_Status</p>
+                <div class="chip-container" id="conditionOptions">
+                    <div class="capacity-chip active" data-condition="new">NEW_SEALED</div>
+                    <div class="capacity-chip" data-condition="grade-a">GRADE_A_MINT</div>
+                    <div class="capacity-chip" data-condition="grade-b">GRADE_B_SIGNS</div>
+                </div>
+            </div>
+
+            <div id="capacityContainer" style="display:none;">
+                <p class="mini-label" style="margin-bottom: 8px;">Memory_Capacity_Tier</p>
+                <div class="chip-container" id="capacityOptions"></div>
+            </div>
+
+            <!-- CHARTS GRID (MOVED FROM RIGHT PANEL) -->
+            <!-- CHARTS GRID (MOVED FROM RIGHT PANEL) -->
+            <div id="chartsGrid" style="display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 16px;">
+
+                <!-- CHART 1: RENEWED HISTORY (Specific Model) - Full Width -->
+                <div id="historyChartContainer"
+                    style="grid-column: span 1; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); display:none;">
+                    <div style="font-size:0.75rem; color:#9ca3af; margin-bottom:4px;">PRICE HISTORY (Renewed) 📉:</div>
+                    <div style="height: 200px; position: relative;">
+                        <canvas id="historyChartCanvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- VOLATILITY RADAR & INSIGHTS (MOVED FROM RIGHT PANEL) -->
+                <div id="volatilityContainer" style="margin-top: 0px; display:none; grid-column: span 1;">
+                    <div
+                        style="background: rgba(255,255,255,0.02); border-left: 2px solid #8b5cf6; padding: 12px; border-radius: 4px;">
+                        <div style="font-size:0.8rem; color:#a78bfa; margin-bottom:8px; font-weight:700;">INVESTIGATIVE
+                            INTELLIGENCE 🕵️‍♂️</div>
+                        <div id="volatilityList" style="display:flex; flex-direction:column; gap:8px;">
+                            <!-- Injected via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL (NEW): PRICE HISTORY & BENCHMARKS -->
+        <div class="panel">
+            <div class="panel-title">Live_Benchmarks_Ref</div>
+            <div class="benchmark-list" id="retailList">
+                <!-- Injected via JS -->
+            </div>
+
+            <div class="info-grid">
+                <div class="mini-card">
+                    <div class="mini-label">Market_Avg_Retail</div>
+                    <div class="mini-val" id="retailAvg">$0.00</div>
+                </div>
+                <div class="mini-card">
+                    <div class="mini-label">Liquidity_Score</div>
+                    <div class="mini-val" id="flippingScore" style="color: var(--accent);">-- %</div>
+                </div>
+            </div>
+
+            <!-- CHARTS GRID RIGHT PANEL -->
+            <div style="display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px;">
+                <!-- CHART 2: MARKET SNAPSHOT (Bar) -->
+                <div id="allHistoryChartContainer"
+                    style="background: rgba(255,255,255,0.02); padding: 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); display:none;">
+                    <div style="font-size:0.8rem; color:#9ca3af; margin-bottom:8px;">MARKET SNAPSHOT (Latest Prices) 📊:
+                    </div>
+                    <div style="height: 250px; position: relative;">
+                        <canvas id="allHistoryChartCanvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- CHART 3: MARKET TRENDS (Day-over-Day) -->
+                <div id="allTrendsChartContainer"
+                    style="background: rgba(255,255,255,0.02); padding: 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); display:none;">
+                    <div style="font-size:0.8rem; color:#9ca3af; margin-bottom:8px;">MARKET HISTORY (Day-over-Day
+                        Changes) 📈:</div>
+                    <div style="height: 250px; position: relative;">
+                        <canvas id="allTrendsChartCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- BOTTOM PANEL: YIELD & CLOSING STRATEGY -->
+        <div class="panel" style="grid-column: 1 / -1;">
+            <div class="panel-title">Estrategia de Cierre</div>
+
+            <div class="info-grid" style="margin-bottom: 24px;">
+                <div class="mini-card" style="background: rgba(255,255,255,0.01);">
+                    <div class="mini-label">Lot_Quantity</div>
+                    <input type="number" id="qtyInp" value="1"
+                        style="width: 100%; border: none; background: transparent; padding: 0; font-size: 1.2rem; font-weight: 700;">
+                </div>
+                <div class="mini-card" style="background: rgba(255,255,255,0.01);">
+                    <div class="mini-label">Base_Market_Value</div>
+                    <input type="number" id="wholesaleEstInp" value="0"
+                        style="width: 100%; border: none; background: transparent; padding: 0; font-size: 1.2rem; font-weight: 700; color: var(--accent);">
+                </div>
+            </div>
+
+            <div class="negotiation-row">
+                <div class="label-row">
+                    <span class="mini-label">Compra (Negoc. Vendedor)</span>
+                    <span class="diff-value" id="sellerDiscVal">20%</span>
+                </div>
+                <input type="range" id="sellerDisc" min="0" max="60" value="20">
+                <div class="mini-card"
+                    style="margin-top: 12px; background: rgba(255,255,255,0.03); position: relative;">
+                    <div class="mini-label">PRECIO COMPRA MS</div>
+                    <input type="text" id="purchasePrice" class="mini-val"
+                        style="font-size: 1.4rem; background: transparent; border: none; color: white; width: 100%; font-family: inherit; font-weight: bold; cursor: text; position: relative; z-index: 10;"
+                        value="$0.00">
+                </div>
+            </div>
+
+            <div class="negotiation-row">
+                <div class="label-row">
+                    <span class="mini-label">Venta (Oferta Comprador)</span>
+                    <span class="diff-value" id="buyerDiscVal">10%</span>
+                </div>
+                <input type="range" id="buyerDisc" min="0" max="40" value="10">
+                <div class="mini-card"
+                    style="margin-top: 12px; background: rgba(255,255,255,0.03); position: relative;">
+                    <div class="mini-label">PRECIO VENTA MS</div>
+                    <input type="text" id="salePrice" class="mini-val"
+                        style="font-size: 1.4rem; background: transparent; border: none; color: white; width: 100%; font-family: inherit; font-weight: bold; cursor: text; position: relative; z-index: 10;"
+                        value="$0.00">
+                </div>
+            </div>
+
+            <div class="ring-container">
+                <div class="margin-gauge" id="marginGauge">
+                    <span class="margin-label">Net_Margin</span>
+                    <span class="net-margin-result" id="netMarginResult">0%</span>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="mini-card">
+                    <div class="mini-label">Unit_Net_Yield</div>
+                    <div class="mini-val" id="profitUnit" style="color: var(--success);">$0.00</div>
+                </div>
+                <div class="mini-card">
+                    <div class="mini-label">Lump_Sum_Profit</div>
+                    <div class="mini-val" id="totalProfit" style="color: var(--success);">$0.00</div>
+                </div>
+            </div>
+
+            <!-- MAINTENANCE & LOGISTICS -->
+            <div class="info-grid" style="margin-top: 16px;">
+                <div class="mini-card">
+                    <div class="mini-label">S_Logistics_Cost</div>
+                    <input type="number" id="logistics" value="25"
+                        style="width: 100%; border: none; background: transparent; padding: 0; font-size: 1rem; font-weight: 700; color: var(--gold);">
+                </div>
+                <div class="mini-card">
+                    <div class="mini-label">Maintenance / Repair</div>
+                    <input type="number" id="repairCostInp" value="0"
+                        style="width: 100%; border: none; background: transparent; padding: 0; font-size: 1rem; font-weight: 700; color: var(--error);">
+                </div>
+            </div>
+
+            <!-- BROKER DECISION INSIGHT -->
+            <div id="decisionInsight" class="decision-insight" style="display:none;">
+                <div class="insight-header">
+                    <span>🧠</span>
+                    <span class="insight-title" id="insightTitle">ALERTA DE PÉRDIDA / MARGEN BAJO</span>
+                </div>
+                <p class="insight-desc" id="insightDesc">Tu beneficio por unidad es insuficiente para cubrir los costos
+                    o el margen mínimo del 10%.</p>
+
+                <!-- MINIMUM TARGET -->
+                <div class="roadmap-box">
+                    <div class="roadmap-title">🎯 HOJA DE RUTA: MARGEN MÍNIMO (10%)</div>
+                    <div class="roadmap-item">• <b>Negocia:</b> Pide un <span id="minReqDisc"
+                            style="color:var(--gold)">0%</span> de descuento.</div>
+                    <div class="roadmap-item">• <b>Techo:</b> No pagues más de <span id="minMaxPrice"
+                            style="color:var(--gold)">$0</span>/unidad.</div>
+                </div>
+
+                <!-- IDEAL TARGET -->
+                <div class="roadmap-box" style="margin-top: 15px; border-color: var(--success);">
+                    <div class="roadmap-title" style="color: var(--success);">🚀 HOJA DE RUTA: MARGEN IDEAL (20%)</div>
+                    <div class="roadmap-item">• <b>Negocia:</b> Pide un <span id="idealReqDisc"
+                            style="color:var(--success)">0%</span> de descuento.</div>
+                    <div class="roadmap-item">• <b>Techo:</b> No pagues más de <span id="idealMaxPrice"
+                            style="color:var(--success)">$0</span>/unidad.</div>
+                </div>
+            </div>
+
+            <button id="copyPitchBtn" style="width: 100%; margin-top: 24px;">Generate_Execution_Pitch</button>
+
+            <!-- HIDDEN INPUTS FOR CALCULATIONS -->
+            <div style="display:none;">
+                <input type="number" id="logistics" value="25">
+                <input type="number" id="repairCostInp" value="0">
+                <input type="number" id="minMargin" value="10">
+            </div>
+        </div>
+
+        <div class="panel" id="riskTrafficLight"
+            style="grid-column: 1 / -1; display:none; border-left: 4px solid var(--success);">
+            <div class="panel-title">Asset_Retention_Risk</div>
+            <p id="riskLevelText"
+                style="font-weight: 800; font-family: var(--font-mono); font-size: 1.2rem; margin-bottom: 8px; color: var(--success);">
+                STABLE: ASSET_CONFIRMED</p>
+            <p id="riskDesc" class="mini-label">Market dynamics for this SKU are within normal operational parameters.
+            </p>
+        </div>
+
+        <div class="panel" id="killerArgument"
+            style="grid-column: 1 / -1; display:none; background: var(--accent-glow);">
+            <div class="panel-title" style="color: #000;">Negotiation_Killer_Argument</div>
+            <p id="argText" style="color: #000; font-weight: 600; font-size: 1.1rem; line-height: 1.4;"></p>
+        </div>
+
+        <div class="panel" id="inspectionChecklist" style="grid-column: 1 / -1; display:none;">
+            <div class="panel-title">Asset_Diagnostic_Protocol (Checklist)</div>
+            <div id="checklistItems" class="chip-container" style="margin-top: 10px;">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+        <!-- TARGET RULES -->
+        <input type="hidden" id="minMargin" value="10">
+    </div>
+
+    <!-- SCRIPT INJECTION -->
+    <script src="Assets/broker_script.js"></script>
+</body>
+
+</html>
