@@ -1,0 +1,94 @@
+# MasterStock USA Inc. - robots.txt
+# https://www.masterstockunitedstates.com/
+
+# ============ Search engine crawlers ============
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# ============ AI / LLM crawlers (explicit allow) ============
+# We WANT to be discoverable when users ask AI assistants about
+# excess inventory liquidation, principal buyers, or MasterStock USA.
+
+# OpenAI - powers ChatGPT search and training
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic - powers Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Google AI Overviews / Gemini training
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+
+# Microsoft Copilot / Bing Chat
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# ============ Default fallback ============
+User-agent: *
+Allow: /
+Disallow: /*.bak
+Disallow: /*.bak-*
+Disallow: /_*.html
+Disallow: /assets/
+
+# ============ Discovery ============
+Sitemap: https://www.masterstockunitedstates.com/sitemap.xml
+Host: https://www.masterstockunitedstates.com

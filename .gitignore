@@ -1,3 +1,36 @@
-node_modules
+# Development artifacts
+_*.html
+_*.py
+*.tmp.html
+*.tmp
+*.bak
+*.bak-*
+*.bak-orig
+
+# Backup videos / unused media
+images/logistics.mp4.bak-*
+images/logistics-v2.mp4
+images/logistics-smooth.mp4
+images/logistics-pingpong.mp4
+images/logistics.gif
+images/logistics-palette.png
+images/_frame_check.jpg
+_frame_check.jpg
+
+# Internal docs (not needed in production)
+BUILD-TAILWIND.md
+hubs-map-mockup.html
+
+# OS / editor files
 .DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Node / build (in case you add tooling later)
+node_modules/
+dist/
+.cache/
 *.log

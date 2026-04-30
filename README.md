@@ -1,27 +1,35 @@
-# MasterStock Elite Platform - USA Edition
+# MasterStock USA — Website
 
-This portable package contains the complete MasterStock Elite Platform, optimized for the USA market.
+Production website for MasterStock USA Inc., a Delaware-incorporated principal buyer of US excess inventory.
 
-## How to Launch
-1. Open the `MasterStock_USA` folder.
-2. Double-click `Launch.bat` to open the platform in your default browser.
-3. Access all modules through the sidebar:
-   - **📊 Intelligence Dashboard**: Main leads and campaign management.
-   - **🧮 Overstock Calculator**: Technical ROI and profit analysis.
-   - **🎯 Lead Hunter AI**: Automated lead sourcing with USA-specific ICPs.
-   - **🧠 Research Hub**: Market intelligence and Reddit Radar.
+**Live site:** https://masterstockunitedstates.com/
 
-## Folder Structure
-- `index.html`: The main platform hub.
-- `Dashboard_Leads.html`: Dashboard module.
-- `Broker_Intelligence.html`: ROI/Calculator module.
-- `Hunter_Search.html`: AI Hunter module.
-- `Research_Hub.html`: Market intelligence module.
-- `/Assets`: Supporting JavaScript and styles.
-- `/Reddit_Radar` & `/Content_Studio`: Supporting module directories.
+## Stack
 
-## Configuration
-System webhooks and URLs can be configured via the **⚙️ Settings** button in the sidebar. These settings are saved locally in your browser.
+Pure HTML/CSS/JS — no build step, no framework. Tailwind via CDN for utility classes plus custom `home.css` / `styles.css` for design system tokens, animations, and component styles.
 
----
-Developed by MasterStock AI Team
+## Pages
+
+- `index.html` — Home (hero slider, industry pulse, what we buy, USA coverage map, comparison table, FAQ)
+- `how-it-works.html` — Process explanation (5-step flow, 3 offer structures, AI pricing factors)
+- `about.html` — Founders, credentials, contact
+- `resources.html` — Insights blog, sample NDA, sample Bill of Sale, IRS §165 primer
+
+## Local development
+
+Open `index.html` directly in a browser. No server required for basic navigation. For accurate behavior on relative paths, run a local HTTP server:
+
+```bash
+python -m http.server 8000
+# then visit http://localhost:8000
+```
+
+## Deployment
+
+Hosted on GitHub Pages. The `CNAME` file at the root binds the site to `masterstockunitedstates.com`. Pushes to `main` trigger automatic deployment.
+
+## Contact
+
+- General: info@masterstockunitedstates.com
+- Partnerships: partnerships@masterstockunitedstates.com
+- Legal: legal@masterstockunitedstates.com
