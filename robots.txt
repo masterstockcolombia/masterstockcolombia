@@ -91,4 +91,6 @@ Disallow: /assets/
 
 # ============ Discovery ============
 Sitemap: https://www.masterstockunitedstates.com/sitemap.xml
+LLM-Content: https://www.masterstockunitedstates.com/llms.txt
+LLM-Full-Content: https://www.masterstockunitedstates.com/llms-full.txt
 Host: https://www.masterstockunitedstates.com
