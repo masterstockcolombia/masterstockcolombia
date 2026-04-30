@@ -121,7 +121,7 @@ A: Yes. Every deal closes with a documentation package: signed Bill of Sale with
 A: 8 The Green, Suite A, Dover, Delaware 19901. We are a Delaware C-Corporation.
 
 **Q: Who founded MasterStock USA?**
-A: MasterStock USA was founded by two principals, Jose Palomino (CEO) and Esteban (Founder, Capital & Ops). Full bios are on the About page.
+A: MasterStock USA was founded by two principals. Jose Palomino is CEO and Founder; he designed the AI manifest-pricing engine and the outbound sourcing infrastructure that powers every supplier deal, drawing on a background in B2B outbound, sales automation, and pipeline systems for SaaS teams. Efrain Esteban Gonzalez is Founder, Capital & Ops; he runs the Mercury Treasury account, supplier onboarding, NDAs, and the documentation trail. LinkedIn: https://www.linkedin.com/in/jose-palomino-400048405/ and https://www.linkedin.com/in/efrain-esteban-gonz%C3%A1lez-655066405
 
 **Q: How is MasterStock different from a marketplace like B-Stock or Liquidation.com?**
 A: Marketplaces match suppliers with multiple buyers via auction. MasterStock USA is a single principal buyer that issues a firm offer in 48 hours and closes the transaction directly. No bidding, no listings, no marketplace fees.
